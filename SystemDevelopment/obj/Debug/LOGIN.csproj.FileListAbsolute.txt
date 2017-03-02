@@ -1,0 +1,10 @@
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\bin\Debug\SystemDevelopment.exe.config
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\bin\Debug\SystemDevelopment.exe
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\bin\Debug\SystemDevelopment.pdb
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\bin\Debug\MySql.Data.dll
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\LOGIN.csprojResolveAssemblyReference.cache
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\SystemDevelopment.frm_MainSolution.resources
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\SystemDevelopment.Properties.Resources.resources
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\LOGIN.csproj.GenerateResource.Cache
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\SystemDevelopment.exe
+D:\VisualStudio\SystemDevelopment\SystemDevelopment\obj\Debug\SystemDevelopment.pdb
