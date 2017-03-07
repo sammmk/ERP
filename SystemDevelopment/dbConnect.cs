@@ -26,9 +26,9 @@ namespace SystemDevelopment
         private void Initialize()
         {
             server = "localhost";
-            database = "DB_test";
-            uid = "Admin";
-            password = "admin";
+            database = "UserControl";
+            uid = "root";
+            password = "root";
             port = "3306";
             string connectionString = string.Empty;
 
@@ -66,23 +66,26 @@ namespace SystemDevelopment
         {
             try
             {
-                //if (openConnection() == true)
-                //{
-                    if(connection != null)
-                        connection.Open();
-                    
-                    string query = "select userName, password from tbl_login where userName = '" + userName + "' AND password = '" + pass + "' AND deleteFlg != 1;";
+                if (openConnection() == true)
+                {
+                    //if(connection != null)
+                    //    connection.Open();
+
+                    string query = "select userName from tbl_login where userName = '" + userName + "' AND password = '" + pass + "' AND deleteFlag != 1;";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     string getVal = Convert.ToString(cmd.ExecuteScalar());
                     
                     closeConnection();
 
-                    return true;
-                //}
-                //else
-                //{
-                    //return false;
-                //}
+                    if (getVal != String.Empty)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch(MySqlException ex)
             {

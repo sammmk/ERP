@@ -16,7 +16,7 @@ namespace SystemDevelopment
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_MainSolution());
+            Application.Run(new frm_Login());
         }
     }
 }
