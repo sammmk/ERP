@@ -7,3 +7,7 @@ C:\Mohan\Projects\login-master\UserManage\obj\Debug\UserManage.Properties.Resour
 C:\Mohan\Projects\login-master\UserManage\obj\Debug\UserManage.csproj.GenerateResource.Cache
 C:\Mohan\Projects\login-master\UserManage\obj\Debug\UserManage.exe
 C:\Mohan\Projects\login-master\UserManage\obj\Debug\UserManage.pdb
+C:\Mohan\Projects\login-master\UserManage\bin\Debug\CommonControls.exe
+C:\Mohan\Projects\login-master\UserManage\bin\Debug\MySql.Data.dll
+C:\Mohan\Projects\login-master\UserManage\bin\Debug\CommonControls.pdb
+C:\Mohan\Projects\login-master\UserManage\bin\Debug\MySql.Data.xml
