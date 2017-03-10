@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace CommonControls.Classes
 {
     public class dbConnection
     {
-        private MySqlConnection connection;
+        private MySqlConnection CONNECTION;
         private string server;
         private string database;
         private string uid;
         private string password;
         private string port;
 
+        private ClsMessages MESSAGE;
+
         public dbConnection()
         {
+            MESSAGE = new ClsMessages();
             Initialize();
         }
 
@@ -34,14 +38,14 @@ namespace CommonControls.Classes
 
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "PORT=" + port + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
-            connection = new MySqlConnection(connectionString);
+            CONNECTION = new MySqlConnection(connectionString);
         }
 
         public bool openConnection()
         {
             try
             {
-                connection.Open();
+                CONNECTION.Open();      
                 return true;
             }
             catch (MySqlException ex)
@@ -49,10 +53,10 @@ namespace CommonControls.Classes
                 switch (ex.Number)
                 {
                     case 0:
-                        MessageBox.Show("Cannot Connect Server");
+                        MESSAGE.errorMessage("Cannot Connect Server","Error");
                         break;
                     case 1045:
-                        MessageBox.Show("UserName and Password are incorrect");
+                        MESSAGE.errorMessage("DataBase UserName and Password are incorrect","Error");
                         break;
                     default:
                         MessageBox.Show(ex.Message);
@@ -68,11 +72,8 @@ namespace CommonControls.Classes
             {
                 if (openConnection() == true)
                 {
-                    //if(connection != null)
-                    //    connection.Open();
-
                     string query = "select userName from tbl_login where userName = '" + userName + "' AND password = '" + pass + "' AND deleteFlag != 1;";
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlCommand cmd = new MySqlCommand(query, CONNECTION);
                     string getVal = Convert.ToString(cmd.ExecuteScalar());
 
                     closeConnection();
@@ -90,16 +91,20 @@ namespace CommonControls.Classes
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                MESSAGE.errorMessage(ex.Message, "Error");
                 return false;
             }
         }
 
+        /// <summary>
+        /// close the db connection
+        /// </summary>
+        /// <returns></returns>
         private bool closeConnection()
         {
             try
             {
-                connection.Close();
+                CONNECTION.Close();
                 return true;
             }
             catch (MySqlException ex)
@@ -108,6 +113,63 @@ namespace CommonControls.Classes
                 return false;
             }
         }
+        
+        
+        public bool maxUserID(out int maxId)
+        {
+            bool ret = false;
+            int temp = 0;
+            maxId = temp;
+
+            try
+            {
+                if (openConnection() == true)
+                {
+                    string querry = "SELECT MAX(userId) from tbl_login;";
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+                    temp = Convert.ToInt16(cmd.ExecuteScalar());
+                    
+                    closeConnection();
+
+                    if (temp <= 0)
+                    {
+                        maxId = 0;
+                    }
+                    else
+                        maxId = temp;
+                }
+
+            }
+            catch(Exception e)
+            {
+                MESSAGE.exceptionMessage(e.Message);
+            }
+
+            return ret;
+        }
+
+        public DataTable userRoleList()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = "select * from tbl_userrole;";
+                MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            catch(Exception ex)
+            {
+                MESSAGE.exceptionMessage(ex.Message);
+                dt = null;
+            }
+
+            return dt;
+        }
+
+
     }
     
 }
