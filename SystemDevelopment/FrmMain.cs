@@ -12,27 +12,22 @@ namespace SystemDevelopment
 {
     public partial class Frm_Main : Form
     {
-
-        private Size pnl_formsSize;
         private FormWindowState prevState;
 
         public Frm_Main()
         {
             InitializeComponent();
-            pnl_formsSize = pnl_forms.Size;
             prevState = this.WindowState;
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
             //load main form in maximize state
-            this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
-            this.FormBorderStyle = FormBorderStyle.Sizable;
 
             pnl_userManage.Height = 25;
             btn_userManage.Image = Properties.Resources.down;
-            lbl_loggedUser.Text = frm_Login.userName;
+            lbl_loggedUser.Text = frm_Login.USERNAME;
         }
 
         /// <summary>
@@ -63,7 +58,7 @@ namespace SystemDevelopment
         {
             UserManage.FrmCreateUser createUser = new UserManage.FrmCreateUser();
             createUser.MdiParent = this;
-            pnl_forms.Controls.Add(createUser);
+            this.splitContainer1.Panel2.Controls.Add(createUser);
             //createUser.Dock = DockStyle.Fill;
             createUser.Show();
         }
@@ -80,12 +75,12 @@ namespace SystemDevelopment
                 if (this.WindowState == FormWindowState.Maximized)
                 {
                     //this.FormBorderStyle = FormBorderStyle.None;
-                    pnl_forms.Size = this.ClientSize;
+                    //pnl_forms.Size = this.ClientSize;
                 }
                 else if (this.WindowState == FormWindowState.Normal)
                 {
-                    this.FormBorderStyle = FormBorderStyle.Sizable;
-                    pnl_forms.Size = pnl_formsSize;
+                    //this.FormBorderStyle = FormBorderStyle.Sizable;
+                    //pnl_forms.Size = pnl_formsSize;
                 }
             }
             base.OnResize(e);

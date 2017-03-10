@@ -13,14 +13,14 @@ namespace SystemDevelopment
 {
     public partial class frm_Login : Form
     {
-        private dbConnect conn;
-
-        public static string userName;
+        private CommonControls.Classes.dbConnection CONN;
+        
+        public static string USERNAME;
 
         public frm_Login()
         {
             InitializeComponent();
-            conn = new dbConnect();
+            CONN = new CommonControls.Classes.dbConnection();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace SystemDevelopment
                 if (isValidUser() == true)
                 {
                     //MessageBox.Show("Valid User");
-                    userName = txtUserName.Text;
+                    USERNAME = txtUserName.Text;
                     this.Hide();
                     Frm_Main MainForm = new Frm_Main();
                     MainForm.Show();
@@ -72,7 +72,7 @@ namespace SystemDevelopment
                 string password = txtPassword.Text;
                 string encriptPass = EncodePassword(password);
 
-                if (conn.matchString(userName, encriptPass))
+                if (CONN.matchString(userName, encriptPass))
                 {
                     return true;
                 }
