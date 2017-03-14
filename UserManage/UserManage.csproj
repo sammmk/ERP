@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,15 +48,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmCreateUser.cs">
+    <Compile Include="BLL\ClsUserManageData.cs" />
+    <Compile Include="BLL\ClsUserManageDbChanges.cs" />
+    <Compile Include="CLL\FrmAddUserRole.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmCreateUser.Designer.cs">
+    <Compile Include="CLL\FrmAddUserRole.Designer.cs">
+      <DependentUpon>FrmAddUserRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLL\FrmCreateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmCreateUser.Designer.cs">
       <DependentUpon>FrmCreateUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmCreateUser.resx">
+    <EmbeddedResource Include="CLL\FrmCreateUser.resx">
       <DependentUpon>FrmCreateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -87,6 +96,7 @@
       <Name>CommonControls</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
