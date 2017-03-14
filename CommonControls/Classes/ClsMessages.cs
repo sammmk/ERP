@@ -43,5 +43,12 @@ namespace CommonControls.Classes
 
             return rst;
         }
+
+        public DialogResult successfullMessage(string message)
+        {
+            DialogResult rst = MessageBox.Show(message, "!!SUCCESSFULL!!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+            return rst;
+        }
     }
 }

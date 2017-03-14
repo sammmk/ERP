@@ -12,7 +12,7 @@ namespace CommonControls.Classes
 {
     public class dbConnection
     {
-        private MySqlConnection CONNECTION;
+        public MySqlConnection CONNECTION;
         private string server;
         private string database;
         private string uid;
@@ -45,7 +45,7 @@ namespace CommonControls.Classes
         {
             try
             {
-                CONNECTION.Open();      
+                CONNECTION.Open();
                 return true;
             }
             catch (MySqlException ex)
@@ -53,10 +53,10 @@ namespace CommonControls.Classes
                 switch (ex.Number)
                 {
                     case 0:
-                        MESSAGE.errorMessage("Cannot Connect Server","Error");
+                        MESSAGE.errorMessage("Cannot Connect Server", "Error");
                         break;
                     case 1045:
-                        MESSAGE.errorMessage("DataBase UserName and Password are incorrect","Error");
+                        MESSAGE.errorMessage("DataBase UserName and Password are incorrect", "Error");
                         break;
                     default:
                         MessageBox.Show(ex.Message);
@@ -66,6 +66,12 @@ namespace CommonControls.Classes
             }
         }
 
+        /// <summary>
+        /// check userName and passwd while login
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pass"></param>
+        /// <returns>bool </returns>
         public bool matchString(string userName, string pass)
         {
             try
@@ -100,7 +106,7 @@ namespace CommonControls.Classes
         /// close the db connection
         /// </summary>
         /// <returns></returns>
-        private bool closeConnection()
+        public bool closeConnection()
         {
             try
             {
@@ -113,63 +119,5 @@ namespace CommonControls.Classes
                 return false;
             }
         }
-        
-        
-        public bool maxUserID(out int maxId)
-        {
-            bool ret = false;
-            int temp = 0;
-            maxId = temp;
-
-            try
-            {
-                if (openConnection() == true)
-                {
-                    string querry = "SELECT MAX(userId) from tbl_login;";
-                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
-                    temp = Convert.ToInt16(cmd.ExecuteScalar());
-                    
-                    closeConnection();
-
-                    if (temp <= 0)
-                    {
-                        maxId = 0;
-                    }
-                    else
-                        maxId = temp;
-                }
-
-            }
-            catch(Exception e)
-            {
-                MESSAGE.exceptionMessage(e.Message);
-            }
-
-            return ret;
-        }
-
-        public DataTable userRoleList()
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                string querry = "select * from tbl_userrole;";
-                MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                da.Fill(dt);
-            }
-            catch(Exception ex)
-            {
-                MESSAGE.exceptionMessage(ex.Message);
-                dt = null;
-            }
-
-            return dt;
-        }
-
-
-    }
-    
+    }    
 }

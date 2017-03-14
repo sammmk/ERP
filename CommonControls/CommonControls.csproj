@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ClsCommonMethods.cs" />
     <Compile Include="Classes\ClsMessages.cs" />
-    <Compile Include="Classes\ClsUserManageData.cs" />
     <Compile Include="Classes\ClsValidation.cs" />
     <Compile Include="Classes\dbConnection.cs" />
     <Compile Include="FrmMessageBox.cs">
