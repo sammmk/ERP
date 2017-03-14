@@ -14,6 +14,7 @@ namespace SystemDevelopment
     public partial class frm_Login : Form
     {
         private CommonControls.Classes.dbConnection CONN;
+        private CommonControls.Classes.ClsCommonMethods COMMON;
         
         public static string USERNAME;
 
@@ -21,6 +22,7 @@ namespace SystemDevelopment
         {
             InitializeComponent();
             CONN = new CommonControls.Classes.dbConnection();
+            COMMON = new CommonControls.Classes.ClsCommonMethods();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace SystemDevelopment
             { 
                 string userName = txtUserName.Text;
                 string password = txtPassword.Text;
-                string encriptPass = EncodePassword(password);
+                string encriptPass = COMMON.EncodePassword(password);
 
                 if (CONN.matchString(userName, encriptPass))
                 {
@@ -87,29 +89,7 @@ namespace SystemDevelopment
                 return false;
             }
         }
-
-        public string EncodePassword(string originalPassword)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-
-            //compute hash from the bytes of text
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(originalPassword));
-
-            //get hash result after compute it
-            byte[] result = md5.Hash;
-
-            StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-            {
-                //change it into 2 hexadecimal digits
-                //for each byte
-                strBuilder.Append(result[i].ToString("x2"));
-            }
-
-            return strBuilder.ToString();
-
-        }
-
+        
         private void frm_FormCloseClick(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -119,6 +99,19 @@ namespace SystemDevelopment
         {
             lbl_userNameEmpty.Visible = false;
             lbl_passwdEmpty.Visible = false;
+            lbl_invalidUser.Visible = false;
+            this.ActiveControl = txtUserName;
+        }
+        
+        private void txt_passWdKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+                // these last two lines will stop the beep sound
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
         }
     }
 }

@@ -43,7 +43,7 @@
             this.btnLogin.Location = new System.Drawing.Point(297, 114);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(114, 34);
-            this.btnLogin.TabIndex = 0;
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -62,6 +62,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(288, 19);
             this.txtPassword.TabIndex = 2;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_passWdKeyDown);
             // 
             // label1
             // 
