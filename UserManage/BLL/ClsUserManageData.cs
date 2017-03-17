@@ -15,7 +15,7 @@ namespace UserManage.BLL
         public string _idNumber { get; set; }
         public string _email { get; set; }
         public string _userRole { get; set; }
-        public int _phoneNo { get; set; }
+        public string _phoneNo { get; set; }
         public string _address { get; set; }
         public DateTime _dob { get; set; }
         public int _roleId { get; set; }
