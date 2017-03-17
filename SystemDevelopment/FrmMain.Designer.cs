@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.pnl_menu = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_userManage = new System.Windows.Forms.Panel();
+            this.btn_userRole = new System.Windows.Forms.Button();
             this.btn_editUser = new System.Windows.Forms.Button();
             this.btn_createUser = new System.Windows.Forms.Button();
             this.btn_userManage = new System.Windows.Forms.Button();
@@ -38,13 +40,12 @@
             this.btn_logout = new System.Windows.Forms.Button();
             this.lbl_loggedUser = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_menu.SuspendLayout();
-            this.pnl_userManage.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.pnl_userManage.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_menu
@@ -58,15 +59,45 @@
             this.pnl_menu.Size = new System.Drawing.Size(893, 507);
             this.pnl_menu.TabIndex = 1;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 59);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pnl_userManage);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.splitContainer1.Size = new System.Drawing.Size(893, 448);
+            this.splitContainer1.SplitterDistance = 198;
+            this.splitContainer1.TabIndex = 6;
+            // 
             // pnl_userManage
             // 
+            this.pnl_userManage.Controls.Add(this.btn_userRole);
             this.pnl_userManage.Controls.Add(this.btn_editUser);
             this.pnl_userManage.Controls.Add(this.btn_createUser);
             this.pnl_userManage.Controls.Add(this.btn_userManage);
             this.pnl_userManage.Location = new System.Drawing.Point(3, 6);
             this.pnl_userManage.Name = "pnl_userManage";
-            this.pnl_userManage.Size = new System.Drawing.Size(189, 74);
+            this.pnl_userManage.Size = new System.Drawing.Size(189, 99);
             this.pnl_userManage.TabIndex = 0;
+            // 
+            // btn_userRole
+            // 
+            this.btn_userRole.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_userRole.Location = new System.Drawing.Point(0, 71);
+            this.btn_userRole.Name = "btn_userRole";
+            this.btn_userRole.Size = new System.Drawing.Size(189, 23);
+            this.btn_userRole.TabIndex = 3;
+            this.btn_userRole.Text = "      Add User Role";
+            this.btn_userRole.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_userRole.UseVisualStyleBackColor = true;
+            this.btn_userRole.Click += new System.EventHandler(this.btn_userRole_Click);
             // 
             // btn_editUser
             // 
@@ -78,6 +109,7 @@
             this.btn_editUser.Text = "      Edit User";
             this.btn_editUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_editUser.UseVisualStyleBackColor = true;
+            this.btn_editUser.Click += new System.EventHandler(this.btn_editUser_Click);
             // 
             // btn_createUser
             // 
@@ -160,23 +192,6 @@
             this.label2.Text = "Logged In As : ";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 59);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.pnl_userManage);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.splitContainer1.Size = new System.Drawing.Size(893, 448);
-            this.splitContainer1.SplitterDistance = 198;
-            this.splitContainer1.TabIndex = 6;
-            // 
             // Frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -189,12 +204,12 @@
             this.Text = "Main Form";
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.pnl_menu.ResumeLayout(false);
-            this.pnl_userManage.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.pnl_userManage.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -212,5 +227,6 @@
         private System.Windows.Forms.Button btn_createUser;
         private System.Windows.Forms.Button btn_userManage;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btn_userRole;
     }
 }

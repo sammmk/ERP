@@ -56,13 +56,88 @@ namespace SystemDevelopment
         /// <param name="e"></param>
         private void btn_createUser_Click(object sender, EventArgs e)
         {
+            bool isFormOpen = false;
+
             UserManage.FrmCreateUser createUser = new UserManage.FrmCreateUser();
-            createUser.MdiParent = this;
-            this.splitContainer1.Panel2.Controls.Add(createUser);
-            //createUser.Dock = DockStyle.Fill;
-            createUser.Show();
+            
+            isFormOpen = windowOpenCheck(createUser.Name);
+
+            if (isFormOpen)
+            {
+                createUser.BringToFront();
+            }
+            else
+            {
+                createUser.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(createUser);
+                createUser.WindowState = FormWindowState.Maximized;
+                createUser.Show();
+            }
         }
-        
+
+        private void btn_userRole_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+
+            UserManage.CLL.FrmAddUserRole addUserRole = new UserManage.CLL.FrmAddUserRole();
+            
+            isFormOpen = windowOpenCheck(addUserRole.Name);
+
+            if (isFormOpen)
+            {
+                addUserRole.BringToFront();
+            }
+            else
+            {
+                addUserRole.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(addUserRole);
+
+                addUserRole.Show();
+            }
+        }
+
+        private void btn_editUser_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            UserManage.CLL.FrmEditUser editUser = new UserManage.CLL.FrmEditUser();
+
+            isFormOpen = windowOpenCheck(editUser.Name);
+
+            if (isFormOpen)
+            {
+                editUser.BringToFront();
+            }
+            else
+            {
+                editUser.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(editUser);
+
+                editUser.Show();
+            }
+        }
+
+        private bool windowOpenCheck(string frmName)
+        {
+            bool ret = false;
+            FormCollection FC = Application.OpenForms;
+
+            try
+            {
+                foreach(Form frm in FC)
+                {
+                    if (frm.Name.Equals(frmName))
+                    {
+                        ret = true;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return ret;
+        }
+
         /// <summary>
         /// expandable menu
         /// </summary>
@@ -102,5 +177,6 @@ namespace SystemDevelopment
         {
 
         }
+
     }
 }
