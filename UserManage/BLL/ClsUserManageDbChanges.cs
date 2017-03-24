@@ -207,7 +207,7 @@ namespace UserManage.BLL
             try
             {
                 userRole = "INSERT INTO tbl_userrole (userRoleName, userRoleId) VALUES (";
-                userRole += "'" + userRole + "',";
+                userRole += "'" + role + "',";
                 userRole += "'" + roleId;
                 userRole += "');";
 
@@ -254,6 +254,33 @@ namespace UserManage.BLL
                 string querry = "SELECT * FROM tbl_userdetail WHERE deleteFlg != 1;";
 
                 if(CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    CONN.closeConnection();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable getFormDetails()
+        {
+            DataTable dt = new DataTable();
+            string querry = string.Empty;
+
+            try
+            {
+                querry = "SELECT * FROM tbl_userrole, tbl_forms;";
+
+                if (CONN.openConnection())
                 {
                     MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
 
@@ -353,5 +380,90 @@ namespace UserManage.BLL
             }
             return ret;
         }
+
+        public DataTable getUserRole_bySearch(string text)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = "SELECT * FROM tbl_userrole, tbl_forms WHERE userRoleName LIKE '" + text + "%';";
+
+                if (CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    CONN.closeConnection();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable getCurrentPermission()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = "SELECT * FROM tbl_userpermission";
+
+                if (CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    CONN.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dt;
+        }
+
+        public bool insert_userPermission(List<clsUserPermission> list)
+        {
+            bool isOK = false;
+
+            try
+            {
+
+                string delete = "DELETE FROM tbl_userpermission;";
+                update(delete);
+
+                foreach (clsUserPermission singleRow in list)
+                {
+                    string querry = string.Empty;
+                    querry = "INSERT INTO tbl_userpermission (formId, userRoleId, viewPermission, actionPermission) VALUES (";
+                    querry += "'" + singleRow._formId + "',";
+                    querry += "'" + singleRow._roleId + "',";
+                    querry += "'" + singleRow._view + "',";
+                    querry += "'" + singleRow._action + "'";
+                    querry += ");";
+
+                    isOK = update(querry);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return isOK;
+        }
+        
     }
 }

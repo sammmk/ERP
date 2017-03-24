@@ -21,4 +21,14 @@ namespace UserManage.BLL
         public int _roleId { get; set; }
     }
 
+    public class clsUserPermission
+    {
+        public string _userRoleName { get; set; }
+        public int _roleId { get; set; }
+        public int _formId { get; set; }
+        public string _formName { get; set; }
+        public string _project { get; set; }
+        public int _view { get; set; }
+        public int _action { get; set; }
+    }
 }

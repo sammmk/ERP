@@ -16,6 +16,7 @@ namespace UserManage
 
         private CommonControls.Classes.ClsMessages COM_MESSAGE;
         private CommonControls.Classes.ClsValidation VALIDATION;
+        private CommonControls.Classes.ClsCommonMethods COMM_METHODS;
         private BLL.ClsUserManageData CREATEUSER;
         private BLL.ClsUserManageDbChanges MANAGEDB;
 
@@ -25,6 +26,7 @@ namespace UserManage
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             VALIDATION = new CommonControls.Classes.ClsValidation();
+            COMM_METHODS = new CommonControls.Classes.ClsCommonMethods();
             CREATEUSER = new BLL.ClsUserManageData();
             MANAGEDB = new BLL.ClsUserManageDbChanges();
 
@@ -49,6 +51,7 @@ namespace UserManage
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             VALIDATION = new CommonControls.Classes.ClsValidation();
+            COMM_METHODS = new CommonControls.Classes.ClsCommonMethods();
             CREATEUSER = new BLL.ClsUserManageData();
             MANAGEDB = new BLL.ClsUserManageDbChanges();
 
@@ -157,7 +160,7 @@ namespace UserManage
                     if (MANAGEDB.InsertData_userDetail(CREATEUSER))
                     {
                         COM_MESSAGE.successfullMessage("Successfully created the user ");
-                        clearAllText(this);
+                        COMM_METHODS.clearAllText(this);
                         dropDown_userRole.SelectedIndex = -1;
                         txt_userID.Text = MANAGEDB.getMaxUserID().ToString();
                     }
@@ -351,16 +354,16 @@ namespace UserManage
         /// clear all text boxes
         /// </summary>
         /// <param name="con"></param>
-        private void clearAllText(Control con)
-        {
-            foreach (Control c in con.Controls)
-            {
-                if (c is TextBox)
-                    ((TextBox)c).Clear();
-                else
-                    clearAllText(c);
-            }
-        }
+        //private void clearAllText(Control con)
+        //{
+        //    foreach (Control c in con.Controls)
+        //    {
+        //        if (c is TextBox)
+        //            ((TextBox)c).Clear();
+        //        else
+        //            clearAllText(c);
+        //    }
+        //}
 
         private void btn_delete_Click(object sender, EventArgs e)
         {

@@ -67,7 +67,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmEditUser";
-            this.Text = "FrmEditUser";
+            this.Text = "Edit User";
             this.Load += new System.EventHandler(this.frm_editUserLoad);
             this.pnl_editUser.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grd_editUser)).EndInit();
