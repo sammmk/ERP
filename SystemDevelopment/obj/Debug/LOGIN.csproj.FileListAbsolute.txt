@@ -24,3 +24,4 @@ C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\SystemDevelopment.Pro
 C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\LOGIN.csproj.GenerateResource.Cache
 C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\SystemDevelopment.exe
 C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\SystemDevelopment.pdb
+C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\SystemDevelopment.FrmChangePassWd.resources

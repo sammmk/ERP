@@ -39,7 +39,7 @@ namespace SystemDevelopment
         {
             if (pnl_userManage.Height == 25)
             {
-                pnl_userManage.Height = (25 * 4) + 2;
+                pnl_userManage.Height = (25 * 5) + 2;
                 btn_userManage.Image = Properties.Resources.up;
             }
             else
@@ -116,6 +116,26 @@ namespace SystemDevelopment
             }
         }
 
+        private void btn_setFormPermission_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            UserManage.CLL.FrmSetUserPermission userPermission = new UserManage.CLL.FrmSetUserPermission();
+
+            isFormOpen = windowOpenCheck(userPermission.Name);
+
+            if(isFormOpen)
+            {
+                userPermission.BringToFront();
+            }
+            else
+            {
+                userPermission.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(userPermission);
+
+                userPermission.Show();
+            }
+        }
+
         private bool windowOpenCheck(string frmName)
         {
             bool ret = false;
@@ -172,11 +192,30 @@ namespace SystemDevelopment
             frm_Login LoginForm = new frm_Login();
             LoginForm.Show();
         }
-
-        private void label2_Click(object sender, EventArgs e)
+        
+        private void lbl_changePassMouseHover(object sender, EventArgs e)
         {
-
+            lbl_changePass.ForeColor = System.Drawing.Color.DarkGray;
         }
 
+        private void lbl_changePassMouseLeave(object sender, EventArgs e)
+        {
+            lbl_changePass.ForeColor = System.Drawing.Color.Blue;
+        }
+
+        private void lbl_changePass_Click(object sender, EventArgs e)
+        {
+            FrmChangePassWd changePass = new FrmChangePassWd(lbl_loggedUser.Text);
+            changePass.ShowDialog();
+
+            if (FrmChangePassWd.IS_SUCCESS_MESSAGE)
+            {
+                this.Close();
+                frm_Login login = new frm_Login();
+                login.Show();
+            }
+        }
+
+        
     }
 }

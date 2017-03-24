@@ -8,3 +8,4 @@ C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.Propertie
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.csproj.GenerateResource.Cache
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.exe
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.pdb
+C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.csprojResolveAssemblyReference.cache

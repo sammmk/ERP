@@ -76,7 +76,7 @@ namespace CommonControls.Classes
         {
             try
             {
-                if (openConnection() == true)
+                if (openConnection())
                 {
                     string query = "select userName from tbl_login where userName = '" + userName + "' AND password = '" + pass + "' AND deleteFlag != 1;";
                     MySqlCommand cmd = new MySqlCommand(query, CONNECTION);
@@ -118,6 +118,32 @@ namespace CommonControls.Classes
                 MessageBox.Show(ex.Message);
                 return false;
             }
+        }
+
+        public bool changePassword(string userName, string password)
+        {
+            bool isSuccess = false;
+            string querry = "UPDATE tbl_login SET passWord = '";
+            querry += password + "'";
+            querry += "WHERE userName = '";
+            querry += userName + "';";
+
+            try
+            {
+                if(openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+                    cmd.ExecuteNonQuery();
+                    isSuccess = true;
+
+                    closeConnection();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return isSuccess;
         }
     }    
 }

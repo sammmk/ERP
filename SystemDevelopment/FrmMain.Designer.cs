@@ -31,11 +31,13 @@
             this.pnl_menu = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnl_userManage = new System.Windows.Forms.Panel();
+            this.btn_setFormPermission = new System.Windows.Forms.Button();
             this.btn_userRole = new System.Windows.Forms.Button();
             this.btn_editUser = new System.Windows.Forms.Button();
             this.btn_createUser = new System.Windows.Forms.Button();
             this.btn_userManage = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_changePass = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_logout = new System.Windows.Forms.Button();
             this.lbl_loggedUser = new System.Windows.Forms.Label();
@@ -78,14 +80,27 @@
             // 
             // pnl_userManage
             // 
+            this.pnl_userManage.Controls.Add(this.btn_setFormPermission);
             this.pnl_userManage.Controls.Add(this.btn_userRole);
             this.pnl_userManage.Controls.Add(this.btn_editUser);
             this.pnl_userManage.Controls.Add(this.btn_createUser);
             this.pnl_userManage.Controls.Add(this.btn_userManage);
             this.pnl_userManage.Location = new System.Drawing.Point(3, 6);
             this.pnl_userManage.Name = "pnl_userManage";
-            this.pnl_userManage.Size = new System.Drawing.Size(189, 99);
+            this.pnl_userManage.Size = new System.Drawing.Size(189, 123);
             this.pnl_userManage.TabIndex = 0;
+            // 
+            // btn_setFormPermission
+            // 
+            this.btn_setFormPermission.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_setFormPermission.Location = new System.Drawing.Point(0, 94);
+            this.btn_setFormPermission.Name = "btn_setFormPermission";
+            this.btn_setFormPermission.Size = new System.Drawing.Size(189, 23);
+            this.btn_setFormPermission.TabIndex = 4;
+            this.btn_setFormPermission.Text = "      Set User Permision";
+            this.btn_setFormPermission.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_setFormPermission.UseVisualStyleBackColor = true;
+            this.btn_setFormPermission.Click += new System.EventHandler(this.btn_setFormPermission_Click);
             // 
             // btn_userRole
             // 
@@ -139,6 +154,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.lbl_changePass);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btn_logout);
             this.panel1.Controls.Add(this.lbl_loggedUser);
@@ -148,6 +164,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(893, 59);
             this.panel1.TabIndex = 5;
+            // 
+            // lbl_changePass
+            // 
+            this.lbl_changePass.AutoSize = true;
+            this.lbl_changePass.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lbl_changePass.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_changePass.Location = new System.Drawing.Point(671, 34);
+            this.lbl_changePass.Name = "lbl_changePass";
+            this.lbl_changePass.Size = new System.Drawing.Size(96, 12);
+            this.lbl_changePass.TabIndex = 5;
+            this.lbl_changePass.Text = "Change Password";
+            this.lbl_changePass.Click += new System.EventHandler(this.lbl_changePass_Click);
+            this.lbl_changePass.MouseLeave += new System.EventHandler(this.lbl_changePassMouseLeave);
+            this.lbl_changePass.MouseHover += new System.EventHandler(this.lbl_changePassMouseHover);
             // 
             // label1
             // 
@@ -190,7 +220,6 @@
             this.label2.Size = new System.Drawing.Size(82, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "Logged In As : ";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Frm_Main
             // 
@@ -228,5 +257,7 @@
         private System.Windows.Forms.Button btn_userManage;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btn_userRole;
+        private System.Windows.Forms.Label lbl_changePass;
+        private System.Windows.Forms.Button btn_setFormPermission;
     }
 }

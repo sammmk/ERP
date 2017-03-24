@@ -5,6 +5,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace CommonControls.Classes
 {
@@ -37,5 +38,15 @@ namespace CommonControls.Classes
 
         }
 
+        public void clearAllText(Control con)
+        {
+            foreach (Control c in con.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Clear();
+                else
+                    clearAllText(c);
+            }
+        }
     }
 }
