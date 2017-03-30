@@ -31,4 +31,11 @@ namespace UserManage.BLL
         public int _view { get; set; }
         public int _action { get; set; }
     }
+
+    public class clsUserRoleData
+    {
+        public int _roleId { get; set; }
+        public string _roleName { get; set; }
+    }
+
 }

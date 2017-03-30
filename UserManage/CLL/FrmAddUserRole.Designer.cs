@@ -36,6 +36,7 @@
             this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_add = new System.Windows.Forms.Button();
             this.pnl_createUserRole = new System.Windows.Forms.Panel();
+            this.btn_update = new System.Windows.Forms.Button();
             this.pnl_createUserRole.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,6 +107,7 @@
             // pnl_createUserRole
             // 
             this.pnl_createUserRole.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnl_createUserRole.Controls.Add(this.btn_update);
             this.pnl_createUserRole.Controls.Add(this.label4);
             this.pnl_createUserRole.Controls.Add(this.btn_cancel);
             this.pnl_createUserRole.Controls.Add(this.label5);
@@ -118,6 +120,17 @@
             this.pnl_createUserRole.Name = "pnl_createUserRole";
             this.pnl_createUserRole.Size = new System.Drawing.Size(561, 467);
             this.pnl_createUserRole.TabIndex = 16;
+            // 
+            // btn_update
+            // 
+            this.btn_update.Location = new System.Drawing.Point(323, 348);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(75, 23);
+            this.btn_update.TabIndex = 16;
+            this.btn_update.Text = "Update";
+            this.btn_update.UseVisualStyleBackColor = true;
+            this.btn_update.Visible = false;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // FrmAddUserRole
             // 
@@ -148,5 +161,6 @@
         private System.Windows.Forms.Button btn_cancel;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.Panel pnl_createUserRole;
+        private System.Windows.Forms.Button btn_update;
     }
 }

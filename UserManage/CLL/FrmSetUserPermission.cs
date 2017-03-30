@@ -14,11 +14,24 @@ namespace UserManage.CLL
     { 
         private BLL.ClsUserManageDbChanges MANAGEDB;
         private CommonControls.Classes.ClsMessages COM_MESSAGE;
+        private CommonControls.Classes.ClsCommonMethods COMM_METHODS;
 
+        private static string USERNAME;
+
+        /// <summary>
+        /// empty parameter constructor
+        /// </summary>
         public FrmSetUserPermission()
+        {
+            InitializeComponent();
+        }
+
+        public FrmSetUserPermission(string userName)
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             MANAGEDB = new BLL.ClsUserManageDbChanges();
+            COMM_METHODS = new CommonControls.Classes.ClsCommonMethods();
+            USERNAME = userName;
 
             InitializeComponent();
             
@@ -44,14 +57,9 @@ namespace UserManage.CLL
                 chkCol_act.HeaderText = "Action Permission";
                 grd_userPermission.Columns.Add(chkCol_act);
 
-                //grd_userPermission.Columns["userRoleId"].DisplayIndex = 0;
-                //grd_userPermission.Columns["userRoleName"].DisplayIndex = 1;
-                //grd_userPermission.Columns["formId"].DisplayIndex = 2;
-                //grd_userPermission.Columns["formName"].DisplayIndex = 3;
-                //grd_userPermission.Columns["project"].DisplayIndex = 4;
-                //grd_userPermission.Columns["View_permision"].DisplayIndex = 5;
-                //grd_userPermission.Columns["act_permision"].DisplayIndex = 6;
-                
+                //hide columns
+                grd_userPermission.Columns["isCommonForm"].Visible = false;
+
             }
             catch(Exception ex)
             {
@@ -77,63 +85,71 @@ namespace UserManage.CLL
 
             try
             {
-                foreach (DataGridViewColumn col in grd_userPermission.Columns)
+                //check for do action
+                if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
                 {
-                    dt.Columns.Add(col.HeaderText);
-                }
-
-                foreach (DataGridViewRow row in grd_userPermission.Rows)
-                {                    
-                    DataRow dRow = dt.NewRow();
-                    foreach (DataGridViewCell cell in row.Cells)
+                    foreach (DataGridViewColumn col in grd_userPermission.Columns)
                     {
-                        if (cell.Value == null)
-                        {
-                            dRow[cell.ColumnIndex] = 0;
-                        }
-                        else if (cell.Value is Boolean)
-                        {
-                            if (Convert.ToBoolean(cell.Value))
-                                dRow[cell.ColumnIndex] = 1;
-                            else
-                                dRow[cell.ColumnIndex] = 0;
-                        }
-                        else
-                        {
-                            dRow[cell.ColumnIndex] = cell.Value;
-                        }
+                        dt.Columns.Add(col.HeaderText);
                     }
-                    dt.Rows.Add(dRow);                    
-                }
 
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    CheckBox chk_view = dt.Rows[i]["View Permission"] as CheckBox;
-                    CheckBox chk_act = dt.Rows[i]["Action Permission"] as CheckBox;
-
-                    data.Add(new BLL.clsUserPermission()
+                    foreach (DataGridViewRow row in grd_userPermission.Rows)
                     {
-                        _userRoleName = dt.Rows[i]["userRoleName"].ToString(),
-                        _roleId = Convert.ToInt32(dt.Rows[i]["userRoleId"]),
-                        _formId = Convert.ToInt32(dt.Rows[i]["formId"]),
-                        _formName = dt.Rows[i]["formName"].ToString(),
-                        _project = dt.Rows[i]["project"].ToString(),
-                        _view = Convert.ToInt16(dt.Rows[i]["View Permission"]),
-                        _action = Convert.ToInt16(dt.Rows[i]["Action Permission"])
-                    });
-                }
+                        DataRow dRow = dt.NewRow();
+                        foreach (DataGridViewCell cell in row.Cells)
+                        {
+                            if (cell.Value == null)
+                            {
+                                dRow[cell.ColumnIndex] = 0;
+                            }
+                            else if (cell.Value is Boolean)
+                            {
+                                if (Convert.ToBoolean(cell.Value))
+                                    dRow[cell.ColumnIndex] = 1;
+                                else
+                                    dRow[cell.ColumnIndex] = 0;
+                            }
+                            else
+                            {
+                                dRow[cell.ColumnIndex] = cell.Value;
+                            }
+                        }
+                        dt.Rows.Add(dRow);
+                    }
 
-                //insert to db
-                isOK = MANAGEDB.insert_userPermission(data);
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        CheckBox chk_view = dt.Rows[i]["View Permission"] as CheckBox;
+                        CheckBox chk_act = dt.Rows[i]["Action Permission"] as CheckBox;
 
-                if(isOK)
-                {
-                    COM_MESSAGE.successfullMessage("Successfully Updated user Permissions !!!");
-                    this.Close();
+                        data.Add(new BLL.clsUserPermission()
+                        {
+                            _userRoleName = dt.Rows[i]["userRoleName"].ToString(),
+                            _roleId = Convert.ToInt32(dt.Rows[i]["userRoleId"]),
+                            _formId = Convert.ToInt32(dt.Rows[i]["formId"]),
+                            _formName = dt.Rows[i]["formName"].ToString(),
+                            _project = dt.Rows[i]["project"].ToString(),
+                            _view = Convert.ToInt16(dt.Rows[i]["View Permission"]),
+                            _action = Convert.ToInt16(dt.Rows[i]["Action Permission"])
+                        });
+                    }
+
+                    //insert to db
+                    isOK = MANAGEDB.insert_userPermission(data);
+
+                    if (isOK)
+                    {
+                        COM_MESSAGE.successfullMessage("Successfully Updated user Permissions !!!");
+                        this.Close();
+                    }
+                    else
+                    {
+                        COM_MESSAGE.errorMessage("user Permissions not updated successfully !!!", "EEROR");
+                    }
                 }
                 else
                 {
-                    COM_MESSAGE.errorMessage("user Permissions not updated successfully !!!", "EEROR");
+                    COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
                 }
             }
             catch (Exception ex)
@@ -153,7 +169,7 @@ namespace UserManage.CLL
 
                     foreach (DataGridViewColumn col in grd_userPermission.Columns)
                     {
-                        if ((string.Equals(col.Name, "View_permision")) || (string.Equals(col.Name, "act_permision")))
+                        if ((string.Equals(col.Name, "View_permision")) || (string.Equals(col.Name, "act_permision")) || (string.Equals(col.Name, "isCommonForm")))
                         {
                             col.ReadOnly = false;
                         }

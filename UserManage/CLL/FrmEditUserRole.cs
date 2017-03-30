@@ -10,20 +10,20 @@ using System.Windows.Forms;
 
 namespace UserManage.CLL
 {
-    public partial class FrmEditUser : Form
+    public partial class FrmEditUserRole : Form
     {
         private BLL.ClsUserManageDbChanges MANAGEDB;
         private CommonControls.Classes.ClsMessages COM_MESSAGE;
         private CommonControls.Classes.ClsCommonMethods COMM_METHODS;
-
+    
         private static string USERNAME;
 
-        public FrmEditUser()
+        public FrmEditUserRole()
         {
             InitializeComponent();
         }
 
-        public FrmEditUser(string userName)
+        public FrmEditUserRole(string userName)
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             MANAGEDB = new BLL.ClsUserManageDbChanges();
@@ -32,7 +32,7 @@ namespace UserManage.CLL
 
             InitializeComponent();
 
-            fillData();
+            fillData();            
         }
 
         private void fillData()
@@ -40,29 +40,28 @@ namespace UserManage.CLL
             try
             {
                 DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-                col.DataPropertyName = "userId";
-                col.Name = "userId";
-                col.HeaderText = "userId";
-                grd_editUser.Columns.Add(col);
-                grd_editUser.DataSource = MANAGEDB.getUserDetails();
-                grd_editUser.Columns["deleteFlg"].Visible = false;
+                col.DataPropertyName = "userRoleId";
+                col.Name = "userRoleId";
+                col.HeaderText = "userRoleId";
+                grd_editRole.Columns.Add(col);
+                grd_editRole.DataSource = MANAGEDB.getUserRoleDetails();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
         }
 
-        private void frm_editUserLoad(object sender, EventArgs e)
+        private void FrmEditUserRole_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
         }
 
-        private void grd_userEditCellClick(object sender, DataGridViewCellEventArgs e)
+        private void grd_editRole_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            int userId = 0;
-            BLL.ClsUserManageData userData = new BLL.ClsUserManageData();
+            int roleId = 0;
+            BLL.clsUserRoleData roledata = new BLL.clsUserRoleData();
 
             try
             {
@@ -71,13 +70,13 @@ namespace UserManage.CLL
                 {
                     if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                     {
-                        userId = Convert.ToInt16(senderGrid.SelectedCells[e.ColumnIndex].Value);
-                        userData = MANAGEDB.getSingleUserData(userId);
+                        roleId = Convert.ToInt16(senderGrid.SelectedCells[e.ColumnIndex - 1].Value);
+                        roledata = MANAGEDB.getSingleRoleData(roleId);
 
-                        FrmCreateUser frmUser = new FrmCreateUser(userData);
-                        frmUser.WindowState = FormWindowState.Normal;
-                        frmUser.ShowDialog();
-                        grd_editUser.DataSource = MANAGEDB.getUserDetails();
+                        FrmAddUserRole addRole = new FrmAddUserRole(roledata, USERNAME);
+                        addRole.WindowState = FormWindowState.Normal;
+                        addRole.ShowDialog();
+                        grd_editRole.DataSource = MANAGEDB.getUserRoleDetails();                        
                     }
                 }
                 else
@@ -85,7 +84,7 @@ namespace UserManage.CLL
                     COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }

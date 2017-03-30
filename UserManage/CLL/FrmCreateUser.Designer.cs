@@ -37,6 +37,9 @@
             this.dateTimePicker_dob = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.pnl_createUser = new System.Windows.Forms.Panel();
+            this.pnl_validate = new System.Windows.Forms.Panel();
+            this.lbl_userName = new System.Windows.Forms.Label();
+            this.btn_delete = new System.Windows.Forms.Button();
             this.btn_update = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.txt_phoneNumber = new System.Windows.Forms.TextBox();
@@ -54,7 +57,6 @@
             this.txt_userName = new System.Windows.Forms.TextBox();
             this.txt_userID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btn_delete = new System.Windows.Forms.Button();
             this.pnl_createUser.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,6 +132,8 @@
             // 
             this.pnl_createUser.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pnl_createUser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_createUser.Controls.Add(this.pnl_validate);
+            this.pnl_createUser.Controls.Add(this.lbl_userName);
             this.pnl_createUser.Controls.Add(this.btn_delete);
             this.pnl_createUser.Controls.Add(this.btn_update);
             this.pnl_createUser.Controls.Add(this.label11);
@@ -161,6 +165,37 @@
             this.pnl_createUser.Name = "pnl_createUser";
             this.pnl_createUser.Size = new System.Drawing.Size(938, 496);
             this.pnl_createUser.TabIndex = 8;
+            // 
+            // pnl_validate
+            // 
+            this.pnl_validate.Location = new System.Drawing.Point(762, 60);
+            this.pnl_validate.Name = "pnl_validate";
+            this.pnl_validate.Size = new System.Drawing.Size(36, 36);
+            this.pnl_validate.TabIndex = 25;
+            // 
+            // lbl_userName
+            // 
+            this.lbl_userName.AutoSize = true;
+            this.lbl_userName.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lbl_userName.ForeColor = System.Drawing.Color.Red;
+            this.lbl_userName.Location = new System.Drawing.Point(804, 70);
+            this.lbl_userName.Name = "lbl_userName";
+            this.lbl_userName.Size = new System.Drawing.Size(48, 12);
+            this.lbl_userName.TabIndex = 24;
+            this.lbl_userName.Text = "label12";
+            this.lbl_userName.Visible = false;
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_delete.Location = new System.Drawing.Point(815, 459);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(75, 23);
+            this.btn_delete.TabIndex = 23;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Visible = false;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // btn_update
             // 
@@ -290,6 +325,7 @@
             this.txt_userName.Name = "txt_userName";
             this.txt_userName.Size = new System.Drawing.Size(250, 19);
             this.txt_userName.TabIndex = 2;
+            this.txt_userName.Leave += new System.EventHandler(this.txt_userName_Leave);
             // 
             // txt_userID
             // 
@@ -307,18 +343,6 @@
             this.label5.Size = new System.Drawing.Size(50, 12);
             this.label5.TabIndex = 7;
             this.label5.Text = "User ID :";
-            // 
-            // btn_delete
-            // 
-            this.btn_delete.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_delete.Location = new System.Drawing.Point(815, 459);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(75, 23);
-            this.btn_delete.TabIndex = 23;
-            this.btn_delete.Text = "Delete";
-            this.btn_delete.UseVisualStyleBackColor = true;
-            this.btn_delete.Visible = false;
-            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // FrmCreateUser
             // 
@@ -370,6 +394,8 @@
         private System.Windows.Forms.TextBox txt_phoneNumber;
         private System.Windows.Forms.Button btn_update;
         private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Label lbl_userName;
+        private System.Windows.Forms.Panel pnl_validate;
     }
 }
 

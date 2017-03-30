@@ -21,8 +21,21 @@ namespace UserManage
         private BLL.ClsUserManageDbChanges MANAGEDB;
 
         private static bool IS_SUCCESS_MESSAGE = false;
-        
+        private static string USERNAME;
+        private static bool IS_UPDATING = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FrmCreateUser()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// load when create user
+        /// </summary>
+        public FrmCreateUser(string userName)
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             VALIDATION = new CommonControls.Classes.ClsValidation();
@@ -44,9 +57,15 @@ namespace UserManage
             btn_update.Visible = false;
             btn_delete.Visible = false;
 
+            USERNAME = userName;
+
             this.ActiveControl = txt_userName;
         }
 
+        /// <summary>
+        /// load when edit user
+        /// </summary>
+        /// <param name="singleUserDetails"></param>
         public FrmCreateUser(BLL.ClsUserManageData singleUserDetails)
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
@@ -72,12 +91,15 @@ namespace UserManage
             dropDown_userRole.DisplayMember = "userRoleName";
             dropDown_userRole.ValueMember = "userRoleId";
             dropDown_userRole.BindingContext = this.BindingContext;
-            dropDown_userRole.SelectedIndex = singleUserDetails._roleId - 1;
+            dropDown_userRole.SelectedIndex = dropDown_userRole.FindString(singleUserDetails._userRole);   //singleUserDetails._roleId;
 
             btn_create.Visible = false;
             btn_update.Visible = true;
             btn_delete.Visible = true;
-            this.ActiveControl = txt_userName;
+
+            IS_UPDATING = true;
+
+            this.ActiveControl = txt_firstName;
         }
 
         private void frm_CreateUserLoad(object sender, EventArgs e)
@@ -118,55 +140,63 @@ namespace UserManage
 
         private void btn_create_Click(object sender, EventArgs e)
         {
-            bool isError = false;
-            string userName = txt_userName.Text;
-            string firstName = txt_firstName.Text;
-            string lastName = txt_lastName.Text;
-            string idNumber = txt_nic.Text;
-            string email = txt_email.Text;
-            string userRole = (dropDown_userRole.SelectedIndex != -1) ? dropDown_userRole.SelectedItem.ToString() : string.Empty;
-            string phoneNo = txt_phoneNumber.Text;
-
-            var dataList = new List<Tuple<string, string>>();
-
-            dataList.Add(new Tuple<string, string>("userName", userName));
-            dataList.Add(new Tuple<string, string>("firstName", firstName));
-            dataList.Add(new Tuple<string, string>("lastName", lastName));
-            dataList.Add(new Tuple<string, string>("idNumber", idNumber));
-            dataList.Add(new Tuple<string, string>("email", email));
-            dataList.Add(new Tuple<string, string>("userRole", userRole));
-            dataList.Add(new Tuple<string, string>("phoneNo", phoneNo));
-
-            isError = checkInsertedUserData(dataList);
-
             try
             {
-                if (!isError)
+                //check for do action
+                if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
                 {
-                    //insert data to db
-                    CREATEUSER._userId = Convert.ToInt16(txt_userID.Text);
-                    CREATEUSER._userName = userName;
-                    CREATEUSER._firstName = firstName;
-                    CREATEUSER._lastName = lastName;
-                    CREATEUSER._dob = Convert.ToDateTime(txt_dob.Text);
-                    CREATEUSER._idNumber = idNumber;
-                    CREATEUSER._address = txt_address.Text;
-                    CREATEUSER._email = email;
-                    CREATEUSER._userRole = userRole;
-                    CREATEUSER._roleId = Convert.ToInt16(dropDown_userRole.SelectedValue);
-                    CREATEUSER._phoneNo = phoneNo;
+                    bool isError = false;
+                    string userName = txt_userName.Text;
+                    string firstName = txt_firstName.Text;
+                    string lastName = txt_lastName.Text;
+                    string idNumber = txt_nic.Text;
+                    string email = txt_email.Text;
+                    string userRole = (dropDown_userRole.SelectedIndex != -1) ? dropDown_userRole.SelectedItem.ToString() : string.Empty;
+                    string phoneNo = txt_phoneNumber.Text;
 
-                    //insert to tbl_userDetail and tbl_login
-                    if (MANAGEDB.InsertData_userDetail(CREATEUSER))
+                    var dataList = new List<Tuple<string, string>>();
+
+                    dataList.Add(new Tuple<string, string>("userName", userName));
+                    dataList.Add(new Tuple<string, string>("firstName", firstName));
+                    dataList.Add(new Tuple<string, string>("lastName", lastName));
+                    dataList.Add(new Tuple<string, string>("idNumber", idNumber));
+                    dataList.Add(new Tuple<string, string>("email", email));
+                    dataList.Add(new Tuple<string, string>("userRole", userRole));
+                    dataList.Add(new Tuple<string, string>("phoneNo", phoneNo));
+
+                    isError = checkInsertedUserData(dataList);
+
+                    if (!isError)
                     {
-                        COM_MESSAGE.successfullMessage("Successfully created the user ");
-                        COMM_METHODS.clearAllText(this);
-                        dropDown_userRole.SelectedIndex = -1;
-                        txt_userID.Text = MANAGEDB.getMaxUserID().ToString();
+                        //insert data to db
+                        CREATEUSER._userId = Convert.ToInt16(txt_userID.Text);
+                        CREATEUSER._userName = userName;
+                        CREATEUSER._firstName = firstName;
+                        CREATEUSER._lastName = lastName;
+                        CREATEUSER._dob = Convert.ToDateTime(txt_dob.Text);
+                        CREATEUSER._idNumber = idNumber;
+                        CREATEUSER._address = txt_address.Text;
+                        CREATEUSER._email = email;
+                        CREATEUSER._userRole = userRole;
+                        CREATEUSER._roleId = Convert.ToInt16(dropDown_userRole.SelectedValue);
+                        CREATEUSER._phoneNo = phoneNo;
+
+                        //insert to tbl_userDetail and tbl_login
+                        if (MANAGEDB.InsertData_userDetail(CREATEUSER))
+                        {
+                            COM_MESSAGE.successfullMessage("Successfully created the user ");
+                            COMM_METHODS.clearAllText(this);
+                            dropDown_userRole.SelectedIndex = -1;
+                            txt_userID.Text = MANAGEDB.getMaxUserID().ToString();
+                        }
                     }
                 }
+                else
+                {
+                    COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
@@ -176,49 +206,57 @@ namespace UserManage
         {
             try
             {
-                bool isError = false;
-                string userName = txt_userName.Text;
-                string firstName = txt_firstName.Text;
-                string lastName = txt_lastName.Text;
-                string idNumber = txt_nic.Text;
-                string email = txt_email.Text;
-                string userRole = (dropDown_userRole.SelectedIndex != -1) ? dropDown_userRole.SelectedItem.ToString() : string.Empty;
-                string phoneNo = txt_phoneNumber.Text;
-
-                var dataList = new List<Tuple<string, string>>();
-
-                dataList.Add(new Tuple<string, string>("userName", userName));
-                dataList.Add(new Tuple<string, string>("firstName", firstName));
-                dataList.Add(new Tuple<string, string>("lastName", lastName));
-                dataList.Add(new Tuple<string, string>("idNumber", idNumber));
-                dataList.Add(new Tuple<string, string>("email", email));
-                dataList.Add(new Tuple<string, string>("userRole", userRole));
-                dataList.Add(new Tuple<string, string>("phoneNo", phoneNo));
-
-                isError = checkInsertedUserData(dataList);
-
-                if (!isError)
+                //check for do action
+                if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
                 {
-                    //insert data to db
-                    CREATEUSER._userId = Convert.ToInt16(txt_userID.Text);
-                    CREATEUSER._userName = userName;
-                    CREATEUSER._firstName = firstName;
-                    CREATEUSER._lastName = lastName;
-                    CREATEUSER._dob = Convert.ToDateTime(txt_dob.Text);
-                    CREATEUSER._idNumber = idNumber;
-                    CREATEUSER._address = txt_address.Text;
-                    CREATEUSER._email = email;
-                    CREATEUSER._userRole = userRole;
-                    CREATEUSER._roleId = Convert.ToInt16(dropDown_userRole.SelectedValue);
-                    CREATEUSER._phoneNo = phoneNo;
+                    bool isError = false;
+                    string userName = txt_userName.Text;
+                    string firstName = txt_firstName.Text;
+                    string lastName = txt_lastName.Text;
+                    string idNumber = txt_nic.Text;
+                    string email = txt_email.Text;
+                    string userRole = (dropDown_userRole.SelectedIndex != -1) ? dropDown_userRole.SelectedItem.ToString() : string.Empty;
+                    string phoneNo = txt_phoneNumber.Text;
 
-                    //insert to tbl_userDetail and tbl_login
-                    if (MANAGEDB.updateData_userDetail(CREATEUSER))
+                    var dataList = new List<Tuple<string, string>>();
+
+                    dataList.Add(new Tuple<string, string>("userName", userName));
+                    dataList.Add(new Tuple<string, string>("firstName", firstName));
+                    dataList.Add(new Tuple<string, string>("lastName", lastName));
+                    dataList.Add(new Tuple<string, string>("idNumber", idNumber));
+                    dataList.Add(new Tuple<string, string>("email", email));
+                    dataList.Add(new Tuple<string, string>("userRole", userRole));
+                    dataList.Add(new Tuple<string, string>("phoneNo", phoneNo));
+
+                    isError = checkInsertedUserData(dataList);
+
+                    if (!isError)
                     {
-                        IS_SUCCESS_MESSAGE = true;
-                        this.Close();
-                        COM_MESSAGE.successfullMessage("Successfully Updated the user ");                        
+                        //insert data to db
+                        CREATEUSER._userId = Convert.ToInt16(txt_userID.Text);
+                        CREATEUSER._userName = userName;
+                        CREATEUSER._firstName = firstName;
+                        CREATEUSER._lastName = lastName;
+                        CREATEUSER._dob = Convert.ToDateTime(txt_dob.Text);
+                        CREATEUSER._idNumber = idNumber;
+                        CREATEUSER._address = txt_address.Text;
+                        CREATEUSER._email = email;
+                        CREATEUSER._userRole = userRole;
+                        CREATEUSER._roleId = Convert.ToInt16(dropDown_userRole.SelectedValue);
+                        CREATEUSER._phoneNo = phoneNo;
+
+                        //insert to tbl_userDetail and tbl_login
+                        if (MANAGEDB.updateData_userDetail(CREATEUSER))
+                        {
+                            IS_SUCCESS_MESSAGE = true;
+                            this.Close();
+                            COM_MESSAGE.successfullMessage("Successfully Updated the user ");
+                        }
                     }
+                }
+                else
+                {
+                    COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
                 }
             }
             catch(Exception ex)
@@ -378,6 +416,71 @@ namespace UserManage
                     COM_MESSAGE.successfullMessage("Successfully deleted the User");
                 }
             }
+        }
+
+        private bool checkUserNameExists(string insertedUserName)
+        {
+            bool isUserExist = false;
+
+            try
+            {
+                List<string> userNameList = new List<string>();
+                //get userName list                 
+                userNameList = MANAGEDB.getUserNameList();
+
+                foreach(string user in userNameList)
+                {
+                    if (string.Equals(user, insertedUserName))
+                    {
+                        isUserExist = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+            return isUserExist;
+        }
+
+        private void txt_userName_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IS_UPDATING)
+                {
+                    string user = txt_userName.Text;
+                    bool isUserNameExist = false;
+                    lbl_userName.Visible = false;
+                    pnl_validate.BackgroundImage = null;
+
+                    if (!VALIDATION.isEmptyTextBox(user))
+                    {
+                        isUserNameExist = checkUserNameExists(user);
+
+                        if (isUserNameExist)
+                        {
+                            lbl_userName.Visible = true;
+                            lbl_userName.Text = "User Name Exists";
+                            lbl_userName.ForeColor = Color.Red;
+                            txt_userName.Clear();
+                            txt_userName.Focus();
+                            pnl_validate.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
+                        }
+                        else
+                        {
+                            lbl_userName.Visible = true;
+                            lbl_userName.Text = "Valid User Name";
+                            lbl_userName.ForeColor = Color.Green;
+                            pnl_validate.BackgroundImage = (Image)CommonControls.Properties.Resources.ok;
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }           
         }
     }
 }

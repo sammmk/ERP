@@ -12,11 +12,13 @@ namespace UserManage.BLL
     {
         private CommonControls.Classes.dbConnection CONN;
         private CommonControls.Classes.ClsCommonMethods COMMON;
+        private CommonControls.Classes.ClsCommonMethods COM_METHODS;
 
         public ClsUserManageDbChanges()
         {
             CONN = new CommonControls.Classes.dbConnection();
             COMMON = new CommonControls.Classes.ClsCommonMethods();
+            COM_METHODS = new CommonControls.Classes.ClsCommonMethods();
         }
 
         public int getMaxUserID()
@@ -142,7 +144,7 @@ namespace UserManage.BLL
                 insertToLogin += "'" + UserData._userName + "',";
                 insertToLogin += "'" + COMMON.EncodePassword(UserData._userName) + "',";
                 insertToLogin += "'" + UserData._userId + "',";
-                insertToLogin += "'" + UserData._userId;
+                insertToLogin += "'" + UserData._roleId;
                 insertToLogin += "');";
 
                 if(update(insertToUserDetail))
@@ -181,16 +183,7 @@ namespace UserManage.BLL
                 updateUserDetail += "WHERE userId = '" + UserData._userId + "';";
 
                 ret = update(updateUserDetail);
-
-                //if (CONN.openConnection() == true)
-                //{
-                //    MySqlCommand cmd = new MySqlCommand(updateUserDetail, CONN.CONNECTION);
-                //    cmd.ExecuteNonQuery();
-
-                //    CONN.closeConnection();
-
-                //    ret = true;
-                //}
+                
             }
             catch(Exception ex)
             {
@@ -219,31 +212,29 @@ namespace UserManage.BLL
                 throw ex;
             }
             return ret;
+        }  
+
+        public bool updateData_userRole(int roleId, string role)
+        {
+            bool ret = false;
+            string userRole = string.Empty;
+
+            try
+            {
+                userRole = "UPDATE tbl_userrole SET ";
+                userRole += "userRoleName = '" + role;
+                userRole += "' WHERE userRoleId = '";
+                userRole += roleId + "';";
+
+                ret = update(userRole);
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+                throw ex;
+            }
+            return ret;
         }
-
-        //private bool Insert(string insertQuerry)
-        //{
-        //    bool ret = false;
-
-        //    try
-        //    {
-        //        if (CONN.openConnection() == true)
-        //        {
-        //            MySqlCommand cmd = new MySqlCommand(insertQuerry, CONN.CONNECTION);
-        //            cmd.ExecuteNonQuery();
-
-        //            CONN.closeConnection();
-
-        //            ret = true;
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        ret = false;
-        //        throw ex;
-        //    }
-        //    return ret;
-        //}
 
         public DataTable getUserDetails()
         {
@@ -265,6 +256,32 @@ namespace UserManage.BLL
                 }
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable getUserRoleDetails()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = "SELECT * FROM tbl_userrole;";
+
+                if (CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    CONN.closeConnection();
+                }
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -304,7 +321,7 @@ namespace UserManage.BLL
 
             try
             {
-                string querry = "SELECT * FROM tbl_userdetail WHERE userId = '" + userId + "';";
+                string querry = "SELECT * FROM tbl_userdetail u LEFT JOIN tbl_userrole r ON u.roleId = r.userRoleId WHERE userId = '" + userId + "'; ";
 
                 if (CONN.openConnection())
                 {
@@ -324,6 +341,7 @@ namespace UserManage.BLL
                     userData._email = dt.Rows[0]["email"].ToString();
                     userData._roleId = Convert.ToInt16(dt.Rows[0]["roleId"].ToString());
                     userData._phoneNo = dt.Rows[0]["phoneNo"].ToString();
+                    userData._userRole = dt.Rows[0]["userRoleName"].ToString();
 
                     CONN.closeConnection();
                 }
@@ -334,6 +352,35 @@ namespace UserManage.BLL
             }
 
             return userData;
+        }
+
+        public clsUserRoleData getSingleRoleData(int roleId)
+        {
+            clsUserRoleData roleData = new clsUserRoleData();
+
+            try
+            {
+                string querry = "SELECT * FROM tbl_userrole WHERE userRoleId = '" + roleId + "';";
+
+                if (CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    roleData._roleId = Convert.ToInt16(dt.Rows[0]["userRoleId"]);
+                    roleData._roleName = dt.Rows[0]["userRoleName"].ToString();
+
+                    CONN.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return roleData;
         }
 
         public bool deleteUser(int userId)
@@ -465,5 +512,62 @@ namespace UserManage.BLL
             return isOK;
         }
         
+        public List<string> getUserNameList()
+        {
+            List<string> userList = new List<string>();
+
+            try
+            {
+                string querry = "SELECT userName FROM tbl_userdetail;";
+
+                if (CONN.openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    int i = 0;
+                    while (reader.Read())
+                    {
+                        //userList = new List<string>();
+                        userList.Add(reader["userName"].ToString());
+                        i++;
+                    }
+
+                    CONN.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return userList;
+        }
+
+        //public bool checkActionPermission(string userName, string formName)
+        //{
+        //    bool haspermission = false;
+
+        //    try
+        //    {
+        //        int userRoleId;
+        //        DataTable dt = new DataTable();
+
+        //        //get userId
+        //        userRoleId = CONN.getUserRoleId(userName);
+
+        //        //get permission for user Role
+        //        dt = CONN.getformPermissionPerUser(userRoleId);
+
+        //        //check permission
+        //        haspermission = COM_METHODS.checkActPermission(formName, dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return haspermission;
+        //}
     }
 }
