@@ -145,5 +145,58 @@ namespace CommonControls.Classes
             }
             return isSuccess;
         }
+
+        public DataTable getformPermissionPerUser(int roleId)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = "SELECT * FROM tbl_forms f LEFT JOIN tbl_userpermission u ON f.formId = u.formId WHERE u.userRoleId = '";
+                querry += roleId.ToString() + "' AND f.isCommonForm = '0';";
+
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry,CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dt;
+        }
+
+        public int getUserRoleId(string userName)
+        {
+            int roleId = 0;
+
+            try
+            {
+                string querry = "SELECT roleId FROM tbl_userdetail WHERE userName = '";
+                querry += userName + "';";
+
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                    roleId = Convert.ToInt16(cmd.ExecuteScalar());
+
+                    closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return roleId;
+        }
     }    
 }

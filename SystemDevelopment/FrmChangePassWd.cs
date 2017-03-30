@@ -20,6 +20,11 @@ namespace SystemDevelopment
         public static bool IS_SUCCESS_MESSAGE = false;
         private static string USERNAME;
 
+        public FrmChangePassWd()
+        {
+            InitializeComponent();
+        }
+
         public FrmChangePassWd(string UserName)
         {
             InitializeComponent();

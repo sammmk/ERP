@@ -50,5 +50,12 @@ namespace CommonControls.Classes
 
             return rst;
         }
+
+        public DialogResult permissionMessage(String message)
+        {
+            DialogResult rst = MessageBox.Show(message, "!! PERMISSION ERROR !!", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+
+            return rst;
+        }
     }
 }

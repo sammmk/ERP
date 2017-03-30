@@ -67,6 +67,12 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmManageForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmManageForms.Designer.cs">
+      <DependentUpon>FrmManageForms.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmChangePassWd.resx">
@@ -77,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmManageForms.resx">
+      <DependentUpon>FrmManageForms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -104,9 +113,6 @@
   <ItemGroup>
     <None Include="Images\down.png" />
     <None Include="Images\up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\up.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonControls\CommonControls.csproj">

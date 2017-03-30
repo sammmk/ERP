@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
 
 namespace SystemDevelopment
 {
@@ -15,6 +14,7 @@ namespace SystemDevelopment
     {
         private CommonControls.Classes.dbConnection CONN;
         private CommonControls.Classes.ClsCommonMethods COMMON;
+        private CommonControls.Classes.ClsMessages COMM_MESSAGE;
         
         public static string USERNAME;
 
@@ -23,6 +23,9 @@ namespace SystemDevelopment
             InitializeComponent();
             CONN = new CommonControls.Classes.dbConnection();
             COMMON = new CommonControls.Classes.ClsCommonMethods();
+            COMM_MESSAGE = new CommonControls.Classes.ClsMessages();
+
+            this.ActiveControl = txtUserName;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -30,44 +33,59 @@ namespace SystemDevelopment
             lbl_userNameEmpty.Visible = false;
             lbl_passwdEmpty.Visible = false;
             lbl_invalidUser.Visible = false;
+            pnl_userName.BackgroundImage = null;
+            pnl_pass.BackgroundImage = null;
 
-            if (txtUserName.Text == String.Empty)
+            try
             {
-                lbl_userNameEmpty.Visible = true;
-                lbl_userNameEmpty.Text = "User Name is empty";
-                lbl_userNameEmpty.ForeColor = System.Drawing.Color.Red;
-            }
-            else if(txtPassword.Text == String.Empty)
-            {
-                lbl_passwdEmpty.Visible = true;
-                lbl_passwdEmpty.Text = "Password is empty";
-                lbl_passwdEmpty.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                if (isValidUser() == true)
+
+                if (txtUserName.Text == String.Empty)
                 {
-                    //MessageBox.Show("Valid User");
-                    USERNAME = txtUserName.Text;
-                    this.Hide();
-                    Frm_Main MainForm = new Frm_Main();
-                    MainForm.Show();
+                    lbl_userNameEmpty.Visible = true;
+                    lbl_userNameEmpty.Text = "User Name is empty";
+                    lbl_userNameEmpty.ForeColor = Color.Red;
+                    pnl_userName.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
+                    txtUserName.Focus();
+                }
+                else if (txtPassword.Text == String.Empty)
+                {
+                    lbl_passwdEmpty.Visible = true;
+                    lbl_passwdEmpty.Text = "Password is empty";
+                    lbl_passwdEmpty.ForeColor = Color.Red;
+                    pnl_pass.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
+                    txtPassword.Focus();
                 }
                 else
                 {
-                    lbl_invalidUser.Visible = true;
-                    lbl_invalidUser.Text = "Invalid userName or Password";
-                    lbl_invalidUser.ForeColor = System.Drawing.Color.Red;
-                    txtPassword.Text = String.Empty;
-                    txtUserName.Text = String.Empty;
-
-                    //MessageBox.Show("Invalid userName or Password");
+                    if (isValidUser() == true)
+                    {
+                        USERNAME = txtUserName.Text;
+                        this.Hide();
+                        Frm_Main MainForm = new Frm_Main();
+                        MainForm.Show();
+                    }
+                    else
+                    {
+                        lbl_invalidUser.Visible = true;
+                        lbl_invalidUser.Text = "Invalid userName or Password";
+                        lbl_invalidUser.ForeColor = Color.Red;
+                        txtPassword.Text = String.Empty;
+                        txtUserName.Text = String.Empty;
+                        txtUserName.Focus();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                COMM_MESSAGE.exceptionMessage(ex.Message);
+            }
+
         }
 
         private bool isValidUser()
         {
+            bool ret = false;
+
             try 
             { 
                 string userName = txtUserName.Text;
@@ -76,18 +94,20 @@ namespace SystemDevelopment
 
                 if (CONN.matchString(userName, encriptPass))
                 {
-                    return true;
+                    ret = true;
                 }
                 else
                 {
-                    return false;
+                    ret = false;
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                return false;
+                ret = false;
+                throw ex;
             }
+
+            return ret;
         }
         
         private void frm_FormCloseClick(object sender, FormClosedEventArgs e)
@@ -108,6 +128,17 @@ namespace SystemDevelopment
             if (e.KeyCode == Keys.Enter)
             {
                 btnLogin.PerformClick();
+                // these last two lines will stop the beep sound
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        private void txtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPassword.Focus();
                 // these last two lines will stop the beep sound
                 e.SuppressKeyPress = true;
                 e.Handled = true;

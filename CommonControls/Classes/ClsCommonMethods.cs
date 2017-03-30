@@ -11,9 +11,11 @@ namespace CommonControls.Classes
 {
     public class ClsCommonMethods
     {
+        private dbConnection CONN;
+
         public ClsCommonMethods()
         {
-
+            CONN = new dbConnection();
         }
 
         public string EncodePassword(string originalPassword)
@@ -47,6 +49,40 @@ namespace CommonControls.Classes
                 else
                     clearAllText(c);
             }
+        }
+
+        public bool checkActPermission(string formName, string userName)
+        {
+            bool hasPermission = false;
+
+            try
+            {
+                int userRoleId;
+                DataTable dt = new DataTable();
+
+                //get userId
+                userRoleId = CONN.getUserRoleId(userName);
+
+                //get permission for user Role
+                dt = CONN.getformPermissionPerUser(userRoleId);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if(string.Equals(formName, row["formName"].ToString()))
+                    {
+                        if(Convert.ToInt16(row["actionPermission"]) == 1)
+                        {
+                            hasPermission = true;
+                        }
+                        break;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return hasPermission;
         }
     }
 }

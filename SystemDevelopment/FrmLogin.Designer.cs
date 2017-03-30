@@ -36,11 +36,14 @@
             this.lbl_userNameEmpty = new System.Windows.Forms.Label();
             this.lbl_passwdEmpty = new System.Windows.Forms.Label();
             this.lbl_invalidUser = new System.Windows.Forms.Label();
+            this.pnl_userName = new System.Windows.Forms.Panel();
+            this.pnl_pass = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(297, 114);
+            this.btnLogin.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnLogin.Location = new System.Drawing.Point(297, 118);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(114, 34);
             this.btnLogin.TabIndex = 3;
@@ -54,10 +57,11 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(288, 19);
             this.txtUserName.TabIndex = 1;
+            this.txtUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserName_KeyDown);
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(123, 66);
+            this.txtPassword.Location = new System.Drawing.Point(123, 70);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(288, 19);
@@ -67,18 +71,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label1.Location = new System.Drawing.Point(13, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 12);
+            this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 3;
             this.label1.Text = "User Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 68);
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(13, 72);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 12);
+            this.label2.Size = new System.Drawing.Size(62, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
@@ -94,7 +100,7 @@
             // lbl_passwdEmpty
             // 
             this.lbl_passwdEmpty.AutoSize = true;
-            this.lbl_passwdEmpty.Location = new System.Drawing.Point(142, 92);
+            this.lbl_passwdEmpty.Location = new System.Drawing.Point(142, 96);
             this.lbl_passwdEmpty.Name = "lbl_passwdEmpty";
             this.lbl_passwdEmpty.Size = new System.Drawing.Size(35, 12);
             this.lbl_passwdEmpty.TabIndex = 6;
@@ -104,18 +110,35 @@
             // 
             this.lbl_invalidUser.AutoSize = true;
             this.lbl_invalidUser.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lbl_invalidUser.Location = new System.Drawing.Point(15, 135);
+            this.lbl_invalidUser.Location = new System.Drawing.Point(15, 139);
             this.lbl_invalidUser.Name = "lbl_invalidUser";
             this.lbl_invalidUser.Size = new System.Drawing.Size(52, 16);
             this.lbl_invalidUser.TabIndex = 7;
             this.lbl_invalidUser.Text = "label3";
             this.lbl_invalidUser.Visible = false;
             // 
+            // pnl_userName
+            // 
+            this.pnl_userName.Location = new System.Drawing.Point(417, 17);
+            this.pnl_userName.Name = "pnl_userName";
+            this.pnl_userName.Size = new System.Drawing.Size(36, 36);
+            this.pnl_userName.TabIndex = 8;
+            // 
+            // pnl_pass
+            // 
+            this.pnl_pass.Location = new System.Drawing.Point(417, 61);
+            this.pnl_pass.Name = "pnl_pass";
+            this.pnl_pass.Size = new System.Drawing.Size(36, 36);
+            this.pnl_pass.TabIndex = 9;
+            // 
             // frm_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 172);
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ClientSize = new System.Drawing.Size(488, 172);
+            this.Controls.Add(this.pnl_pass);
+            this.Controls.Add(this.pnl_userName);
             this.Controls.Add(this.lbl_invalidUser);
             this.Controls.Add(this.lbl_passwdEmpty);
             this.Controls.Add(this.lbl_userNameEmpty);
@@ -124,9 +147,11 @@
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.btnLogin);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frm_Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Text = "User Login";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frm_FormCloseClick);
             this.Load += new System.EventHandler(this.frm_LoginFormLoad);
             this.ResumeLayout(false);
@@ -144,6 +169,8 @@
         private System.Windows.Forms.Label lbl_userNameEmpty;
         private System.Windows.Forms.Label lbl_passwdEmpty;
         private System.Windows.Forms.Label lbl_invalidUser;
+        private System.Windows.Forms.Panel pnl_userName;
+        private System.Windows.Forms.Panel pnl_pass;
     }
 }
 

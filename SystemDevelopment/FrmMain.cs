@@ -13,11 +13,17 @@ namespace SystemDevelopment
     public partial class Frm_Main : Form
     {
         private FormWindowState prevState;
+        private CommonControls.Classes.dbConnection CONN;
+        private CommonControls.Classes.ClsMessages COM_MESSAGE;
 
         public Frm_Main()
         {
             InitializeComponent();
             prevState = this.WindowState;
+            CONN = new CommonControls.Classes.dbConnection();
+            COM_MESSAGE = new CommonControls.Classes.ClsMessages();
+
+            this.ActiveControl = btn_userManage;
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -25,21 +31,31 @@ namespace SystemDevelopment
             //load main form in maximize state
             this.WindowState = FormWindowState.Maximized;
 
+            //set user manage panel
             pnl_userManage.Height = 25;
             btn_userManage.Image = Properties.Resources.down;
+
+            //set inventory manage panel
+            pnl_inventoryManage.Height = 25;
+            btn_invManage.Image = Properties.Resources.down;
+
             lbl_loggedUser.Text = frm_Login.USERNAME;
         }
 
         /// <summary>
-        /// expand the Use_Manage menu
+        /// expand the User_Manage menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_userManage_Click(object sender, EventArgs e)
         {
+            //show menu according to permission
             if (pnl_userManage.Height == 25)
             {
-                pnl_userManage.Height = (25 * 5) + 2;
+                //check permission
+                int cnt = checkViewPermission();
+
+                pnl_userManage.Height = (25 * cnt) + 2;
                 btn_userManage.Image = Properties.Resources.up;
             }
             else
@@ -47,7 +63,24 @@ namespace SystemDevelopment
                 pnl_userManage.Height = 25;
                 btn_userManage.Image = Properties.Resources.down;
             }
-        }        
+        }
+        
+        private void btn_invManage_Click(object sender, EventArgs e)
+        {
+            if(pnl_inventoryManage.Height == 25)
+            {
+                //check permission
+                int cnt = checkViewPermission();
+
+                pnl_inventoryManage.Height = (25 * cnt) + 2;
+                btn_invManage.Image = Properties.Resources.up;
+            }
+            else
+            {
+                pnl_inventoryManage.Height = 25;
+                btn_invManage.Image = Properties.Resources.down;
+            }
+        }
 
         /// <summary>
         /// Open the form create_user
@@ -58,7 +91,7 @@ namespace SystemDevelopment
         {
             bool isFormOpen = false;
 
-            UserManage.FrmCreateUser createUser = new UserManage.FrmCreateUser();
+            UserManage.FrmCreateUser createUser = new UserManage.FrmCreateUser(lbl_loggedUser.Text);
             
             isFormOpen = windowOpenCheck(createUser.Name);
 
@@ -79,7 +112,7 @@ namespace SystemDevelopment
         {
             bool isFormOpen = false;
 
-            UserManage.CLL.FrmAddUserRole addUserRole = new UserManage.CLL.FrmAddUserRole();
+            UserManage.CLL.FrmAddUserRole addUserRole = new UserManage.CLL.FrmAddUserRole(lbl_loggedUser.Text);
             
             isFormOpen = windowOpenCheck(addUserRole.Name);
 
@@ -99,7 +132,7 @@ namespace SystemDevelopment
         private void btn_editUser_Click(object sender, EventArgs e)
         {
             bool isFormOpen = false;
-            UserManage.CLL.FrmEditUser editUser = new UserManage.CLL.FrmEditUser();
+            UserManage.CLL.FrmEditUser editUser = new UserManage.CLL.FrmEditUser(lbl_loggedUser.Text);
 
             isFormOpen = windowOpenCheck(editUser.Name);
 
@@ -116,10 +149,30 @@ namespace SystemDevelopment
             }
         }
 
+        private void btn_editUserRole_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            UserManage.CLL.FrmEditUserRole editUserRole = new UserManage.CLL.FrmEditUserRole(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(editUserRole.Name);
+
+            if (isFormOpen)
+            {
+                editUserRole.BringToFront();
+            }
+            else
+            {
+                editUserRole.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(editUserRole);
+
+                editUserRole.Show();
+            }
+        }
+
         private void btn_setFormPermission_Click(object sender, EventArgs e)
         {
             bool isFormOpen = false;
-            UserManage.CLL.FrmSetUserPermission userPermission = new UserManage.CLL.FrmSetUserPermission();
+            UserManage.CLL.FrmSetUserPermission userPermission = new UserManage.CLL.FrmSetUserPermission(lbl_loggedUser.Text);
 
             isFormOpen = windowOpenCheck(userPermission.Name);
 
@@ -134,6 +187,16 @@ namespace SystemDevelopment
 
                 userPermission.Show();
             }
+        }
+
+        private void btn_formManage_Click(object sender, EventArgs e)
+        {
+            FrmManageForms formsManage = new FrmManageForms();
+
+            formsManage.MdiParent = this;
+            this.splitContainer1.Panel2.Controls.Add(formsManage);
+
+            formsManage.Show();
         }
 
         private bool windowOpenCheck(string frmName)
@@ -196,6 +259,7 @@ namespace SystemDevelopment
         private void lbl_changePassMouseHover(object sender, EventArgs e)
         {
             lbl_changePass.ForeColor = System.Drawing.Color.DarkGray;
+            lbl_changePass.Cursor = Cursors.Hand;
         }
 
         private void lbl_changePassMouseLeave(object sender, EventArgs e)
@@ -216,6 +280,86 @@ namespace SystemDevelopment
             }
         }
 
-        
+        private int checkViewPermission()
+        {
+            btn_createUser.Visible = false;
+            btn_editUser.Visible = false;
+            btn_setFormPermission.Visible = false;
+            btn_userRole.Visible = false;
+            btn_editUserRole.Visible = false;
+            btn_addItem.Visible = false;
+            btn_editItem.Visible = false;
+            btn_stockIntake.Visible = false;
+            btn_adjustStock.Visible = false;
+            btn_releaseStock.Visible = false;
+            btn_adjustReleasedStock.Visible = false;
+
+            int buttonCnt = 0;
+            int userRoleId;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                //get userId
+                userRoleId = CONN.getUserRoleId(lbl_loggedUser.Text);
+
+                //check the permission
+                dt = CONN.getformPermissionPerUser(userRoleId);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (Convert.ToInt16(row["viewPermission"]) == 1)
+                    {
+                        buttonCnt++;
+
+                        switch (row["btnName"].ToString())
+                        {
+                            case "btn_createUser":
+                                btn_createUser.Visible = true;
+                                break;
+                            case "btn_editUser":
+                                btn_editUser.Visible = true;
+                                break;
+                            case "btn_setFormPermission":
+                                btn_setFormPermission.Visible = true;
+                                break;
+                            case "btn_userRole":
+                                btn_userRole.Visible = true;
+                                break;
+                            case "btn_editUserRole":
+                                btn_editUserRole.Visible = true;
+                                break;
+                            case "btn_addItem":
+                                btn_addItem.Visible = true;
+                                break;
+                            case "btn_editItem":
+                                btn_editItem.Visible = true;
+                                break;
+                            case "btn_stockIntake":
+                                btn_stockIntake.Visible = true;
+                                break;
+                            case "btn_adjustStock":
+                                btn_adjustStock.Visible = true;
+                                break;
+                            case "btn_releaseStock":
+                                btn_releaseStock.Visible = true;
+                                break;
+                            case "btn_adjustReleasedStock":
+                                btn_adjustReleasedStock.Visible = true;
+                                break;
+                            default:
+                                break;
+                        }
+                    }                        
+                }
+            }
+            catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+
+            return buttonCnt + 1;
+        }
+
     }
 }
