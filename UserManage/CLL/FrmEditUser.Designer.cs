@@ -41,7 +41,7 @@
             this.pnl_editUser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_editUser.Location = new System.Drawing.Point(0, 0);
             this.pnl_editUser.Name = "pnl_editUser";
-            this.pnl_editUser.Size = new System.Drawing.Size(802, 499);
+            this.pnl_editUser.Size = new System.Drawing.Size(834, 511);
             this.pnl_editUser.TabIndex = 0;
             // 
             // grd_editUser
@@ -54,7 +54,7 @@
             this.grd_editUser.Name = "grd_editUser";
             this.grd_editUser.ReadOnly = true;
             this.grd_editUser.RowTemplate.Height = 21;
-            this.grd_editUser.Size = new System.Drawing.Size(802, 499);
+            this.grd_editUser.Size = new System.Drawing.Size(834, 511);
             this.grd_editUser.TabIndex = 9;
             this.grd_editUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_userEditCellClick);
             // 
@@ -62,7 +62,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 499);
+            this.ClientSize = new System.Drawing.Size(834, 511);
             this.Controls.Add(this.pnl_editUser);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

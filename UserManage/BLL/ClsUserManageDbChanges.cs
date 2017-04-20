@@ -23,12 +23,12 @@ namespace UserManage.BLL
 
         public int getMaxUserID()
         {
-            int maxUserId = 0;
+            int maxUserId = 1;
 
             try
             {
                 string querry = "SELECT MAX(userId) from tbl_login;";
-                maxUserId = getMaxId(querry);
+                maxUserId = CONN.getMaxId(querry);
 
                 //1000 for company Id or something like that : add only for the first value   
                 if (maxUserId <= 1)
@@ -44,12 +44,16 @@ namespace UserManage.BLL
 
         public int getMaxUserRoleId()
         {
-            int maxRoleId = 0;
+            int maxRoleId = 1;
 
             try
             {
                 string querry = "SELECT MAX(userRoleId) from tbl_userrole;";
-                maxRoleId = getMaxId(querry);                
+                maxRoleId = CONN.getMaxId(querry);
+
+                //1000 for company Id or something like that : add only for the first value   
+                if (maxRoleId <= 1)
+                    maxRoleId += 20000;
             }
             catch (Exception e)
             {
@@ -59,54 +63,15 @@ namespace UserManage.BLL
             return maxRoleId;
         }
 
-        private int getMaxId(string querry)
-        {
-            int ret = 0;
-            int temp = ret;
-
-            try
-            {
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-                    temp = Convert.ToInt16(cmd.ExecuteScalar());
-
-                    CONN.closeConnection();
-
-                    if(temp <= 0)
-                    {
-                        ret = 0;
-                    }
-                    else
-                    {
-                        ret = temp + 1;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return ret;
-        }
-
         public DataTable getUserRoleList()
         {
             DataTable dt = new DataTable();
 
             try
             {
-                if (CONN.openConnection())
-                {
-                    string querry = "SELECT * FROM tbl_userrole;";
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
+                string querry = "SELECT * FROM tbl_userrole;";
 
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);
             }
             catch (Exception ex)
             {
@@ -147,9 +112,9 @@ namespace UserManage.BLL
                 insertToLogin += "'" + UserData._roleId;
                 insertToLogin += "');";
 
-                if(update(insertToUserDetail))
+                if(CONN.update(insertToUserDetail))
                 {
-                    if (update(insertToLogin))
+                    if (CONN.update(insertToLogin))
                     {
                         ret = true;
                     }
@@ -176,13 +141,13 @@ namespace UserManage.BLL
                 updateUserDetail += "lastName = '" + UserData._lastName + "',";
                 updateUserDetail += "dob = '" + UserData._dob + "',";
                 updateUserDetail += "NIC = '" + UserData._idNumber + "',";
-                updateUserDetail += "address ='" + UserData._address + "',";//, , 
+                updateUserDetail += "address ='" + UserData._address + "',";
                 updateUserDetail += "email = '" + UserData._email + "',";
                 updateUserDetail += "roleId = '" + UserData._roleId+ "',";
                 updateUserDetail += "phoneNo = '" + UserData._phoneNo + "'";
                 updateUserDetail += "WHERE userId = '" + UserData._userId + "';";
 
-                ret = update(updateUserDetail);
+                ret = CONN.update(updateUserDetail);
                 
             }
             catch(Exception ex)
@@ -204,7 +169,7 @@ namespace UserManage.BLL
                 userRole += "'" + roleId;
                 userRole += "');";
 
-                ret = update(userRole);
+                ret = CONN.update(userRole);
             }
             catch(Exception ex)
             {
@@ -226,7 +191,7 @@ namespace UserManage.BLL
                 userRole += "' WHERE userRoleId = '";
                 userRole += roleId + "';";
 
-                ret = update(userRole);
+                ret = CONN.update(userRole);
             }
             catch (Exception ex)
             {
@@ -244,16 +209,7 @@ namespace UserManage.BLL
             {
                 string querry = "SELECT * FROM tbl_userdetail WHERE deleteFlg != 1;";
 
-                if(CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);
             }
             catch(Exception ex)
             {
@@ -270,16 +226,7 @@ namespace UserManage.BLL
             {
                 string querry = "SELECT * FROM tbl_userrole;";
 
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);
             }
             catch (Exception ex)
             {
@@ -297,16 +244,7 @@ namespace UserManage.BLL
             {
                 querry = "SELECT * FROM tbl_userrole, tbl_forms;";
 
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);
             }
             catch(Exception ex)
             {
@@ -322,15 +260,13 @@ namespace UserManage.BLL
             try
             {
                 string querry = "SELECT * FROM tbl_userdetail u LEFT JOIN tbl_userrole r ON u.roleId = r.userRoleId WHERE userId = '" + userId + "'; ";
+                
+                DataTable dt = new DataTable();
 
-                if (CONN.openConnection())
+                dt = CONN.getDataTable(querry);
+
+                if (dt.Rows.Count > 0)
                 {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                    //cmd.ExecuteNonQuery();
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
                     userData._userId = Convert.ToInt16(dt.Rows[0]["userId"].ToString());
                     userData._userName = dt.Rows[0]["userName"].ToString();
                     userData._firstName = dt.Rows[0]["firstName"].ToString();
@@ -342,9 +278,8 @@ namespace UserManage.BLL
                     userData._roleId = Convert.ToInt16(dt.Rows[0]["roleId"].ToString());
                     userData._phoneNo = dt.Rows[0]["phoneNo"].ToString();
                     userData._userRole = dt.Rows[0]["userRoleName"].ToString();
-
-                    CONN.closeConnection();
                 }
+                    
             }
             catch(Exception ex)
             {
@@ -361,20 +296,14 @@ namespace UserManage.BLL
             try
             {
                 string querry = "SELECT * FROM tbl_userrole WHERE userRoleId = '" + roleId + "';";
+                                    
+                DataTable dt = new DataTable();
 
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                    
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                dt = CONN.getDataTable(querry);
 
-                    roleData._roleId = Convert.ToInt16(dt.Rows[0]["userRoleId"]);
-                    roleData._roleName = dt.Rows[0]["userRoleName"].ToString();
-
-                    CONN.closeConnection();
-                }
+                roleData._roleId = Convert.ToInt16(dt.Rows[0]["userRoleId"]);
+                roleData._roleName = dt.Rows[0]["userRoleName"].ToString();
+                
             }
             catch (Exception ex)
             {
@@ -392,10 +321,10 @@ namespace UserManage.BLL
             try
             {
                 q = "UPDATE tbl_userdetail SET deleteFlg = '1' WHERE userId = '" + userId + "';";
-                ret = update(q);
+                ret = CONN.update(q);
 
                 qq = "UPDATE tbl_login SET deleteFlg = '1' WHERE userId = '" + userId + "';";
-                ret = update(qq);
+                ret = CONN.update(qq);
             }
             catch(Exception ex)
             {
@@ -405,28 +334,27 @@ namespace UserManage.BLL
             return ret;
         }
 
-        public bool update(string querry)
+        public bool resetPassword(int userId, string userName)
         {
             bool ret = false;
+            string querry = string.Empty;
+            string password = string.Empty;
 
             try
             {
-                if(CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-                    cmd.ExecuteNonQuery();
+                password = COM_METHODS.EncodePassword(userName);
 
-                    CONN.closeConnection();
-                    ret = true;
-                }
+                querry = "UPDATE tbl_login SET passWord = '" + password + "' ";
+                querry += "WHERE userId = '" + userId + "';";
+                ret = CONN.update(querry);                
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ret = false;
                 throw ex;
             }
             return ret;
-        }
+        }        
 
         public DataTable getUserRole_bySearch(string text)
         {
@@ -436,16 +364,7 @@ namespace UserManage.BLL
             {
                 string querry = "SELECT * FROM tbl_userrole, tbl_forms WHERE userRoleName LIKE '" + text + "%';";
 
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);                
             }
             catch(Exception ex)
             {
@@ -462,16 +381,7 @@ namespace UserManage.BLL
             {
                 string querry = "SELECT * FROM tbl_userpermission";
 
-                if (CONN.openConnection())
-                {
-                    MySqlCommand cmd = new MySqlCommand(querry, CONN.CONNECTION);
-
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    CONN.closeConnection();
-                }
+                dt = CONN.getDataTable(querry);
             }
             catch (Exception ex)
             {
@@ -487,9 +397,8 @@ namespace UserManage.BLL
 
             try
             {
-
                 string delete = "DELETE FROM tbl_userpermission;";
-                update(delete);
+                CONN.update(delete);
 
                 foreach (clsUserPermission singleRow in list)
                 {
@@ -501,7 +410,7 @@ namespace UserManage.BLL
                     querry += "'" + singleRow._action + "'";
                     querry += ");";
 
-                    isOK = update(querry);
+                    isOK = CONN.update(querry);
                 }
             }
             catch (Exception ex)
@@ -529,7 +438,6 @@ namespace UserManage.BLL
                     int i = 0;
                     while (reader.Read())
                     {
-                        //userList = new List<string>();
                         userList.Add(reader["userName"].ToString());
                         i++;
                     }
@@ -544,30 +452,6 @@ namespace UserManage.BLL
 
             return userList;
         }
-
-        //public bool checkActionPermission(string userName, string formName)
-        //{
-        //    bool haspermission = false;
-
-        //    try
-        //    {
-        //        int userRoleId;
-        //        DataTable dt = new DataTable();
-
-        //        //get userId
-        //        userRoleId = CONN.getUserRoleId(userName);
-
-        //        //get permission for user Role
-        //        dt = CONN.getformPermissionPerUser(userRoleId);
-
-        //        //check permission
-        //        haspermission = COM_METHODS.checkActPermission(formName, dt);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return haspermission;
-        //}
+        
     }
 }

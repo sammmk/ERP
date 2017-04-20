@@ -74,7 +74,7 @@ namespace UserManage.CLL
                         userId = Convert.ToInt16(senderGrid.SelectedCells[e.ColumnIndex].Value);
                         userData = MANAGEDB.getSingleUserData(userId);
 
-                        FrmCreateUser frmUser = new FrmCreateUser(userData);
+                        FrmCreateUser frmUser = new FrmCreateUser(userData, USERNAME);
                         frmUser.WindowState = FormWindowState.Normal;
                         frmUser.ShowDialog();
                         grd_editUser.DataSource = MANAGEDB.getUserDetails();

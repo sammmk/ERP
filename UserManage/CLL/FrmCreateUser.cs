@@ -12,8 +12,6 @@ namespace UserManage
 {
     public partial class FrmCreateUser : Form
     {
-        //private formCreateUser = new FrmCreateUser();
-
         private CommonControls.Classes.ClsMessages COM_MESSAGE;
         private CommonControls.Classes.ClsValidation VALIDATION;
         private CommonControls.Classes.ClsCommonMethods COMM_METHODS;
@@ -56,6 +54,7 @@ namespace UserManage
             btn_create.Visible = true;
             btn_update.Visible = false;
             btn_delete.Visible = false;
+            btn_resetPass.Visible = false;
 
             USERNAME = userName;
 
@@ -66,7 +65,7 @@ namespace UserManage
         /// load when edit user
         /// </summary>
         /// <param name="singleUserDetails"></param>
-        public FrmCreateUser(BLL.ClsUserManageData singleUserDetails)
+        public FrmCreateUser(BLL.ClsUserManageData singleUserDetails, string userName)
         {
             COM_MESSAGE = new CommonControls.Classes.ClsMessages();
             VALIDATION = new CommonControls.Classes.ClsValidation();
@@ -96,8 +95,10 @@ namespace UserManage
             btn_create.Visible = false;
             btn_update.Visible = true;
             btn_delete.Visible = true;
+            btn_resetPass.Visible = true;
 
             IS_UPDATING = true;
+            USERNAME = userName;
 
             this.ActiveControl = txt_firstName;
         }
@@ -414,6 +415,22 @@ namespace UserManage
                     IS_SUCCESS_MESSAGE = true;
                     this.Close();
                     COM_MESSAGE.successfullMessage("Successfully deleted the User");
+                }
+            }
+        }
+
+
+        private void btn_resetPass_Click(object sender, EventArgs e)
+        {
+            DialogResult resuult = COM_MESSAGE.warningMessage("Are You Sure You Want to Reset The Users Password ???", "PASSWORD RESET");
+
+            if(resuult == DialogResult.Yes)
+            {
+                if (MANAGEDB.resetPassword(Convert.ToInt16(txt_userID.Text), txt_userName.Text))
+                {
+                    IS_SUCCESS_MESSAGE = true;
+                    this.Close();
+                    COM_MESSAGE.successfullMessage("Successfully reset the User's Password to Default");
                 }
             }
         }

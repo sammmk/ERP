@@ -118,7 +118,7 @@
             this.pnl_createUserRole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_createUserRole.Location = new System.Drawing.Point(0, 0);
             this.pnl_createUserRole.Name = "pnl_createUserRole";
-            this.pnl_createUserRole.Size = new System.Drawing.Size(561, 467);
+            this.pnl_createUserRole.Size = new System.Drawing.Size(584, 461);
             this.pnl_createUserRole.TabIndex = 16;
             // 
             // btn_update
@@ -137,7 +137,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(561, 467);
+            this.ClientSize = new System.Drawing.Size(584, 461);
             this.Controls.Add(this.pnl_createUserRole);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

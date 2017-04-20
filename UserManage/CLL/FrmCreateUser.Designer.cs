@@ -57,6 +57,7 @@
             this.txt_userName = new System.Windows.Forms.TextBox();
             this.txt_userID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btn_resetPass = new System.Windows.Forms.Button();
             this.pnl_createUser.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,6 +133,7 @@
             // 
             this.pnl_createUser.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pnl_createUser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_createUser.Controls.Add(this.btn_resetPass);
             this.pnl_createUser.Controls.Add(this.pnl_validate);
             this.pnl_createUser.Controls.Add(this.lbl_userName);
             this.pnl_createUser.Controls.Add(this.btn_delete);
@@ -188,7 +190,8 @@
             // btn_delete
             // 
             this.btn_delete.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_delete.Location = new System.Drawing.Point(815, 459);
+            this.btn_delete.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_delete.Location = new System.Drawing.Point(776, 459);
             this.btn_delete.Name = "btn_delete";
             this.btn_delete.Size = new System.Drawing.Size(75, 23);
             this.btn_delete.TabIndex = 23;
@@ -199,7 +202,8 @@
             // 
             // btn_update
             // 
-            this.btn_update.Location = new System.Drawing.Point(688, 459);
+            this.btn_update.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_update.Location = new System.Drawing.Point(675, 459);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(75, 23);
             this.btn_update.TabIndex = 22;
@@ -243,6 +247,7 @@
             // btn_cancel
             // 
             this.btn_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_cancel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btn_cancel.Location = new System.Drawing.Point(576, 459);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(75, 23);
@@ -253,6 +258,7 @@
             // 
             // btn_create
             // 
+            this.btn_create.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btn_create.Location = new System.Drawing.Point(675, 459);
             this.btn_create.Name = "btn_create";
             this.btn_create.Size = new System.Drawing.Size(75, 23);
@@ -344,6 +350,17 @@
             this.label5.TabIndex = 7;
             this.label5.Text = "User ID :";
             // 
+            // btn_resetPass
+            // 
+            this.btn_resetPass.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_resetPass.Location = new System.Drawing.Point(417, 459);
+            this.btn_resetPass.Name = "btn_resetPass";
+            this.btn_resetPass.Size = new System.Drawing.Size(132, 23);
+            this.btn_resetPass.TabIndex = 26;
+            this.btn_resetPass.Text = "Reset Password";
+            this.btn_resetPass.UseVisualStyleBackColor = true;
+            this.btn_resetPass.Click += new System.EventHandler(this.btn_resetPass_Click);
+            // 
             // FrmCreateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -396,6 +413,7 @@
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Label lbl_userName;
         private System.Windows.Forms.Panel pnl_validate;
+        private System.Windows.Forms.Button btn_resetPass;
     }
 }
 
