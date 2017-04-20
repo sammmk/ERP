@@ -63,6 +63,16 @@ namespace CommonControls.Classes
             return ret;
         }
 
+        public bool isSpecialChars(string chars)
+        {
+            //string charReg = @"[%!@#$%^&*()?/>.<,:;'\|}]{[_~`+=-\]";
+            string charReg = @"[!#$%&'=~|\^\\\@\^`+*;:?\/,.\{\}\[\]\-]$";
+
+            bool ret = regexCheck(chars, charReg);
+
+            return ret;
+        }
+
         private bool regexCheck(string str, string regx)
         {
             bool ret = true;

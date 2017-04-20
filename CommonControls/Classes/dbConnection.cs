@@ -187,7 +187,7 @@ namespace CommonControls.Classes
                 {
                     MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
 
-                    roleId = Convert.ToInt16(cmd.ExecuteScalar());
+                    roleId = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt16(cmd.ExecuteScalar()) : 0;
 
                     closeConnection();
                 }
@@ -197,6 +197,86 @@ namespace CommonControls.Classes
                 throw ex;
             }
             return roleId;
+        }
+
+        public int getMaxId(string querry)
+        {
+            int ret = 0;
+            int temp = ret;
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+                    
+                    temp = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt32(cmd.ExecuteScalar()) : 0;
+
+                    closeConnection();
+
+                    if (temp <= 1)
+                    {
+                        ret = 1;
+                    }
+                    else
+                    {
+                        ret = temp + 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ret;
+        }
+
+        public bool update(string querry)
+        {
+            bool ret = false;
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+                    cmd.ExecuteNonQuery();
+
+                    closeConnection();
+                    ret = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+                throw ex;
+            }
+            return ret;
+        }
+
+        public DataTable getDataTable(string querry)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    closeConnection();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return dt;
         }
     }    
 }
