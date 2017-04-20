@@ -15,6 +15,7 @@ namespace SystemDevelopment
         private CommonControls.Classes.dbConnection CONN;
         private CommonControls.Classes.ClsCommonMethods COMMON;
         private CommonControls.Classes.ClsMessages COMM_MESSAGE;
+        private CommonControls.Classes.ClsValidation VALIDATION;
         
         public static string USERNAME;
 
@@ -24,6 +25,7 @@ namespace SystemDevelopment
             CONN = new CommonControls.Classes.dbConnection();
             COMMON = new CommonControls.Classes.ClsCommonMethods();
             COMM_MESSAGE = new CommonControls.Classes.ClsMessages();
+            VALIDATION = new CommonControls.Classes.ClsValidation();
 
             this.ActiveControl = txtUserName;
         }
@@ -35,29 +37,58 @@ namespace SystemDevelopment
             lbl_invalidUser.Visible = false;
             pnl_userName.BackgroundImage = null;
             pnl_pass.BackgroundImage = null;
+            bool isError = false;
 
             try
             {
-
-                if (txtUserName.Text == String.Empty)
+                //validate userName
+                if (VALIDATION.isEmptyTextBox(txtUserName.Text))
                 {
                     lbl_userNameEmpty.Visible = true;
                     lbl_userNameEmpty.Text = "User Name is empty";
                     lbl_userNameEmpty.ForeColor = Color.Red;
                     pnl_userName.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
                     txtUserName.Focus();
+                    isError = true;
                 }
-                else if (txtPassword.Text == String.Empty)
+                else
+                {
+                    if (VALIDATION.isSpecialChars(txtUserName.Text))
+                    {
+                        lbl_userNameEmpty.Visible = true;
+                        lbl_userNameEmpty.Text = "User Name Cannot contains special characters";
+                        lbl_userNameEmpty.ForeColor = Color.Red;
+                        pnl_userName.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
+                        txtUserName.Focus();
+                        isError = true;
+                    }
+                }
+
+                if (VALIDATION.isEmptyTextBox(txtPassword.Text))
                 {
                     lbl_passwdEmpty.Visible = true;
                     lbl_passwdEmpty.Text = "Password is empty";
                     lbl_passwdEmpty.ForeColor = Color.Red;
                     pnl_pass.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
                     txtPassword.Focus();
+                    isError = true;
                 }
                 else
                 {
-                    if (isValidUser() == true)
+                    if (VALIDATION.isSpecialChars(txtPassword.Text))
+                    {
+                        lbl_passwdEmpty.Visible = true;
+                        lbl_passwdEmpty.Text = "Password cannot contains special characters";
+                        lbl_passwdEmpty.ForeColor = Color.Red;
+                        pnl_pass.BackgroundImage = (Image)CommonControls.Properties.Resources.ng;
+                        txtPassword.Focus();
+                        isError = true;
+                    }
+                }
+
+                if(!isError)
+                {
+                    if (isValidUser())
                     {
                         USERNAME = txtUserName.Text;
                         this.Hide();
@@ -79,7 +110,6 @@ namespace SystemDevelopment
             {
                 COMM_MESSAGE.exceptionMessage(ex.Message);
             }
-
         }
 
         private bool isValidUser()

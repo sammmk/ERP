@@ -82,17 +82,41 @@ namespace SystemDevelopment
                     isError = true;
                     COM_MESSAGE.validationMessage("Old password cannot be Empty !!!");
                 }
+                else
+                {
+                    if (VALIDATION.isSpecialChars(oldPass))
+                    {
+                        isError = true;
+                        COM_MESSAGE.validationMessage("Old password cannot contains special characters !!!");
+                    }
+                }
 
                 if (VALIDATION.isEmptyTextBox(newPass))
                 {
                     isError = true;
                     COM_MESSAGE.validationMessage("New password cannot be Empty !!!");
                 }
+                else
+                {
+                    if (VALIDATION.isSpecialChars(newPass))
+                    {
+                        isError = true;
+                        COM_MESSAGE.validationMessage("New password cannot contains special characters !!!");
+                    }
+                }
 
                 if (VALIDATION.isEmptyTextBox(reNewPass))
                 {
                     isError = true;
                     COM_MESSAGE.validationMessage("Re-Enter New password cannot be Empty !!!");
+                }
+                else
+                {
+                    if (VALIDATION.isSpecialChars(reNewPass))
+                    {
+                        isError = true;
+                        COM_MESSAGE.validationMessage("Re-Enter New password cannot contains special characters !!!");
+                    }
                 }
 
                 if (!isError)
@@ -111,9 +135,7 @@ namespace SystemDevelopment
                                 COMM_METHOD.clearAllText(this);
                                 COM_MESSAGE.successfullMessage("Successfully changed the password !!!");
                                 IS_SUCCESS_MESSAGE = true;
-                                this.Close();
-
-                                
+                                this.Close();                                
                             }
                         }
                         else

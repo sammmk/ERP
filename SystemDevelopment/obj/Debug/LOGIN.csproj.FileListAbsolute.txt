@@ -12,9 +12,11 @@ C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\SystemDevelopment.exe
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\SystemDevelopment.exe
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\SystemDevelopment.pdb
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\CommonControls.exe
+C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\InventoryManage.exe
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\MySql.Data.dll
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\UserManage.exe
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\CommonControls.pdb
+C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\InventoryManage.pdb
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\UserManage.pdb
 C:\Mohan\Projects\login-master\SystemDevelopment\bin\Debug\MySql.Data.xml
 C:\Mohan\Projects\login-master\SystemDevelopment\obj\Debug\LOGIN.csprojResolveAssemblyReference.cache

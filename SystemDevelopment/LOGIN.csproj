@@ -119,6 +119,10 @@
       <Project>{9dca1e31-b2ae-48a1-baa4-e98f77f84c8b}</Project>
       <Name>CommonControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\InventoryManage\InventoryManage.csproj">
+      <Project>{45faa0e5-41f4-44d5-b7c9-88c316d7447f}</Project>
+      <Name>InventoryManage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserManage\UserManage.csproj">
       <Project>{09ef60cd-4832-4215-af19-d4ef3bf25e22}</Project>
       <Name>UserManage</Name>
