@@ -54,6 +54,7 @@
             this.btn_logout = new System.Windows.Forms.Button();
             this.lbl_loggedUser = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn_editStockEntry = new System.Windows.Forms.Button();
             this.pnl_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -96,9 +97,10 @@
             // 
             // pnl_inventoryManage
             // 
-            this.pnl_inventoryManage.Controls.Add(this.btn_adjustStock);
-            this.pnl_inventoryManage.Controls.Add(this.btn_releaseStock);
             this.pnl_inventoryManage.Controls.Add(this.btn_adjustReleasedStock);
+            this.pnl_inventoryManage.Controls.Add(this.btn_releaseStock);
+            this.pnl_inventoryManage.Controls.Add(this.btn_adjustStock);
+            this.pnl_inventoryManage.Controls.Add(this.btn_editStockEntry);
             this.pnl_inventoryManage.Controls.Add(this.btn_stockIntake);
             this.pnl_inventoryManage.Controls.Add(this.btn_editItemType);
             this.pnl_inventoryManage.Controls.Add(this.btn_addItemType);
@@ -108,13 +110,13 @@
             this.pnl_inventoryManage.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_inventoryManage.Location = new System.Drawing.Point(0, 188);
             this.pnl_inventoryManage.Name = "pnl_inventoryManage";
-            this.pnl_inventoryManage.Size = new System.Drawing.Size(146, 217);
+            this.pnl_inventoryManage.Size = new System.Drawing.Size(146, 248);
             this.pnl_inventoryManage.TabIndex = 1;
             // 
             // btn_adjustStock
             // 
             this.btn_adjustStock.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_adjustStock.Location = new System.Drawing.Point(0, 184);
+            this.btn_adjustStock.Location = new System.Drawing.Point(0, 161);
             this.btn_adjustStock.Name = "btn_adjustStock";
             this.btn_adjustStock.Size = new System.Drawing.Size(146, 23);
             this.btn_adjustStock.TabIndex = 5;
@@ -125,7 +127,7 @@
             // btn_releaseStock
             // 
             this.btn_releaseStock.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_releaseStock.Location = new System.Drawing.Point(0, 161);
+            this.btn_releaseStock.Location = new System.Drawing.Point(0, 184);
             this.btn_releaseStock.Name = "btn_releaseStock";
             this.btn_releaseStock.Size = new System.Drawing.Size(146, 23);
             this.btn_releaseStock.TabIndex = 6;
@@ -136,7 +138,7 @@
             // btn_adjustReleasedStock
             // 
             this.btn_adjustReleasedStock.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_adjustReleasedStock.Location = new System.Drawing.Point(0, 138);
+            this.btn_adjustReleasedStock.Location = new System.Drawing.Point(0, 207);
             this.btn_adjustReleasedStock.Name = "btn_adjustReleasedStock";
             this.btn_adjustReleasedStock.Size = new System.Drawing.Size(146, 23);
             this.btn_adjustReleasedStock.TabIndex = 7;
@@ -154,6 +156,7 @@
             this.btn_stockIntake.Text = "      Stock Intake";
             this.btn_stockIntake.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_stockIntake.UseVisualStyleBackColor = true;
+            this.btn_stockIntake.Click += new System.EventHandler(this.btn_stockIntake_Click);
             // 
             // btn_editItemType
             // 
@@ -381,6 +384,18 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Logged In As : ";
             // 
+            // btn_editStockEntry
+            // 
+            this.btn_editStockEntry.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_editStockEntry.Location = new System.Drawing.Point(0, 138);
+            this.btn_editStockEntry.Name = "btn_editStockEntry";
+            this.btn_editStockEntry.Size = new System.Drawing.Size(146, 23);
+            this.btn_editStockEntry.TabIndex = 10;
+            this.btn_editStockEntry.Text = "      Edit Stock Entry";
+            this.btn_editStockEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_editStockEntry.UseVisualStyleBackColor = true;
+            this.btn_editStockEntry.Click += new System.EventHandler(this.btn_editStockEntry_Click);
+            // 
             // Frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -434,5 +449,6 @@
         private System.Windows.Forms.Button btn_releaseStock;
         private System.Windows.Forms.Button btn_editItemType;
         private System.Windows.Forms.Button btn_addItemType;
+        private System.Windows.Forms.Button btn_editStockEntry;
     }
 }

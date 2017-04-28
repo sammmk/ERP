@@ -26,6 +26,11 @@ namespace SystemDevelopment
             this.ActiveControl = btn_userManage;
         }
 
+        /// <summary>
+        /// main form loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmMain_Load(object sender, EventArgs e)
         {
             //load main form in maximize state
@@ -64,7 +69,12 @@ namespace SystemDevelopment
                 btn_userManage.Image = Properties.Resources.down;
             }
         }
-        
+
+        /// <summary>
+        /// expand the Inventory_Manage menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_invManage_Click(object sender, EventArgs e)
         {
             if(pnl_inventoryManage.Height == 25)
@@ -271,6 +281,46 @@ namespace SystemDevelopment
             }
         }
 
+        private void btn_stockIntake_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            InventoryManage.CLL.FrmStockIntake  stock= new InventoryManage.CLL.FrmStockIntake(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(stock.Name);
+
+            if (isFormOpen)
+            {
+                stock.BringToFront();
+            }
+            else
+            {
+                stock.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(stock);
+
+                stock.Show();
+            }
+        }
+
+        private void btn_editStockEntry_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            InventoryManage.CLL.FrmEditStockIntake editStock = new InventoryManage.CLL.FrmEditStockIntake(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(editStock.Name);
+
+            if (isFormOpen)
+            {
+                editStock.BringToFront();
+            }
+            else
+            {
+                editStock.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(editStock);
+
+                editStock.Show();
+            }
+        }
+
         private void btn_formManage_Click(object sender, EventArgs e)
         {
             FrmManageForms formsManage = new FrmManageForms();
@@ -420,6 +470,10 @@ namespace SystemDevelopment
                                 buttonCnt++;
                                 break;
                             case "btn_editItemType":
+                                btn_editItemType.Visible = true;
+                                buttonCnt++;
+                                break;
+                            case "btn_editStockEntry":
                                 btn_editItemType.Visible = true;
                                 buttonCnt++;
                                 break;
