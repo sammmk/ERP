@@ -85,6 +85,12 @@
     <Compile Include="CLL\FrmEditItemType.Designer.cs">
       <DependentUpon>FrmEditItemType.cs</DependentUpon>
     </Compile>
+    <Compile Include="CLL\FrmEditStockIntake.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmEditStockIntake.Designer.cs">
+      <DependentUpon>FrmEditStockIntake.cs</DependentUpon>
+    </Compile>
     <Compile Include="CLL\FrmReleaseStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,11 +111,20 @@
     <EmbeddedResource Include="CLL\FrmAddItemType.resx">
       <DependentUpon>FrmAddItemType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmAdjustStock.resx">
+      <DependentUpon>FrmAdjustStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmEditItem.resx">
       <DependentUpon>FrmEditItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmEditItemType.resx">
       <DependentUpon>FrmEditItemType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmEditStockIntake.resx">
+      <DependentUpon>FrmEditStockIntake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmStockIntake.resx">
+      <DependentUpon>FrmStockIntake.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

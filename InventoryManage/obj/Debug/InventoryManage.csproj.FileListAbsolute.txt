@@ -8,9 +8,12 @@ C:\Mohan\Projects\login-master\InventoryManage\bin\Debug\MySql.Data.xml
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.csprojResolveAssemblyReference.cache
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmAddItem.resources
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmAddItemType.resources
+C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmEditItem.resources
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmEditItemType.resources
+C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmStockIntake.resources
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.Properties.Resources.resources
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.csproj.GenerateResource.Cache
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.exe
 C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.pdb
-C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmEditItem.resources
+C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmAdjustStock.resources
+C:\Mohan\Projects\login-master\InventoryManage\obj\Debug\InventoryManage.CLL.FrmEditStockIntake.resources
