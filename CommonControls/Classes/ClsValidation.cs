@@ -73,6 +73,15 @@ namespace CommonControls.Classes
             return ret;
         }
 
+        public bool isDoubleValue(string value)
+        {
+            string valReg = @"^[0-9]*(?:\.[0-9]*)?$";
+
+            bool ret = regexCheck(value, valReg);
+
+            return ret;
+        }
+
         private bool regexCheck(string str, string regx)
         {
             bool ret = true;
