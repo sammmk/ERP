@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbl_destinations`
+--
+
+DROP TABLE IF EXISTS `tbl_destinations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_destinations` (
+  `destinationId` int(11) NOT NULL,
+  `destinationName` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phoneNo` varchar(20) DEFAULT NULL,
+  `ownerName` varchar(255) DEFAULT NULL,
+  `ownerPhoneNo` varchar(20) DEFAULT NULL,
+  `deleteFlg` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`destinationId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_destinations`
+--
+
+LOCK TABLES `tbl_destinations` WRITE;
+/*!40000 ALTER TABLE `tbl_destinations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_destinations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_forms`
 --
 
@@ -38,7 +66,7 @@ CREATE TABLE `tbl_forms` (
 
 LOCK TABLES `tbl_forms` WRITE;
 /*!40000 ALTER TABLE `tbl_forms` DISABLE KEYS */;
-INSERT INTO `tbl_forms` VALUES ('FrmChangePassWd',10001,'LOGIN','N/A',1),('frm_Login',10002,'LOGIN','N/A',1),('Frm_Main',10003,'LOGIN','N/A',1),('FrmCreateUser',10004,'UserManage','btn_createUser',0),('FrmAddUserRole',10005,'UserManage','btn_userRole',0),('FrmEditUser',10006,'UserManage','btn_editUser',0),('FrmSetUserPermission',10007,'UserManage','btn_setFormPermission',0),('FrmEditUserRole',10008,'UserManage','btn_editUserRole',0),('FrmAddItem',10009,'InventoryManage','btn_addItem',0),('FrmAdjustReasedStock',10010,'InventoryManage','btn_adjustReleasedStock',0),('FrmAdjustStock',10011,'InventoryManage','btn_adjustStock',0),('FrmEditItem',10012,'InventoryManage','btn_editItem',0),('FrmReleaseStock',10013,'InventoryManage','btn_releaseStock',0),('FrmStockIntake',10014,'InventoryManage','btn_stockIntake',0),('FrmAddItemType',10015,'InventoryManage','btn_addItemType',0),('FrmEditItemType',10016,'InventoryManage','btn_editItemType',0);
+INSERT INTO `tbl_forms` VALUES ('FrmChangePassWd',10001,'LOGIN','N/A',1),('frm_Login',10002,'LOGIN','N/A',1),('Frm_Main',10003,'LOGIN','N/A',1),('FrmCreateUser',10004,'UserManage','btn_createUser',0),('FrmAddUserRole',10005,'UserManage','btn_userRole',0),('FrmEditUser',10006,'UserManage','btn_editUser',0),('FrmSetUserPermission',10007,'UserManage','btn_setFormPermission',0),('FrmEditUserRole',10008,'UserManage','btn_editUserRole',0),('FrmAddItem',10009,'InventoryManage','btn_addItem',0),('FrmAdjustReasedStock',10010,'InventoryManage','btn_adjustReleasedStock',0),('FrmAdjustStock',10011,'InventoryManage','btn_adjustStock',0),('FrmEditItem',10012,'InventoryManage','btn_editItem',0),('FrmReleaseStock',10013,'InventoryManage','btn_releaseStock',0),('FrmStockIntake',10014,'InventoryManage','btn_stockIntake',0),('FrmAddItemType',10015,'InventoryManage','btn_addItemType',0),('FrmEditItemType',10016,'InventoryManage','btn_editItemType',0),('FrmEditStockIntake',10017,'InventoryManage','btn_editStockEntry',0);
 /*!40000 ALTER TABLE `tbl_forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +79,7 @@ DROP TABLE IF EXISTS `tbl_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_item` (
   `itemId` int(11) NOT NULL,
-  `itemCode` varchar(255) NOT NULL,
+  `itemCode` varchar(15) NOT NULL,
   `itemName` varchar(255) NOT NULL,
   `altName` varchar(255) DEFAULT NULL,
   `itemTypeId` int(11) DEFAULT NULL,
@@ -129,16 +157,21 @@ DROP TABLE IF EXISTS `tbl_stockentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_stockentry` (
-  `stockEntryId` int(11) NOT NULL,
-  `itemCode` int(11) NOT NULL,
+  `stockEntryId` int(12) NOT NULL,
+  `itemCode` varchar(15) NOT NULL,
   `itemId` int(11) DEFAULT NULL,
-  `batchNo` varchar(45) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
+  `updateDate` datetime DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
   `buyingUnitPrice` double DEFAULT NULL,
   `sellingUnitPrice` double DEFAULT NULL,
   `stockEntryDate` datetime DEFAULT NULL,
   `createDate` datetime DEFAULT NULL,
   `expirationDate` datetime DEFAULT NULL,
+  `totalValue` double DEFAULT NULL,
+  `remainQuantity` double DEFAULT NULL,
+  `priceAfterDiscount` double DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `releaseFlg` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`stockEntryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -149,7 +182,43 @@ CREATE TABLE `tbl_stockentry` (
 
 LOCK TABLES `tbl_stockentry` WRITE;
 /*!40000 ALTER TABLE `tbl_stockentry` DISABLE KEYS */;
+INSERT INTO `tbl_stockentry` VALUES (201704261,'45789',40003,'2017-04-26 00:00:00',23,458.56,500,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-12-26 00:00:00',10546.88,NULL,NULL,NULL,0),(201704262,'848484',40004,'2017-04-26 00:00:00',12,222,233,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-11-26 00:00:00',2664,NULL,NULL,NULL,0),(201704271,'45789',40003,'2017-04-27 00:00:00',12,222,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-10-27 00:00:00',2664,NULL,NULL,NULL,0),(201704272,'45789',40003,'2017-04-27 00:00:00',20,300,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-16 00:00:00',6000,NULL,NULL,NULL,0),(201704273,'848484',40004,'2017-04-27 00:00:00',60,650,700,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-11 00:00:00',39000,NULL,NULL,NULL,0),(201704274,'45789',40003,'2017-04-27 00:00:00',34,34,56,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-09-22 00:00:00',1156,NULL,NULL,NULL,0),(201704275,'848484',40004,'2017-04-27 00:00:00',23,78,89,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-06-22 00:00:00',1794,NULL,NULL,NULL,0),(201704276,'45789',40003,'2017-04-27 00:00:00',45,54,54,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-27 00:00:00',2430,NULL,NULL,NULL,0),(201704277,'45789',40003,'2017-04-28 00:00:00',78,500,666,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-20 00:00:00',39000,78,43000,'Test the comment',0);
 /*!40000 ALTER TABLE `tbl_stockentry` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_stockrelease`
+--
+
+DROP TABLE IF EXISTS `tbl_stockrelease`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_stockrelease` (
+  `releaseId` int(11) NOT NULL,
+  `stockEntryId` int(11) NOT NULL,
+  `destinationId` int(11) DEFAULT NULL,
+  `ItemCode` varchar(15) DEFAULT NULL,
+  `itemId` int(11) DEFAULT NULL,
+  `releaseUnitPrice` double DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `totalValue` double DEFAULT NULL,
+  `discount_per` double DEFAULT NULL,
+  `finalPrice` double DEFAULT NULL,
+  `releaseDate` datetime DEFAULT NULL,
+  `scheduledDeliveryDate` datetime DEFAULT NULL,
+  `deliveredDate` datetime DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`releaseId`,`stockEntryId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_stockrelease`
+--
+
+LOCK TABLES `tbl_stockrelease` WRITE;
+/*!40000 ALTER TABLE `tbl_stockrelease` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_stockrelease` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -207,7 +276,7 @@ CREATE TABLE `tbl_userpermission` (
 
 LOCK TABLES `tbl_userpermission` WRITE;
 /*!40000 ALTER TABLE `tbl_userpermission` DISABLE KEYS */;
-INSERT INTO `tbl_userpermission` VALUES (10001,20001,1,1),(10002,20001,1,1),(10003,20001,1,1),(10004,20001,1,1),(10005,20001,1,1),(10006,20001,1,1),(10007,20001,1,1),(10008,20001,1,1),(10009,20001,1,1),(10010,20001,1,1),(10011,20001,1,1),(10012,20001,1,1),(10013,20001,1,1),(10014,20001,1,1),(10015,20001,1,1),(10016,20001,1,1),(10001,20002,0,0),(10002,20002,0,0),(10003,20002,0,0),(10004,20002,0,0),(10005,20002,0,0),(10006,20002,0,0),(10007,20002,0,0),(10008,20002,0,0),(10009,20002,0,0),(10010,20002,0,0),(10011,20002,0,0),(10012,20002,0,0),(10013,20002,0,0),(10014,20002,0,0),(10015,20002,0,0),(10016,20002,0,0),(10001,20003,1,0),(10002,20003,1,0),(10003,20003,1,0),(10004,20003,1,0),(10005,20003,1,0),(10006,20003,1,0),(10007,20003,1,0),(10008,20003,1,0),(10009,20003,0,0),(10010,20003,0,0),(10011,20003,0,0),(10012,20003,0,0),(10013,20003,0,0),(10014,20003,0,0),(10015,20003,0,0),(10016,20003,0,0),(10001,20004,0,0),(10002,20004,0,0),(10003,20004,0,0),(10004,20004,0,0),(10005,20004,0,0),(10006,20004,0,0),(10007,20004,0,0),(10008,20004,0,0),(10009,20004,0,0),(10010,20004,0,0),(10011,20004,0,0),(10012,20004,0,0),(10013,20004,0,0),(10014,20004,0,0),(10015,20004,0,0),(10016,20004,0,0),(10001,20005,1,1),(10002,20005,1,1),(10003,20005,1,1),(10004,20005,1,1),(10005,20005,1,1),(10006,20005,1,1),(10007,20005,1,1),(10008,20005,1,1),(10009,20005,1,1),(10010,20005,1,1),(10011,20005,1,1),(10012,20005,1,1),(10013,20005,1,1),(10014,20005,1,1),(10015,20005,1,1),(10016,20005,1,1);
+INSERT INTO `tbl_userpermission` VALUES (10001,20001,1,1),(10002,20001,1,1),(10003,20001,1,1),(10004,20001,1,1),(10005,20001,1,1),(10006,20001,1,1),(10007,20001,1,1),(10008,20001,1,1),(10009,20001,1,1),(10010,20001,1,1),(10011,20001,1,1),(10012,20001,1,1),(10013,20001,1,1),(10014,20001,1,1),(10015,20001,1,1),(10016,20001,1,1),(10017,20001,1,1),(10001,20002,0,0),(10002,20002,0,0),(10003,20002,0,0),(10004,20002,0,0),(10005,20002,0,0),(10006,20002,0,0),(10007,20002,0,0),(10008,20002,0,0),(10009,20002,0,0),(10010,20002,0,0),(10011,20002,0,0),(10012,20002,0,0),(10013,20002,0,0),(10014,20002,0,0),(10015,20002,0,0),(10016,20002,0,0),(10017,20002,0,0),(10001,20003,1,0),(10002,20003,1,0),(10003,20003,1,0),(10004,20003,1,0),(10005,20003,1,0),(10006,20003,1,0),(10007,20003,1,0),(10008,20003,1,0),(10009,20003,0,0),(10010,20003,0,0),(10011,20003,0,0),(10012,20003,0,0),(10013,20003,0,0),(10014,20003,0,0),(10015,20003,0,0),(10016,20003,0,0),(10017,20003,0,0),(10001,20004,0,0),(10002,20004,0,0),(10003,20004,0,0),(10004,20004,0,0),(10005,20004,0,0),(10006,20004,0,0),(10007,20004,0,0),(10008,20004,0,0),(10009,20004,0,0),(10010,20004,0,0),(10011,20004,0,0),(10012,20004,0,0),(10013,20004,0,0),(10014,20004,0,0),(10015,20004,0,0),(10016,20004,0,0),(10017,20004,0,0),(10001,20005,1,1),(10002,20005,1,1),(10003,20005,1,1),(10004,20005,1,1),(10005,20005,1,1),(10006,20005,1,1),(10007,20005,1,1),(10008,20005,1,1),(10009,20005,1,1),(10010,20005,1,1),(10011,20005,1,1),(10012,20005,1,1),(10013,20005,1,1),(10014,20005,1,1),(10015,20005,1,1),(10016,20005,1,1),(10017,20005,0,0),(10001,20006,0,0),(10002,20006,0,0),(10003,20006,0,0),(10004,20006,0,0),(10005,20006,0,0),(10006,20006,0,0),(10007,20006,0,0),(10008,20006,0,0),(10009,20006,0,0),(10010,20006,0,0),(10011,20006,0,0),(10012,20006,0,0),(10013,20006,0,0),(10014,20006,0,0),(10015,20006,0,0),(10016,20006,0,0),(10017,20006,0,0);
 /*!40000 ALTER TABLE `tbl_userpermission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-20 15:20:11
+-- Dump completed on 2017-04-28 17:10:22
