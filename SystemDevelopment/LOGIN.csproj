@@ -123,6 +123,10 @@
       <Project>{45faa0e5-41f4-44d5-b7c9-88c316d7447f}</Project>
       <Name>InventoryManage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetaData\MetaData.csproj">
+      <Project>{532c5c0a-b6ef-46b5-a169-f3ad0eb59026}</Project>
+      <Name>MetaData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserManage\UserManage.csproj">
       <Project>{09ef60cd-4832-4215-af19-d4ef3bf25e22}</Project>
       <Name>UserManage</Name>
