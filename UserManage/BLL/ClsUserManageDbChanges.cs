@@ -27,12 +27,18 @@ namespace UserManage.BLL
 
             try
             {
-                string querry = "SELECT MAX(userId) from tbl_login;";
-                maxUserId = CONN.getMaxId(querry);
+                string querry1 = "SELECT MAX(userId) from tbl_login;";
+                maxUserId = CONN.getMaxId(querry1);
 
-                //1000 for company Id or something like that : add only for the first value   
+                //create userId for the first time   
                 if (maxUserId <= 1)
-                    maxUserId += 1000;
+                {
+                    //maxUserId += 1000;
+                    string querry2 = "SELECT prefixValue FROM tbl_prefix WHERE prefixName = 'userId';";
+                    maxUserId = CONN.getPrefix(querry2);
+                    int tmp = Convert.ToInt32(string.Concat(maxUserId.ToString(), "0000")) + 1;
+                    maxUserId = tmp;
+                }
             }
             catch (Exception e)
             {
@@ -51,9 +57,15 @@ namespace UserManage.BLL
                 string querry = "SELECT MAX(userRoleId) from tbl_userrole;";
                 maxRoleId = CONN.getMaxId(querry);
 
-                //1000 for company Id or something like that : add only for the first value   
+                //create RoleId for the first time   
                 if (maxRoleId <= 1)
-                    maxRoleId += 20000;
+                {
+                    //maxRoleId += 20000;
+                    string querry2 = "SELECT prefixValue FROM tbl_prefix WHERE prefixName = 'userRoleId';";
+                    maxRoleId = CONN.getPrefix(querry2);
+                    int tmp = Convert.ToInt32(string.Concat(maxRoleId.ToString(), "0000")) + 1;
+                    maxRoleId = tmp;
+                }
             }
             catch (Exception e)
             {

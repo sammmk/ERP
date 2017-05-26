@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonControls", "CommonCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManage", "InventoryManage\InventoryManage.csproj", "{45FAA0E5-41F4-44D5-B7C9-88C316D7447F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaData", "MetaData\MetaData.csproj", "{532C5C0A-B6EF-46B5-A169-F3AD0EB59026}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{45FAA0E5-41F4-44D5-B7C9-88C316D7447F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45FAA0E5-41F4-44D5-B7C9-88C316D7447F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45FAA0E5-41F4-44D5-B7C9-88C316D7447F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{532C5C0A-B6EF-46B5-A169-F3AD0EB59026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{532C5C0A-B6EF-46B5-A169-F3AD0EB59026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{532C5C0A-B6EF-46B5-A169-F3AD0EB59026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{532C5C0A-B6EF-46B5-A169-F3AD0EB59026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
