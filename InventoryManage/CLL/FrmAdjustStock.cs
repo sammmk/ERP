@@ -78,8 +78,13 @@ namespace InventoryManage.CLL
                 txt_totalValue.Text = STOCKDATA._totalValue.ToString();
                 txt_priceAfterDiscount.Text = STOCKDATA._priceAfterDiscount.ToString();
                 txt_comment.Text = STOCKDATA._comment;
+                txt_remainQuantity.Text = STOCKDATA._remainQuantity.ToString();
+                txt_misPlaced.Text = STOCKDATA._misPlacedQty.ToString();
+                txt_dealerId.Text = STOCKDATA._dealerId.ToString();
+                txt_dealer.Text = STOCKDATA._dealerName;
             }
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
@@ -127,7 +132,7 @@ namespace InventoryManage.CLL
 
                     if (!isError)
                     {
-                        newStockData._stockEntryId = Convert.ToInt32(txt_entryId.Text);
+                        newStockData._stockEntryId = Convert.ToInt64(txt_entryId.Text);
                         newStockData._itemCode = txt_itemCode.Text;
                         newStockData._itemId = Convert.ToInt32(txt_itemId.Text);
                         newStockData._quantity = Convert.ToDouble(txt_quantity.Text);
@@ -138,9 +143,11 @@ namespace InventoryManage.CLL
                         //newStockData._createDate = DateTime.Today;
                         newStockData._totalValue = Convert.ToDouble(txt_totalValue.Text);
                         newStockData._updateDate = DateTime.Today;
-                        newStockData._remainQuantity = Convert.ToDouble(txt_quantity.Text);
+                        newStockData._remainQuantity = Convert.ToDouble(txt_remainQuantity.Text);
                         newStockData._priceAfterDiscount = Convert.ToDouble(txt_priceAfterDiscount.Text);
                         newStockData._comment = txt_comment.Text;
+                        newStockData._misPlacedQty = Convert.ToDouble(txt_misPlaced.Text);
+                        newStockData._dealerId = Convert.ToInt32(txt_dealerId.Text);
 
                         if (MANAGEDB.updateData_stockEntry(newStockData))
                         {
@@ -259,6 +266,36 @@ namespace InventoryManage.CLL
                 {
                     double totalVal = Convert.ToDouble(quantity) * Convert.ToDouble(buyUnitPrice);
                     txt_totalValue.Text = totalVal.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+        }
+
+        private void txt_remainQuantity_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                txt_misPlaced.Text = ((STOCKDATA._remainQuantity - Convert.ToDouble(txt_remainQuantity.Text)) + STOCKDATA._misPlacedQty).ToString();
+            }
+            catch(Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+        }
+
+        private void btn_selectDealer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FrmSelectDealer dealer = new FrmSelectDealer(USERNAME))
+                {
+                    dealer.WindowState = FormWindowState.Normal;
+                    dealer.ShowDialog();
+                    this.txt_dealer.Text = (!string.IsNullOrEmpty(dealer.DealerName)) ? dealer.DealerName : this.txt_dealer.Text;
+                    this.txt_dealerId.Text = (!string.IsNullOrEmpty(dealer.DealerId)) ? dealer.DealerId : this.txt_dealerId.Text; 
                 }
             }
             catch (Exception ex)

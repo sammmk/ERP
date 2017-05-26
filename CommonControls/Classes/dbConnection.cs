@@ -231,6 +231,60 @@ namespace CommonControls.Classes
             return ret;
         }
 
+        public long getMaxId_long(string querry)
+        {
+            long ret = 0;
+            long temp = ret;
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                    temp = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt64(cmd.ExecuteScalar()) : 0;
+
+                    closeConnection();
+
+                    if (temp <= 1)
+                    {
+                        ret = 1;
+                    }
+                    else
+                    {
+                        ret = temp + 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ret;
+        }
+
+        public int getPrefix(string querry)
+        {
+            int ret = 0;
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                    ret = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt32(cmd.ExecuteScalar()) : 0;
+
+                    closeConnection();                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ret;
+        }
+
         public bool update(string querry)
         {
             bool ret = false;
@@ -277,6 +331,29 @@ namespace CommonControls.Classes
             }
 
             return dt;
+        }
+
+        public double getSumOfColumn(string querry)
+        {
+            double sum = 0;
+
+            try
+            {
+                if (openConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
+
+                    sum = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToDouble(cmd.ExecuteScalar()) : 0;
+
+                    closeConnection();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return sum;
         }
     }    
 }

@@ -49,18 +49,6 @@
   <ItemGroup>
     <Compile Include="BLL\ClsInventoryManageDbChanges.cs" />
     <Compile Include="BLL\ClsInvManageData.cs" />
-    <Compile Include="CLL\FrmAddItem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CLL\FrmAddItem.Designer.cs">
-      <DependentUpon>FrmAddItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CLL\FrmAddItemType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CLL\FrmAddItemType.Designer.cs">
-      <DependentUpon>FrmAddItemType.cs</DependentUpon>
-    </Compile>
     <Compile Include="CLL\FrmAdjustReasedStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,18 +60,6 @@
     </Compile>
     <Compile Include="CLL\FrmAdjustStock.Designer.cs">
       <DependentUpon>FrmAdjustStock.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CLL\FrmEditItem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CLL\FrmEditItem.Designer.cs">
-      <DependentUpon>FrmEditItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CLL\FrmEditItemType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CLL\FrmEditItemType.Designer.cs">
-      <DependentUpon>FrmEditItemType.cs</DependentUpon>
     </Compile>
     <Compile Include="CLL\FrmEditStockIntake.cs">
       <SubType>Form</SubType>
@@ -97,6 +73,24 @@
     <Compile Include="CLL\FrmReleaseStock.Designer.cs">
       <DependentUpon>FrmReleaseStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="CLL\FrmSelectDealer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmSelectDealer.Designer.cs">
+      <DependentUpon>FrmSelectDealer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLL\FrmSelectDestination.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmSelectDestination.Designer.cs">
+      <DependentUpon>FrmSelectDestination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLL\FrmSelectStockEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmSelectStockEntry.Designer.cs">
+      <DependentUpon>FrmSelectStockEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="CLL\FrmStockIntake.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,23 +99,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CLL\FrmAddItem.resx">
-      <DependentUpon>FrmAddItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CLL\FrmAddItemType.resx">
-      <DependentUpon>FrmAddItemType.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmAdjustStock.resx">
       <DependentUpon>FrmAdjustStock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CLL\FrmEditItem.resx">
-      <DependentUpon>FrmEditItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CLL\FrmEditItemType.resx">
-      <DependentUpon>FrmEditItemType.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmEditStockIntake.resx">
       <DependentUpon>FrmEditStockIntake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmReleaseStock.resx">
+      <DependentUpon>FrmReleaseStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmSelectDealer.resx">
+      <DependentUpon>FrmSelectDealer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmSelectDestination.resx">
+      <DependentUpon>FrmSelectDestination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmSelectStockEntry.resx">
+      <DependentUpon>FrmSelectStockEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmStockIntake.resx">
       <DependentUpon>FrmStockIntake.cs</DependentUpon>
@@ -154,6 +148,10 @@
     <ProjectReference Include="..\CommonControls\CommonControls.csproj">
       <Project>{9dca1e31-b2ae-48a1-baa4-e98f77f84c8b}</Project>
       <Name>CommonControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetaData\MetaData.csproj">
+      <Project>{532c5c0a-b6ef-46b5-a169-f3ad0eb59026}</Project>
+      <Name>MetaData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

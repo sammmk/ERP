@@ -53,21 +53,41 @@ namespace InventoryManage.CLL
                 col.HeaderText = "Stock Entry Id";
                 grd_editStockEntry.Columns.Add(col);
                 grd_editStockEntry.DataSource = MANAGEDB.getStockDetails(str);
-
+                grd_editStockEntry.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                
                 //arrange the gridview
                 grd_editStockEntry.Columns["stockEntryId"].DisplayIndex = 0;
                 grd_editStockEntry.Columns["itemCode"].DisplayIndex = 1;
                 grd_editStockEntry.Columns["itemName"].DisplayIndex = 2;
                 grd_editStockEntry.Columns["quantity"].DisplayIndex = 3;
                 grd_editStockEntry.Columns["remainQuantity"].DisplayIndex = 4;
-                grd_editStockEntry.Columns["buyingUnitPrice"].DisplayIndex = 5;
-                grd_editStockEntry.Columns["totalValue"].DisplayIndex = 6;
-                grd_editStockEntry.Columns["sellingUnitPrice"].DisplayIndex = 7;
-                grd_editStockEntry.Columns["createDate"].DisplayIndex = 8;
-                grd_editStockEntry.Columns["updateDate"].DisplayIndex = 9;
-                grd_editStockEntry.Columns["stockEntryDate"].DisplayIndex = 10;
-                grd_editStockEntry.Columns["expirationDate"].DisplayIndex = 11;
+                grd_editStockEntry.Columns["misPlacedQty"].DisplayIndex = 5;
+                grd_editStockEntry.Columns["buyingUnitPrice"].DisplayIndex = 6;
+                grd_editStockEntry.Columns["totalValue"].DisplayIndex = 7;
+                grd_editStockEntry.Columns["sellingUnitPrice"].DisplayIndex = 8;
+                grd_editStockEntry.Columns["createDate"].DisplayIndex = 9;
+                //grd_editStockEntry.Columns["updateDate"].DisplayIndex = 10;
+                //grd_editStockEntry.Columns["stockEntryDate"].DisplayIndex = 11;
+                //grd_editStockEntry.Columns["expirationDate"].DisplayIndex = 12;
+                grd_editStockEntry.Columns["dealerName"].DisplayIndex = 10;
 
+                //change headers
+                grd_editStockEntry.Columns["stockEntryId"].HeaderText = "Stock_Entry_ID";
+                grd_editStockEntry.Columns["itemCode"].HeaderText = "Item_Code";
+                grd_editStockEntry.Columns["itemName"].HeaderText = "Item_Name";
+                grd_editStockEntry.Columns["quantity"].HeaderText = "Qty";
+                grd_editStockEntry.Columns["remainQuantity"].HeaderText = "Remain_Qty";
+                grd_editStockEntry.Columns["misPlacedQty"].HeaderText = "MIsplaced_Qty";
+                grd_editStockEntry.Columns["buyingUnitPrice"].HeaderText = "Unit_Price(Buy)";
+                grd_editStockEntry.Columns["totalValue"].HeaderText = "Total_Val";
+                grd_editStockEntry.Columns["sellingUnitPrice"].HeaderText = "Unit_Price(Sell)";
+                grd_editStockEntry.Columns["createDate"].HeaderText = "Create_Date";
+                //grd_editStockEntry.Columns["updateDate"].HeaderText = "Update";
+                //grd_editStockEntry.Columns["stockEntryDate"].HeaderText = "Entry_Date";
+                //grd_editStockEntry.Columns["expirationDate"].HeaderText = "Expire";
+                grd_editStockEntry.Columns["dealerName"].HeaderText = "Dealer";
+
+                //hide columns
                 grd_editStockEntry.Columns["updateDate"].Visible = false;
                 grd_editStockEntry.Columns["stockEntryDate"].Visible = false;
                 grd_editStockEntry.Columns["expirationDate"].Visible = false;
@@ -75,10 +95,11 @@ namespace InventoryManage.CLL
                 grd_editStockEntry.Columns["priceAfterDiscount"].Visible = false;
                 grd_editStockEntry.Columns["comment"].Visible = false;
                 grd_editStockEntry.Columns["releaseFlg"].Visible = false;
+                grd_editStockEntry.Columns["dealerId"].Visible = false;
             }
             catch (Exception ex)
             {
-                throw ex;
+                COM_MESSAGE.exceptionMessage(ex.Message);
             }
         }
 
@@ -90,17 +111,17 @@ namespace InventoryManage.CLL
         private void grd_editStockEntry_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            int stockEctryId = 0;
+            long stockEctryId = 0;
             BLL.ClsStockData stockData = new BLL.ClsStockData();
 
             try
             {
-                //check for do action
+                //check permission for do action
                 if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
                 {
                     if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                     {
-                        stockEctryId = Convert.ToInt32(senderGrid.SelectedCells[e.ColumnIndex].Value);
+                        stockEctryId = Convert.ToInt64(senderGrid.SelectedCells[e.ColumnIndex].Value);
                         stockData = MANAGEDB.getSingleStockDetail(stockEctryId);
 
                         FrmAdjustStock frmUser = new FrmAdjustStock(stockData, USERNAME);
@@ -133,13 +154,13 @@ namespace InventoryManage.CLL
                 }
                 else if (chk_date.Checked)
                 {
-                    SEARCH = string.Concat(" AND s.stockEntryDate BETWEEN '", dt_from.Value.Date.ToString("yyyy/MM/dd"), "' AND '",dt_to.Value.Date.ToString("yyyy/MM/dd"), "' ");
+                    SEARCH = string.Concat(" AND stockEntryDate BETWEEN '", dt_from.Value.Date.ToString("yyyy/MM/dd"), "' AND '",dt_to.Value.Date.ToString("yyyy/MM/dd"), "' ");
                 }
                 else if (chk_itemCode.Checked)
                 {
                     if (!string.IsNullOrEmpty(txt_itemCode.Text))
                     {
-                        SEARCH = string.Concat(" AND s.itemCode = ", txt_itemCode.Text);
+                        SEARCH = string.Concat(" AND itemCode = ", txt_itemCode.Text);
                     }
                     else
                     {

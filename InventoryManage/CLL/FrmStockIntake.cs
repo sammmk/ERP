@@ -76,15 +76,17 @@ namespace InventoryManage.CLL
         {
             try
             {
-                string curr_date = DateTime.Today.ToString("yyyy/MM/dd").Replace("/", "");
-                string newId = string.Concat(curr_date, "1");
+                string curr_date = DateTime.Today.ToString("yyyy/MM/dd").Replace("/", "");                
+                int prefix = MANAGEDB.getIdPrefix("stockEntryId");
+                string newId = string.Concat(curr_date, prefix.ToString(), "0001");
 
                 //get max item Id
-                int maxId = MANAGEDB.getMaxStockEntryId();
+                long maxId = MANAGEDB.getMaxId("stockEntryId", "tbl_stockentry");
 
+                //if there are no any id in db
                 if (maxId <= 1)
                 {
-                    //get the start Id 
+                    //set the start Id 
                     txt_entryId.Text = newId;
                 }
                 else
@@ -99,8 +101,7 @@ namespace InventoryManage.CLL
                     //different day stock entry
                     else
                     {
-                        txt_entryId.Text = string.Concat(curr_date, "1");
-                        
+                        txt_entryId.Text = newId;
                     }
                 }
             }
@@ -172,8 +173,13 @@ namespace InventoryManage.CLL
                             setStockEntryId();
                             txt_stockEntryDate.Text = DateTime.Today.ToString("yyyy/MM/dd");
                             fillGrid();
+                            txt_itemCode.Focus();
                         }
                     }
+                }
+                else
+                {
+                    COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
                 }
             }
             catch (Exception ex)
@@ -188,7 +194,7 @@ namespace InventoryManage.CLL
         {
             try
             {
-                STOCKDATA._stockEntryId = Convert.ToInt32(txt_entryId.Text);
+                STOCKDATA._stockEntryId = Convert.ToInt64(txt_entryId.Text);
                 STOCKDATA._itemCode = txt_itemCode.Text;
                 STOCKDATA._itemId = Convert.ToInt32(txt_itemId.Text);
                 STOCKDATA._quantity = Convert.ToDouble(txt_quantity.Text);
@@ -202,6 +208,7 @@ namespace InventoryManage.CLL
                 STOCKDATA._remainQuantity = Convert.ToDouble(txt_quantity.Text);
                 STOCKDATA._priceAfterDiscount = Convert.ToDouble(txt_priceAfterDiscount.Text);
                 STOCKDATA._comment = txt_comment.Text;
+                STOCKDATA._dealerId = (!string.IsNullOrEmpty(txt_dealerId.Text)) ? Convert.ToInt32(txt_dealerId.Text) : 0;
             }
             catch (Exception ex)
             {
@@ -301,6 +308,7 @@ namespace InventoryManage.CLL
                 col.HeaderText = "Stock Entry Id";
                 grd_stockCurrent.Columns.Add(col);
                 grd_stockCurrent.DataSource = MANAGEDB.getCurrentDayStockDetails();
+                grd_stockCurrent.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
 
                 //arrange the gridview
                 grd_stockCurrent.Columns["stockEntryId"].DisplayIndex = 0;
@@ -312,10 +320,27 @@ namespace InventoryManage.CLL
                 grd_stockCurrent.Columns["totalValue"].DisplayIndex = 6;
                 grd_stockCurrent.Columns["sellingUnitPrice"].DisplayIndex = 7;
                 grd_stockCurrent.Columns["createDate"].DisplayIndex = 8;
-                grd_stockCurrent.Columns["updateDate"].DisplayIndex = 9;
-                grd_stockCurrent.Columns["stockEntryDate"].DisplayIndex = 10;
-                grd_stockCurrent.Columns["expirationDate"].DisplayIndex = 11;
+                //grd_stockCurrent.Columns["updateDate"].DisplayIndex = 9;
+                //grd_stockCurrent.Columns["stockEntryDate"].DisplayIndex = 10;
+                //grd_stockCurrent.Columns["expirationDate"].DisplayIndex = 11;
+                grd_stockCurrent.Columns["dealerName"].DisplayIndex = 12;
 
+                //change the header names
+                grd_stockCurrent.Columns["stockEntryId"].HeaderText = "Stock_Id";
+                grd_stockCurrent.Columns["itemCode"].HeaderText = "Item_Code";
+                grd_stockCurrent.Columns["itemName"].HeaderText = "Item_Name";
+                grd_stockCurrent.Columns["quantity"].HeaderText = "Qty";
+                grd_stockCurrent.Columns["remainQuantity"].HeaderText = "Remain_Qty";
+                grd_stockCurrent.Columns["buyingUnitPrice"].HeaderText = "Unit_Price(Buy)";
+                grd_stockCurrent.Columns["totalValue"].HeaderText = "Total";
+                grd_stockCurrent.Columns["sellingUnitPrice"].HeaderText = "Unit_Price(Sell)";
+                grd_stockCurrent.Columns["createDate"].HeaderText = "Create";
+                grd_stockCurrent.Columns["updateDate"].HeaderText = "Update";
+                grd_stockCurrent.Columns["stockEntryDate"].HeaderText = "Entry";
+                grd_stockCurrent.Columns["expirationDate"].HeaderText = "Expire";
+                grd_stockCurrent.Columns["dealerName"].HeaderText = "Dealer"; 
+
+                //hide columns
                 grd_stockCurrent.Columns["updateDate"].Visible = false;
                 grd_stockCurrent.Columns["stockEntryDate"].Visible = false;
                 grd_stockCurrent.Columns["expirationDate"].Visible = false;
@@ -323,10 +348,11 @@ namespace InventoryManage.CLL
                 grd_stockCurrent.Columns["priceAfterDiscount"].Visible = false;
                 grd_stockCurrent.Columns["comment"].Visible = false;
                 grd_stockCurrent.Columns["releaseFlg"].Visible = false;
+                grd_stockCurrent.Columns["dealerId"].Visible = false;
             }
             catch (Exception ex)
             {
-                throw ex;
+                COM_MESSAGE.exceptionMessage(ex.Message);
             }
         }
 
@@ -382,8 +408,11 @@ namespace InventoryManage.CLL
 
                 if (!string.IsNullOrEmpty(buyUnitPrice) && !string.IsNullOrEmpty(quantity))
                 {
-                    double totalVal = Convert.ToDouble(quantity) * Convert.ToDouble(buyUnitPrice);
-                    txt_totalValue.Text = totalVal.ToString();
+                    if (VALIDATION.isDoubleValue(buyUnitPrice) && VALIDATION.isDoubleValue(quantity))
+                    {
+                        double totalVal = Convert.ToDouble(quantity) * Convert.ToDouble(buyUnitPrice);
+                        txt_totalValue.Text = totalVal.ToString();
+                    }
                 }
                 else
                 {
@@ -399,7 +428,7 @@ namespace InventoryManage.CLL
         private void grd_stockCurrent_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            int stockEntryId = 0;
+            long stockEntryId = 0;
             BLL.ClsStockData stockData = new BLL.ClsStockData();
 
             try
@@ -409,7 +438,7 @@ namespace InventoryManage.CLL
                 {
                     if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                     {
-                        stockEntryId = Convert.ToInt32(senderGrid.SelectedCells[e.ColumnIndex].Value);
+                        stockEntryId = Convert.ToInt64(senderGrid.SelectedCells[e.ColumnIndex].Value);
                         stockData = MANAGEDB.getSingleStockDetail(stockEntryId);
 
                         if (stockData._releaseFlg == 0)
@@ -436,5 +465,22 @@ namespace InventoryManage.CLL
             }
         }
 
+        private void btn_selectDealer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FrmSelectDealer dealer = new FrmSelectDealer(USERNAME))
+                {
+                    dealer.WindowState = FormWindowState.Normal;
+                    dealer.ShowDialog();
+                    this.txt_dealer.Text = dealer.DealerName;
+                    this.txt_dealerId.Text = dealer.DealerId;
+                }
+            }
+            catch(Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+        }
     }
 }

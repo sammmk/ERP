@@ -16,7 +16,7 @@ namespace InventoryManage
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CLL.FrmAddItem());
+            Application.Run(new CLL.FrmStockIntake());
         }
     }
 }

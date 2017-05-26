@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.pnl_stockAdjust = new System.Windows.Forms.Panel();
+            this.txt_misPlaced = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txt_remainQuantity = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txt_comment = new System.Windows.Forms.TextBox();
+            this.txt_priceAfterDiscount = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.btn_clear = new System.Windows.Forms.Button();
             this.btn_update = new System.Windows.Forms.Button();
             this.txt_totalValue = new System.Windows.Forms.TextBox();
@@ -54,15 +62,23 @@
             this.txt_entryId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txt_comment = new System.Windows.Forms.TextBox();
-            this.txt_priceAfterDiscount = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.txt_dealer = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txt_dealerId = new System.Windows.Forms.TextBox();
+            this.btn_selectDealer = new System.Windows.Forms.Button();
             this.pnl_stockAdjust.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_stockAdjust
             // 
+            this.pnl_stockAdjust.Controls.Add(this.txt_dealerId);
+            this.pnl_stockAdjust.Controls.Add(this.btn_selectDealer);
+            this.pnl_stockAdjust.Controls.Add(this.txt_dealer);
+            this.pnl_stockAdjust.Controls.Add(this.label16);
+            this.pnl_stockAdjust.Controls.Add(this.txt_misPlaced);
+            this.pnl_stockAdjust.Controls.Add(this.label15);
+            this.pnl_stockAdjust.Controls.Add(this.txt_remainQuantity);
+            this.pnl_stockAdjust.Controls.Add(this.label14);
             this.pnl_stockAdjust.Controls.Add(this.label13);
             this.pnl_stockAdjust.Controls.Add(this.txt_comment);
             this.pnl_stockAdjust.Controls.Add(this.txt_priceAfterDiscount);
@@ -98,9 +114,76 @@
             this.pnl_stockAdjust.Size = new System.Drawing.Size(1020, 397);
             this.pnl_stockAdjust.TabIndex = 0;
             // 
+            // txt_misPlaced
+            // 
+            this.txt_misPlaced.Enabled = false;
+            this.txt_misPlaced.Location = new System.Drawing.Point(783, 212);
+            this.txt_misPlaced.Name = "txt_misPlaced";
+            this.txt_misPlaced.Size = new System.Drawing.Size(146, 19);
+            this.txt_misPlaced.TabIndex = 57;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(661, 215);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(109, 12);
+            this.label15.TabIndex = 56;
+            this.label15.Text = "Misplaced Quantity :";
+            // 
+            // txt_remainQuantity
+            // 
+            this.txt_remainQuantity.Location = new System.Drawing.Point(783, 178);
+            this.txt_remainQuantity.Name = "txt_remainQuantity";
+            this.txt_remainQuantity.Size = new System.Drawing.Size(146, 19);
+            this.txt_remainQuantity.TabIndex = 55;
+            this.txt_remainQuantity.Leave += new System.EventHandler(this.txt_remainQuantity_Leave);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(661, 181);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 12);
+            this.label14.TabIndex = 54;
+            this.label14.Text = "Remain Quantity :";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(661, 117);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(59, 12);
+            this.label13.TabIndex = 53;
+            this.label13.Text = "Comment :";
+            // 
+            // txt_comment
+            // 
+            this.txt_comment.Location = new System.Drawing.Point(783, 110);
+            this.txt_comment.Multiline = true;
+            this.txt_comment.Name = "txt_comment";
+            this.txt_comment.Size = new System.Drawing.Size(208, 53);
+            this.txt_comment.TabIndex = 52;
+            // 
+            // txt_priceAfterDiscount
+            // 
+            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(783, 76);
+            this.txt_priceAfterDiscount.Name = "txt_priceAfterDiscount";
+            this.txt_priceAfterDiscount.Size = new System.Drawing.Size(146, 19);
+            this.txt_priceAfterDiscount.TabIndex = 51;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(661, 79);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(116, 12);
+            this.label12.TabIndex = 50;
+            this.label12.Text = "Price After Discount :";
+            // 
             // btn_clear
             // 
-            this.btn_clear.Location = new System.Drawing.Point(916, 248);
+            this.btn_clear.Location = new System.Drawing.Point(916, 294);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(75, 30);
             this.btn_clear.TabIndex = 49;
@@ -109,7 +192,7 @@
             // 
             // btn_update
             // 
-            this.btn_update.Location = new System.Drawing.Point(783, 248);
+            this.btn_update.Location = new System.Drawing.Point(783, 294);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(75, 30);
             this.btn_update.TabIndex = 48;
@@ -306,38 +389,40 @@
             this.label1.Text = "Stock Adjustment";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label13
+            // txt_dealer
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(661, 117);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(59, 12);
-            this.label13.TabIndex = 53;
-            this.label13.Text = "Comment :";
+            this.txt_dealer.Location = new System.Drawing.Point(783, 246);
+            this.txt_dealer.Name = "txt_dealer";
+            this.txt_dealer.Size = new System.Drawing.Size(146, 19);
+            this.txt_dealer.TabIndex = 59;
             // 
-            // txt_comment
+            // label16
             // 
-            this.txt_comment.Location = new System.Drawing.Point(783, 110);
-            this.txt_comment.Multiline = true;
-            this.txt_comment.Name = "txt_comment";
-            this.txt_comment.Size = new System.Drawing.Size(208, 66);
-            this.txt_comment.TabIndex = 52;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(661, 249);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 12);
+            this.label16.TabIndex = 58;
+            this.label16.Text = "Dealer :";
             // 
-            // txt_priceAfterDiscount
+            // txt_dealerId
             // 
-            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(783, 76);
-            this.txt_priceAfterDiscount.Name = "txt_priceAfterDiscount";
-            this.txt_priceAfterDiscount.Size = new System.Drawing.Size(146, 19);
-            this.txt_priceAfterDiscount.TabIndex = 51;
+            this.txt_dealerId.Enabled = false;
+            this.txt_dealerId.Location = new System.Drawing.Point(744, 246);
+            this.txt_dealerId.Name = "txt_dealerId";
+            this.txt_dealerId.Size = new System.Drawing.Size(26, 19);
+            this.txt_dealerId.TabIndex = 61;
+            this.txt_dealerId.Visible = false;
             // 
-            // label12
+            // btn_selectDealer
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(661, 79);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(116, 12);
-            this.label12.TabIndex = 50;
-            this.label12.Text = "Price After Discount :";
+            this.btn_selectDealer.Location = new System.Drawing.Point(935, 246);
+            this.btn_selectDealer.Name = "btn_selectDealer";
+            this.btn_selectDealer.Size = new System.Drawing.Size(30, 19);
+            this.btn_selectDealer.TabIndex = 60;
+            this.btn_selectDealer.Text = ". . .";
+            this.btn_selectDealer.UseVisualStyleBackColor = true;
+            this.btn_selectDealer.Click += new System.EventHandler(this.btn_selectDealer_Click);
             // 
             // FrmAdjustStock
             // 
@@ -389,5 +474,13 @@
         private System.Windows.Forms.TextBox txt_comment;
         private System.Windows.Forms.TextBox txt_priceAfterDiscount;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txt_remainQuantity;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txt_misPlaced;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txt_dealer;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txt_dealerId;
+        private System.Windows.Forms.Button btn_selectDealer;
     }
 }
