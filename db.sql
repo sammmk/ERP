@@ -16,6 +16,64 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbl_assets`
+--
+
+DROP TABLE IF EXISTS `tbl_assets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_assets` (
+  `assetId` int(11) NOT NULL,
+  `assetName` varchar(255) DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `totalValue` double DEFAULT '0',
+  `deleteFlg` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`assetId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_assets`
+--
+
+LOCK TABLES `tbl_assets` WRITE;
+/*!40000 ALTER TABLE `tbl_assets` DISABLE KEYS */;
+INSERT INTO `tbl_assets` VALUES (280001,'Test01',100,'testing1234',121,12100,0),(280002,'test2',1223,'test2trtr',1,1223,0),(280003,'03test',100000,'03Test03',2,200000,0),(280004,'22343rw',89.25689,'d23ref sdzv',2.56,228.4976384,0),(280005,'aaaa',45,'sdsdsdsd',89,4005,0);
+/*!40000 ALTER TABLE `tbl_assets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_dealers`
+--
+
+DROP TABLE IF EXISTS `tbl_dealers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_dealers` (
+  `dealerId` int(11) NOT NULL,
+  `dealerName` varchar(255) DEFAULT NULL,
+  `companyName` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phoneNo` varchar(45) DEFAULT NULL,
+  `mobile` varchar(45) DEFAULT NULL,
+  `deleteFlg` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`dealerId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_dealers`
+--
+
+LOCK TABLES `tbl_dealers` WRITE;
+/*!40000 ALTER TABLE `tbl_dealers` DISABLE KEYS */;
+INSERT INTO `tbl_dealers` VALUES (270001,'Abc','Test','colombo,','077585858','077636363',0),(270002,'xyz','xxxx','japan','45454545','12121212',0),(270003,'mohan','mmk','negombo','454545454','8989898989',0);
+/*!40000 ALTER TABLE `tbl_dealers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_destinations`
 --
 
@@ -25,10 +83,10 @@ DROP TABLE IF EXISTS `tbl_destinations`;
 CREATE TABLE `tbl_destinations` (
   `destinationId` int(11) NOT NULL,
   `destinationName` varchar(255) DEFAULT NULL,
+  `ownerName` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `phoneNo` varchar(20) DEFAULT NULL,
-  `ownerName` varchar(255) DEFAULT NULL,
-  `ownerPhoneNo` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
   `deleteFlg` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`destinationId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,6 +98,7 @@ CREATE TABLE `tbl_destinations` (
 
 LOCK TABLES `tbl_destinations` WRITE;
 /*!40000 ALTER TABLE `tbl_destinations` DISABLE KEYS */;
+INSERT INTO `tbl_destinations` VALUES (260001,'MMk','mohan','colombo','454545','787878',0),(260002,'test','testing123','japan','45454','4545545',0),(260003,'ABC','AAA','asdfwert','1245782356','985623741',0),(260004,'XYZ','wwwww','skdkdkdkd;s:;s','899989','2312121',0);
 /*!40000 ALTER TABLE `tbl_destinations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +125,7 @@ CREATE TABLE `tbl_forms` (
 
 LOCK TABLES `tbl_forms` WRITE;
 /*!40000 ALTER TABLE `tbl_forms` DISABLE KEYS */;
-INSERT INTO `tbl_forms` VALUES ('FrmChangePassWd',10001,'LOGIN','N/A',1),('frm_Login',10002,'LOGIN','N/A',1),('Frm_Main',10003,'LOGIN','N/A',1),('FrmCreateUser',10004,'UserManage','btn_createUser',0),('FrmAddUserRole',10005,'UserManage','btn_userRole',0),('FrmEditUser',10006,'UserManage','btn_editUser',0),('FrmSetUserPermission',10007,'UserManage','btn_setFormPermission',0),('FrmEditUserRole',10008,'UserManage','btn_editUserRole',0),('FrmAddItem',10009,'InventoryManage','btn_addItem',0),('FrmAdjustReasedStock',10010,'InventoryManage','btn_adjustReleasedStock',0),('FrmAdjustStock',10011,'InventoryManage','btn_adjustStock',0),('FrmEditItem',10012,'InventoryManage','btn_editItem',0),('FrmReleaseStock',10013,'InventoryManage','btn_releaseStock',0),('FrmStockIntake',10014,'InventoryManage','btn_stockIntake',0),('FrmAddItemType',10015,'InventoryManage','btn_addItemType',0),('FrmEditItemType',10016,'InventoryManage','btn_editItemType',0),('FrmEditStockIntake',10017,'InventoryManage','btn_editStockEntry',0);
+INSERT INTO `tbl_forms` VALUES ('FrmChangePassWd',10001,'LOGIN','N/A',1),('frm_Login',10002,'LOGIN','N/A',1),('Frm_Main',10003,'LOGIN','N/A',1),('FrmCreateUser',10004,'UserManage','btn_createUser',0),('FrmAddUserRole',10005,'UserManage','btn_userRole',0),('FrmEditUser',10006,'UserManage','btn_editUser',0),('FrmSetUserPermission',10007,'UserManage','btn_setFormPermission',0),('FrmEditUserRole',10008,'UserManage','btn_editUserRole',0),('FrmAddItem',10009,'InventoryManage','btn_addItem',0),('FrmAdjustReasedStock',10010,'InventoryManage','btn_adjustReleasedStock',0),('FrmAdjustStock',10011,'InventoryManage','btn_adjustStock',0),('FrmEditItem',10012,'InventoryManage','btn_editItem',0),('FrmReleaseStock',10013,'InventoryManage','btn_releaseStock',0),('FrmStockIntake',10014,'InventoryManage','btn_stockIntake',0),('FrmAddItemType',10015,'InventoryManage','btn_addItemType',0),('FrmEditItemType',10016,'InventoryManage','btn_editItemType',0),('FrmEditStockIntake',10017,'InventoryManage','btn_editStockEntry',0),('FrmAddAssets',10018,'MetaData','btn_addAssets',0),('FrmEditAssets',10019,'MetaData','btn_editAssets',0),('FrmAddDealers',10020,'MetaData','btn_addDealer',0),('FrmEditDealers',10021,'MetaData','btn_editDealer',0),('FrmAddDestinations',10022,'MetaData','btn_addDestination',0),('FrmEditDestinations',10023,'MetaData','btn_editDestination',0);
 /*!40000 ALTER TABLE `tbl_forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +153,7 @@ CREATE TABLE `tbl_item` (
 
 LOCK TABLES `tbl_item` WRITE;
 /*!40000 ALTER TABLE `tbl_item` DISABLE KEYS */;
-INSERT INTO `tbl_item` VALUES (40001,'2345678765ff','TEST01','test1',30002,0),(40002,'1122233','test2','Test2',30001,0),(40003,'45789','test3','Test3',30002,0),(40004,'848484','test4','මව',30002,0);
+INSERT INTO `tbl_item` VALUES (40001,'2345678765ff','TEST01','test1',30002,0),(40002,'1122233','test2','Test2',30001,0),(40003,'45789','test3','Test3',30002,0),(40004,'848484','test4','මව',30002,0),(40005,'12345','Testing111','checking',30002,0);
 /*!40000 ALTER TABLE `tbl_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,6 +209,30 @@ INSERT INTO `tbl_login` VALUES ('123qwe','46f94c8de14fb36680850768ff1b7f2a',1005
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbl_prefix`
+--
+
+DROP TABLE IF EXISTS `tbl_prefix`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_prefix` (
+  `prefixName` varchar(255) NOT NULL,
+  `prefixValue` int(11) DEFAULT NULL,
+  PRIMARY KEY (`prefixName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_prefix`
+--
+
+LOCK TABLES `tbl_prefix` WRITE;
+/*!40000 ALTER TABLE `tbl_prefix` DISABLE KEYS */;
+INSERT INTO `tbl_prefix` VALUES ('assetId',27),('dealerId',26),('destinationId',25),('formId',1),('itemId',22),('itemTypeId',24),('stockEntryId',77),('stockReleaseId',88),('userId',11),('userRoleId',12);
+/*!40000 ALTER TABLE `tbl_prefix` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_stockentry`
 --
 
@@ -157,7 +240,7 @@ DROP TABLE IF EXISTS `tbl_stockentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_stockentry` (
-  `stockEntryId` int(12) NOT NULL,
+  `stockEntryId` bigint(15) NOT NULL,
   `itemCode` varchar(15) NOT NULL,
   `itemId` int(11) DEFAULT NULL,
   `updateDate` datetime DEFAULT NULL,
@@ -172,6 +255,8 @@ CREATE TABLE `tbl_stockentry` (
   `priceAfterDiscount` double DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `releaseFlg` tinyint(1) DEFAULT '0',
+  `misPlacedQty` double DEFAULT '0',
+  `dealerId` int(7) DEFAULT '0',
   PRIMARY KEY (`stockEntryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -182,7 +267,7 @@ CREATE TABLE `tbl_stockentry` (
 
 LOCK TABLES `tbl_stockentry` WRITE;
 /*!40000 ALTER TABLE `tbl_stockentry` DISABLE KEYS */;
-INSERT INTO `tbl_stockentry` VALUES (201704261,'45789',40003,'2017-04-26 00:00:00',23,458.56,500,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-12-26 00:00:00',10546.88,NULL,NULL,NULL,0),(201704262,'848484',40004,'2017-04-26 00:00:00',12,222,233,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-11-26 00:00:00',2664,NULL,NULL,NULL,0),(201704271,'45789',40003,'2017-04-27 00:00:00',12,222,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-10-27 00:00:00',2664,NULL,NULL,NULL,0),(201704272,'45789',40003,'2017-04-27 00:00:00',20,300,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-16 00:00:00',6000,NULL,NULL,NULL,0),(201704273,'848484',40004,'2017-04-27 00:00:00',60,650,700,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-11 00:00:00',39000,NULL,NULL,NULL,0),(201704274,'45789',40003,'2017-04-27 00:00:00',34,34,56,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-09-22 00:00:00',1156,NULL,NULL,NULL,0),(201704275,'848484',40004,'2017-04-27 00:00:00',23,78,89,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-06-22 00:00:00',1794,NULL,NULL,NULL,0),(201704276,'45789',40003,'2017-04-27 00:00:00',45,54,54,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-27 00:00:00',2430,NULL,NULL,NULL,0),(201704277,'45789',40003,'2017-04-28 00:00:00',78,500,666,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-20 00:00:00',39000,78,43000,'Test the comment',0);
+INSERT INTO `tbl_stockentry` VALUES (20170426770001,'45789',40003,'2017-05-18 00:00:00',23,458.56,500,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-12-26 00:00:00',10546.88,23,10000,'',0,0,270002),(20170426770002,'848484',40004,'2017-05-18 00:00:00',12,222,233,'2017-04-26 00:00:00','2017-04-26 00:00:00','2017-11-26 00:00:00',2664,12,2500,'',0,0,270001),(20170427770001,'45789',40003,'2017-04-27 00:00:00',12,222,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-10-27 00:00:00',2664,12,2500,NULL,0,0,0),(20170427770002,'45789',40003,'2017-04-27 00:00:00',20,300,300,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-16 00:00:00',6000,20,5800,NULL,0,0,0),(20170427770003,'848484',40004,'2017-04-27 00:00:00',60,650,700,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-08-11 00:00:00',39000,60,38000,NULL,0,0,0),(20170427770004,'45789',40003,'2017-04-27 00:00:00',34,34,56,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-09-22 00:00:00',1156,34,1000,NULL,0,0,0),(20170427770005,'848484',40004,'2017-05-10 00:00:00',23,78,89,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-06-22 00:00:00',1794,20,1500,'',0,3,0),(20170427770006,'45789',40003,'2017-04-27 00:00:00',45,54,54,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-27 00:00:00',2430,45,2300,NULL,0,0,0),(20170427770007,'45789',40003,'2017-05-18 00:00:00',78,500,666,'2017-04-27 00:00:00','2017-04-27 00:00:00','2017-07-20 00:00:00',39000,78,43000,'Test the comment',0,0,270003),(20170509770001,'45789',40003,'2017-05-09 00:00:00',23,77,88,'2017-05-09 00:00:00','2017-05-09 00:00:00','2017-06-09 00:00:00',1771,23,1700,'test',0,0,0),(20170509770002,'45789',40003,'2017-05-10 00:00:00',11,455,555,'2017-05-09 00:00:00','2017-05-09 00:00:00','2017-05-27 00:00:00',5005,10,5000,'',0,1,0),(20170518770001,'45789',40003,'2017-05-18 00:00:00',12,222,223,'2017-05-18 00:00:00','2017-05-18 00:00:00','2017-07-07 00:00:00',2664,10,2500,'testing',0,2,270003),(20170518770002,'848484',40004,'2017-05-18 00:00:00',45,555,666,'2017-05-18 00:00:00','2017-05-18 00:00:00','2017-06-10 00:00:00',24975,45,23500,'dsdfsfdsfsdtt4534534534',0,0,270002);
 /*!40000 ALTER TABLE `tbl_stockentry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +361,7 @@ CREATE TABLE `tbl_userpermission` (
 
 LOCK TABLES `tbl_userpermission` WRITE;
 /*!40000 ALTER TABLE `tbl_userpermission` DISABLE KEYS */;
-INSERT INTO `tbl_userpermission` VALUES (10001,20001,1,1),(10002,20001,1,1),(10003,20001,1,1),(10004,20001,1,1),(10005,20001,1,1),(10006,20001,1,1),(10007,20001,1,1),(10008,20001,1,1),(10009,20001,1,1),(10010,20001,1,1),(10011,20001,1,1),(10012,20001,1,1),(10013,20001,1,1),(10014,20001,1,1),(10015,20001,1,1),(10016,20001,1,1),(10017,20001,1,1),(10001,20002,0,0),(10002,20002,0,0),(10003,20002,0,0),(10004,20002,0,0),(10005,20002,0,0),(10006,20002,0,0),(10007,20002,0,0),(10008,20002,0,0),(10009,20002,0,0),(10010,20002,0,0),(10011,20002,0,0),(10012,20002,0,0),(10013,20002,0,0),(10014,20002,0,0),(10015,20002,0,0),(10016,20002,0,0),(10017,20002,0,0),(10001,20003,1,0),(10002,20003,1,0),(10003,20003,1,0),(10004,20003,1,0),(10005,20003,1,0),(10006,20003,1,0),(10007,20003,1,0),(10008,20003,1,0),(10009,20003,0,0),(10010,20003,0,0),(10011,20003,0,0),(10012,20003,0,0),(10013,20003,0,0),(10014,20003,0,0),(10015,20003,0,0),(10016,20003,0,0),(10017,20003,0,0),(10001,20004,0,0),(10002,20004,0,0),(10003,20004,0,0),(10004,20004,0,0),(10005,20004,0,0),(10006,20004,0,0),(10007,20004,0,0),(10008,20004,0,0),(10009,20004,0,0),(10010,20004,0,0),(10011,20004,0,0),(10012,20004,0,0),(10013,20004,0,0),(10014,20004,0,0),(10015,20004,0,0),(10016,20004,0,0),(10017,20004,0,0),(10001,20005,1,1),(10002,20005,1,1),(10003,20005,1,1),(10004,20005,1,1),(10005,20005,1,1),(10006,20005,1,1),(10007,20005,1,1),(10008,20005,1,1),(10009,20005,1,1),(10010,20005,1,1),(10011,20005,1,1),(10012,20005,1,1),(10013,20005,1,1),(10014,20005,1,1),(10015,20005,1,1),(10016,20005,1,1),(10017,20005,0,0),(10001,20006,0,0),(10002,20006,0,0),(10003,20006,0,0),(10004,20006,0,0),(10005,20006,0,0),(10006,20006,0,0),(10007,20006,0,0),(10008,20006,0,0),(10009,20006,0,0),(10010,20006,0,0),(10011,20006,0,0),(10012,20006,0,0),(10013,20006,0,0),(10014,20006,0,0),(10015,20006,0,0),(10016,20006,0,0),(10017,20006,0,0);
+INSERT INTO `tbl_userpermission` VALUES (10001,20001,1,1),(10002,20001,1,1),(10003,20001,1,1),(10004,20001,1,1),(10005,20001,1,1),(10006,20001,1,1),(10007,20001,1,1),(10008,20001,1,1),(10009,20001,1,1),(10010,20001,1,1),(10011,20001,1,1),(10012,20001,1,1),(10013,20001,1,1),(10014,20001,1,1),(10015,20001,1,1),(10016,20001,1,1),(10017,20001,1,1),(10018,20001,1,1),(10019,20001,1,1),(10020,20001,1,1),(10021,20001,1,1),(10022,20001,1,1),(10023,20001,1,1),(10001,20002,0,0),(10002,20002,0,0),(10003,20002,0,0),(10004,20002,0,0),(10005,20002,0,0),(10006,20002,0,0),(10007,20002,0,0),(10008,20002,0,0),(10009,20002,0,0),(10010,20002,0,0),(10011,20002,0,0),(10012,20002,0,0),(10013,20002,0,0),(10014,20002,0,0),(10015,20002,0,0),(10016,20002,0,0),(10017,20002,0,0),(10018,20002,0,0),(10019,20002,0,0),(10020,20002,0,0),(10021,20002,0,0),(10022,20002,0,0),(10023,20002,0,0),(10001,20003,1,0),(10002,20003,1,0),(10003,20003,1,0),(10004,20003,1,0),(10005,20003,1,0),(10006,20003,1,0),(10007,20003,1,0),(10008,20003,1,0),(10009,20003,0,0),(10010,20003,0,0),(10011,20003,0,0),(10012,20003,0,0),(10013,20003,0,0),(10014,20003,0,0),(10015,20003,0,0),(10016,20003,0,0),(10017,20003,0,0),(10018,20003,0,0),(10019,20003,0,0),(10020,20003,0,0),(10021,20003,0,0),(10022,20003,0,0),(10023,20003,0,0),(10001,20004,0,0),(10002,20004,0,0),(10003,20004,0,0),(10004,20004,0,0),(10005,20004,0,0),(10006,20004,0,0),(10007,20004,0,0),(10008,20004,0,0),(10009,20004,0,0),(10010,20004,0,0),(10011,20004,0,0),(10012,20004,0,0),(10013,20004,0,0),(10014,20004,0,0),(10015,20004,0,0),(10016,20004,0,0),(10017,20004,0,0),(10018,20004,0,0),(10019,20004,0,0),(10020,20004,0,0),(10021,20004,0,0),(10022,20004,0,0),(10023,20004,0,0),(10001,20005,1,1),(10002,20005,1,1),(10003,20005,1,1),(10004,20005,1,1),(10005,20005,1,1),(10006,20005,1,1),(10007,20005,1,1),(10008,20005,1,1),(10009,20005,1,1),(10010,20005,1,1),(10011,20005,1,1),(10012,20005,1,1),(10013,20005,1,1),(10014,20005,1,1),(10015,20005,1,1),(10016,20005,1,1),(10017,20005,0,0),(10018,20005,0,0),(10019,20005,0,0),(10020,20005,0,0),(10021,20005,0,0),(10022,20005,0,0),(10023,20005,0,0),(10001,20006,0,0),(10002,20006,0,0),(10003,20006,0,0),(10004,20006,0,0),(10005,20006,0,0),(10006,20006,0,0),(10007,20006,0,0),(10008,20006,0,0),(10009,20006,0,0),(10010,20006,0,0),(10011,20006,0,0),(10012,20006,0,0),(10013,20006,0,0),(10014,20006,0,0),(10015,20006,0,0),(10016,20006,0,0),(10017,20006,0,0),(10018,20006,0,0),(10019,20006,0,0),(10020,20006,0,0),(10021,20006,0,0),(10022,20006,0,0),(10023,20006,0,0);
 /*!40000 ALTER TABLE `tbl_userpermission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,6 +388,54 @@ LOCK TABLES `tbl_userrole` WRITE;
 INSERT INTO `tbl_userrole` VALUES ('Administrator',20001),('PoSUser',20002),('InventoryManager',20003),('TestRole',20004),('Manager',20005),('QA',20006);
 /*!40000 ALTER TABLE `tbl_userrole` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `vw_stockentry`
+--
+
+DROP TABLE IF EXISTS `vw_stockentry`;
+/*!50001 DROP VIEW IF EXISTS `vw_stockentry`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_stockentry` AS SELECT 
+ 1 AS `stockEntryId`,
+ 1 AS `itemCode`,
+ 1 AS `itemId`,
+ 1 AS `updateDate`,
+ 1 AS `quantity`,
+ 1 AS `buyingUnitPrice`,
+ 1 AS `sellingUnitPrice`,
+ 1 AS `stockEntryDate`,
+ 1 AS `createDate`,
+ 1 AS `expirationDate`,
+ 1 AS `totalValue`,
+ 1 AS `remainQuantity`,
+ 1 AS `priceAfterDiscount`,
+ 1 AS `comment`,
+ 1 AS `releaseFlg`,
+ 1 AS `misPlacedQty`,
+ 1 AS `dealerId`,
+ 1 AS `itemName`,
+ 1 AS `dealerName`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `vw_stockentry`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_stockentry`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_stockentry` AS select `tbl_stockentry`.`stockEntryId` AS `stockEntryId`,`tbl_stockentry`.`itemCode` AS `itemCode`,`tbl_stockentry`.`itemId` AS `itemId`,`tbl_stockentry`.`updateDate` AS `updateDate`,`tbl_stockentry`.`quantity` AS `quantity`,`tbl_stockentry`.`buyingUnitPrice` AS `buyingUnitPrice`,`tbl_stockentry`.`sellingUnitPrice` AS `sellingUnitPrice`,`tbl_stockentry`.`stockEntryDate` AS `stockEntryDate`,`tbl_stockentry`.`createDate` AS `createDate`,`tbl_stockentry`.`expirationDate` AS `expirationDate`,`tbl_stockentry`.`totalValue` AS `totalValue`,`tbl_stockentry`.`remainQuantity` AS `remainQuantity`,`tbl_stockentry`.`priceAfterDiscount` AS `priceAfterDiscount`,`tbl_stockentry`.`comment` AS `comment`,`tbl_stockentry`.`releaseFlg` AS `releaseFlg`,`tbl_stockentry`.`misPlacedQty` AS `misPlacedQty`,`tbl_stockentry`.`dealerId` AS `dealerId`,`tbl_item`.`itemName` AS `itemName`,`tbl_dealers`.`dealerName` AS `dealerName` from ((`tbl_stockentry` left join `tbl_item` on((`tbl_stockentry`.`itemId` = `tbl_item`.`itemId`))) left join `tbl_dealers` on((`tbl_dealers`.`dealerId` = `tbl_stockentry`.`dealerId`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -313,4 +446,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-28 17:10:22
+-- Dump completed on 2017-05-26 17:10:31
