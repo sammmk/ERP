@@ -79,6 +79,8 @@ namespace UserManage.CLL
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             List<BLL.clsUserPermission> data = new List<BLL.clsUserPermission>();
             DataTable dt = new DataTable();
             bool isOK = false;
@@ -156,6 +158,8 @@ namespace UserManage.CLL
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void grd_userPermission_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
