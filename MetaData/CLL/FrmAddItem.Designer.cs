@@ -44,11 +44,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_itemName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.dropDown_stockUnit = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dropDown_shopUnit = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dropDown_shopUnit);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.dropDown_stockUnit);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btn_delete);
             this.panel1.Controls.Add(this.btn_update);
             this.panel1.Controls.Add(this.dropDown_itemType);
@@ -183,6 +191,7 @@
             this.txt_itemCode.Name = "txt_itemCode";
             this.txt_itemCode.Size = new System.Drawing.Size(250, 19);
             this.txt_itemCode.TabIndex = 31;
+            this.txt_itemCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_itemCode_KeyUp);
             // 
             // label1
             // 
@@ -208,6 +217,40 @@
             this.label3.Size = new System.Drawing.Size(66, 12);
             this.label3.TabIndex = 32;
             this.label3.Text = "Item Name :";
+            // 
+            // dropDown_stockUnit
+            // 
+            this.dropDown_stockUnit.FormattingEnabled = true;
+            this.dropDown_stockUnit.Location = new System.Drawing.Point(164, 269);
+            this.dropDown_stockUnit.Name = "dropDown_stockUnit";
+            this.dropDown_stockUnit.Size = new System.Drawing.Size(250, 20);
+            this.dropDown_stockUnit.TabIndex = 53;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(60, 272);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 12);
+            this.label2.TabIndex = 54;
+            this.label2.Text = "Stock in-out Unit :";
+            // 
+            // dropDown_shopUnit
+            // 
+            this.dropDown_shopUnit.FormattingEnabled = true;
+            this.dropDown_shopUnit.Location = new System.Drawing.Point(164, 308);
+            this.dropDown_shopUnit.Name = "dropDown_shopUnit";
+            this.dropDown_shopUnit.Size = new System.Drawing.Size(250, 20);
+            this.dropDown_shopUnit.TabIndex = 55;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(60, 311);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 12);
+            this.label6.TabIndex = 56;
+            this.label6.Text = "Shop Unit :";
             // 
             // FrmAddItem
             // 
@@ -246,5 +289,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_itemName;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox dropDown_shopUnit;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox dropDown_stockUnit;
+        private System.Windows.Forms.Label label2;
     }
 }

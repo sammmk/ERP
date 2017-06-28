@@ -43,14 +43,7 @@ namespace MetaData.CLL
 
                 InitializeComponent();
 
-                txt_itemID.Text = MANAGEDB.getMaxItemId().ToString();
-                //fill data for itemType from db
-                dropDown_itemType.DataSource = MANAGEDB.getItemTypeList();
-                dropDown_itemType.DisplayMember = "itemType";
-                dropDown_itemType.ValueMember = "typeId";
-                dropDown_itemType.BindingContext = this.BindingContext;
-                dropDown_itemType.SelectedIndex = -1;
-
+                filldropDownLists();
                 USERNAME = userName;
 
                 btn_cancel.Visible = true;
@@ -87,12 +80,11 @@ namespace MetaData.CLL
             txt_altName.Text = singleItemDetails._altName;
             txt_itemName.Text = singleItemDetails._itemName;
             txt_itemCode.Enabled = false;
-
-            dropDown_itemType.DataSource = MANAGEDB.getItemTypeList();
-            dropDown_itemType.DisplayMember = "itemType";
-            dropDown_itemType.ValueMember = "typeId";
-            dropDown_itemType.BindingContext = this.BindingContext;
+            
+            filldropDownLists();
             dropDown_itemType.SelectedIndex = dropDown_itemType.FindString(singleItemDetails._itemTypeName);
+            dropDown_stockUnit.SelectedIndex = dropDown_stockUnit.FindString(singleItemDetails._stockUnitName);
+            dropDown_shopUnit.SelectedIndex = dropDown_shopUnit.FindString(singleItemDetails._shopUnitName);
 
             btn_cancel.Visible = true;
             btn_create.Visible = false;
@@ -113,6 +105,37 @@ namespace MetaData.CLL
                 //get max item Id
                 txt_itemID.Text = MANAGEDB.getMaxItemId().ToString();
                 this.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void filldropDownLists()
+        {
+            try
+            {
+                //fill data for itemType from db
+                dropDown_itemType.DataSource = MANAGEDB.getItemTypeList();
+                dropDown_itemType.DisplayMember = "itemType";
+                dropDown_itemType.ValueMember = "typeId";
+                dropDown_itemType.BindingContext = this.BindingContext;
+                dropDown_itemType.SelectedIndex = -1;
+
+                //fill data for stock unit
+                dropDown_stockUnit.DataSource = MANAGEDB.getUnitDetails();
+                dropDown_stockUnit.DisplayMember = "symbol";
+                dropDown_stockUnit.ValueMember = "unitId";
+                dropDown_stockUnit.BindingContext = this.BindingContext;
+                dropDown_stockUnit.SelectedIndex = -1;
+
+                //fill data for shop unit
+                dropDown_shopUnit.DataSource = MANAGEDB.getUnitDetails();
+                dropDown_shopUnit.DisplayMember = "symbol";
+                dropDown_shopUnit.ValueMember = "unitId";
+                dropDown_shopUnit.BindingContext = this.BindingContext;
+                dropDown_shopUnit.SelectedIndex = -1;
+            }
+            catch(Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
             }
         }
 
@@ -168,6 +191,8 @@ namespace MetaData.CLL
                     string itemName = txt_itemName.Text;
                     string altName = txt_altName.Text;
                     string itemType = (dropDown_itemType.SelectedIndex != -1) ? dropDown_itemType.SelectedItem.ToString() : string.Empty;
+                    string stockUnit = (dropDown_stockUnit.SelectedIndex != -1) ? dropDown_stockUnit.SelectedItem.ToString() : string.Empty;
+                    string shopUnit = (dropDown_shopUnit.SelectedIndex != -1) ? dropDown_shopUnit.SelectedItem.ToString() : string.Empty;
 
                     var dataList = new List<Tuple<string, string>>();
 
@@ -175,6 +200,8 @@ namespace MetaData.CLL
                     dataList.Add(new Tuple<string, string>("itemName", itemName));
                     dataList.Add(new Tuple<string, string>("altName", altName));
                     dataList.Add(new Tuple<string, string>("itemType", itemType));
+                    dataList.Add(new Tuple<string, string>("stockUnitId", itemType));
+                    dataList.Add(new Tuple<string, string>("shopUnitId", itemType));
 
                     isError = checkInsertedItemData(dataList);
 
@@ -186,12 +213,14 @@ namespace MetaData.CLL
                         CREATEITEM._itemName = itemName;
                         CREATEITEM._altName = altName;
                         CREATEITEM._itemTypeId = Convert.ToInt32(dropDown_itemType.SelectedValue);
+                        CREATEITEM._stockUnitId = Convert.ToInt32(dropDown_stockUnit.SelectedValue);
+                        CREATEITEM._shopUnitId = Convert.ToInt32(dropDown_shopUnit.SelectedValue);
 
                         if (MANAGEDB.insertData_item(CREATEITEM))
                         {
                             COM_MESSAGE.successfullMessage("Successfully created the Item ");
                             COMM_METHODS.clearAllText(this);
-                            dropDown_itemType.SelectedIndex = -1;
+                            filldropDownLists();
                             txt_itemID.Text = MANAGEDB.getMaxItemId().ToString();
                         }
                     }
@@ -220,6 +249,8 @@ namespace MetaData.CLL
                     string itemName = txt_itemName.Text;
                     string altName = txt_altName.Text;
                     string itemType = (dropDown_itemType.SelectedIndex != -1) ? dropDown_itemType.SelectedItem.ToString() : string.Empty;
+                    string stockUnit = (dropDown_stockUnit.SelectedIndex != -1) ? dropDown_stockUnit.SelectedItem.ToString() : string.Empty;
+                    string shopUnit = (dropDown_shopUnit.SelectedIndex != -1) ? dropDown_shopUnit.SelectedItem.ToString() : string.Empty;
 
                     var dataList = new List<Tuple<string, string>>();
 
@@ -227,6 +258,8 @@ namespace MetaData.CLL
                     dataList.Add(new Tuple<string, string>("itemName", itemName));
                     dataList.Add(new Tuple<string, string>("altName", altName));
                     dataList.Add(new Tuple<string, string>("itemType", itemType));
+                    dataList.Add(new Tuple<string, string>("stockUnitId", itemType));
+                    dataList.Add(new Tuple<string, string>("shopUnitId", itemType));
 
                     isError = checkInsertedItemData(dataList);
 
@@ -238,6 +271,8 @@ namespace MetaData.CLL
                         CREATEITEM._itemName = itemName;
                         CREATEITEM._altName = altName;
                         CREATEITEM._itemTypeId = Convert.ToInt32(dropDown_itemType.SelectedValue);
+                        CREATEITEM._stockUnitId = Convert.ToInt32(dropDown_stockUnit.SelectedValue);
+                        CREATEITEM._shopUnitId = Convert.ToInt32(dropDown_shopUnit.SelectedValue);
 
                         //insert to tbl_userDetail and tbl_login
                         if (MANAGEDB.updateData_item(CREATEITEM))
@@ -279,7 +314,7 @@ namespace MetaData.CLL
                             {
                                 if (!VALIDATION.isLetterAndNumberOnly(userData[i].Item2))
                                 {
-                                    COM_MESSAGE.validationMessage("Item Code should contains only Numbers !!!");
+                                    COM_MESSAGE.validationMessage("Item Code should contains only Numbers and Letters!!!");
                                     isError = true;
                                 }
                             }
@@ -316,6 +351,20 @@ namespace MetaData.CLL
                                 isError = true;
                             }
                             break;
+                        case "stockUnitId":
+                            if (VALIDATION.isEmptyTextBox(userData[i].Item2))
+                            {
+                                COM_MESSAGE.validationMessage("Stock in-out Unit Cannot be Empty !!!");
+                                isError = true;
+                            }
+                            break;
+                        case "shopUnitId":
+                            if (VALIDATION.isEmptyTextBox(userData[i].Item2))
+                            {
+                                COM_MESSAGE.validationMessage("Shop Unit Cannot be Empty !!!");
+                                isError = true;
+                            }
+                            break;
                         default:
                             isError = true;
                             break;
@@ -327,6 +376,29 @@ namespace MetaData.CLL
                 throw ex;
             }
             return isError;
+        }
+
+        private void txt_itemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    //check the item code is exists
+                    if (MANAGEDB.isItemCodeExists(txt_itemCode.Text))
+                    {
+                        COM_MESSAGE.errorMessage("Item Code Alredy Registered !!!", "Code Exists");
+                    }
+                    else
+                    {
+                        txt_itemName.Focus();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
         }
     }
 }

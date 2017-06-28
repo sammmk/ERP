@@ -11,11 +11,15 @@ C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddDealers.res
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddDestinations.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddItem.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddItemType.resources
+C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddTax.resources
+C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmAddUnits.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditAssets.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditDealers.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditDestinations.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditItem.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditItemType.resources
+C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditTax.resources
+C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.CLL.FrmEditUnits.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.Properties.Resources.resources
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.csproj.GenerateResource.Cache
 C:\Mohan\Projects\login-master\MetaData\obj\Debug\MetaData.exe

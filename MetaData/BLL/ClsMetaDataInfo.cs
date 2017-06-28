@@ -24,6 +24,10 @@ namespace MetaData.BLL
         public string _altName { get; set; }
         public string _itemTypeName { get; set; }
         public int _itemTypeId { get; set; }
+        public int _stockUnitId { get; set; }
+        public string _stockUnitName { get; set; }
+        public int _shopUnitId { get; set; }
+        public string _shopUnitName { get; set; }
     }
 
     public class ClsDealerData
@@ -54,5 +58,22 @@ namespace MetaData.BLL
         public double _quantity { get; set; }
         public string _descrption { get; set; }
         public double _totalValue { get; set; }
+    }
+
+    public class ClsUnitData
+    {
+        public int _unitId { get; set; }
+        public string _description { get; set; }
+        public string _symbol { get; set; }
+    }
+
+    public class ClsTaxData
+    {
+        public int _taxId { get; set; }
+        public string _symbol { get; set; }
+        public string _description { get; set; }
+        public double _taxPercentage { get; set; }
+        public DateTime _effectFrom { get; set; }
+        public DateTime _effectTo { get; set; }
     }
 }

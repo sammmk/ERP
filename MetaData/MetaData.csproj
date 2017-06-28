@@ -94,6 +94,18 @@
     <Compile Include="CLL\FrmAddItemType.Designer.cs">
       <DependentUpon>FrmAddItemType.cs</DependentUpon>
     </Compile>
+    <Compile Include="CLL\FrmAddTax.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmAddTax.Designer.cs">
+      <DependentUpon>FrmAddTax.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLL\FrmAddUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmAddUnits.Designer.cs">
+      <DependentUpon>FrmAddUnits.cs</DependentUpon>
+    </Compile>
     <Compile Include="CLL\FrmEditAssets.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +136,18 @@
     <Compile Include="CLL\FrmEditItemType.Designer.cs">
       <DependentUpon>FrmEditItemType.cs</DependentUpon>
     </Compile>
+    <Compile Include="CLL\FrmEditTax.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmEditTax.Designer.cs">
+      <DependentUpon>FrmEditTax.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLL\FrmEditUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLL\FrmEditUnits.Designer.cs">
+      <DependentUpon>FrmEditUnits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CLL\FrmAddAssets.resx">
@@ -141,6 +165,12 @@
     <EmbeddedResource Include="CLL\FrmAddItemType.resx">
       <DependentUpon>FrmAddItemType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmAddTax.resx">
+      <DependentUpon>FrmAddTax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmAddUnits.resx">
+      <DependentUpon>FrmAddUnits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmEditAssets.resx">
       <DependentUpon>FrmEditAssets.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CLL\FrmEditItemType.resx">
       <DependentUpon>FrmEditItemType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmEditTax.resx">
+      <DependentUpon>FrmEditTax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLL\FrmEditUnits.resx">
+      <DependentUpon>FrmEditUnits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
