@@ -187,7 +187,7 @@ namespace CommonControls.Classes
                 {
                     MySqlCommand cmd = new MySqlCommand(querry, CONNECTION);
 
-                    roleId = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt16(cmd.ExecuteScalar()) : 0;
+                    roleId = (cmd.ExecuteScalar() != DBNull.Value) ? Convert.ToInt32(cmd.ExecuteScalar()) : 0;
 
                     closeConnection();
                 }

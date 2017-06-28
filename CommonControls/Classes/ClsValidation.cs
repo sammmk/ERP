@@ -47,7 +47,7 @@ namespace CommonControls.Classes
 
         public bool isLetterAndNumberOnly(string str)
         {
-            string letterOrNumberOnly = @"^[A-Za-z0-9]+$";
+            string letterOrNumberOnly = @"^[A-Za-z0-9 ]+$";
 
             bool ret = regexCheck(str, letterOrNumberOnly);
 

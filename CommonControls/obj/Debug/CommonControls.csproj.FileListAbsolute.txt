@@ -3,6 +3,7 @@ C:\Mohan\Projects\login-master\CommonControls\bin\Debug\CommonControls.exe
 C:\Mohan\Projects\login-master\CommonControls\bin\Debug\CommonControls.pdb
 C:\Mohan\Projects\login-master\CommonControls\bin\Debug\MySql.Data.dll
 C:\Mohan\Projects\login-master\CommonControls\bin\Debug\MySql.Data.xml
+C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.csprojResolveAssemblyReference.cache
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.FrmMessageBox.resources
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.Properties.Resources.resources
 C:\Mohan\Projects\login-master\CommonControls\obj\Debug\CommonControls.csproj.GenerateResource.Cache
