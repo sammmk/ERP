@@ -16,6 +16,8 @@ namespace SystemDevelopment
         private CommonControls.Classes.dbConnection CONN;
         private CommonControls.Classes.ClsMessages COM_MESSAGE;
 
+        private static bool IS_LOGOUT;
+
         public Frm_Main()
         {
             InitializeComponent();
@@ -36,7 +38,10 @@ namespace SystemDevelopment
             //load main form in maximize state
             this.WindowState = FormWindowState.Maximized;
 
-            hideButtons();
+            //hideButtons
+            hideUserControlButtons();
+            hideMetaDataButtons();
+            hideInventryButtons();
 
             //set user manage panel
             pnl_userManage.Height = 27;
@@ -51,17 +56,21 @@ namespace SystemDevelopment
             btn_invManage.Image = Properties.Resources.down;
 
             lbl_loggedUser.Text = frm_Login.USERNAME;
-        }
 
-        private void hideButtons()
+            IS_LOGOUT = false;
+        }
+        
+        private void hideUserControlButtons()
         {
-            //hide the menu buttons
             btn_createUser.Visible = false;
             btn_editUser.Visible = false;
             btn_setFormPermission.Visible = false;
             btn_userRole.Visible = false;
             btn_editUserRole.Visible = false;
+        }
 
+        private void hideMetaDataButtons()
+        {
             btn_addItem.Visible = false;
             btn_editItem.Visible = false;
             btn_addItemType.Visible = false;
@@ -72,7 +81,14 @@ namespace SystemDevelopment
             btn_editDestination.Visible = false;
             btn_addAssets.Visible = false;
             btn_editAssets.Visible = false;
+            btn_addUnits.Visible = false;
+            btn_editUnits.Visible = false;
+            btn_addTax.Visible = false;
+            btn_editTax.Visible = false;
+        }
 
+        private void hideInventryButtons()
+        {
             btn_stockIntake.Visible = false;
             btn_adjustStock.Visible = false;
             btn_releaseStock.Visible = false;
@@ -93,18 +109,14 @@ namespace SystemDevelopment
                 //check permission
                 int cnt = checkViewPermission_userManage();
 
-                pnl_userManage.Height = (27 * cnt) + 2;
+                pnl_userManage.Height = (25 * cnt) + 2;
                 btn_userManage.Image = Properties.Resources.up;
             }
             else
             {
                 pnl_userManage.Height = 27;
                 btn_userManage.Image = Properties.Resources.down;
-                btn_createUser.Visible = false;
-                btn_editUser.Visible = false;
-                btn_setFormPermission.Visible = false;
-                btn_userRole.Visible = false;
-                btn_editUserRole.Visible = false;
+                hideUserControlButtons();
             }
         }
 
@@ -121,23 +133,14 @@ namespace SystemDevelopment
                 //check permission
                 int cnt = checkViewPermission_metaData();
 
-                pnl_metaData.Height = (27 * cnt) + 2;
+                pnl_metaData.Height = (25 * cnt) + 2;
                 btn_metaData.Image = Properties.Resources.up;
             }
             else
             {
                 pnl_metaData.Height = 27;
                 btn_metaData.Image = Properties.Resources.down;
-                btn_addItem.Visible = false;
-                btn_editItem.Visible = false;
-                btn_addItemType.Visible = false;
-                btn_editItemType.Visible = false;
-                btn_addDealer.Visible = false;
-                btn_editDealer.Visible = false;
-                btn_addDestination.Visible = false;
-                btn_editDestination.Visible = false;
-                btn_addAssets.Visible = false;
-                btn_editAssets.Visible = false;
+                hideMetaDataButtons();
             }
         }
 
@@ -154,18 +157,14 @@ namespace SystemDevelopment
                 //check permission
                 int cnt = checkViewPermission_inventoryManage();
 
-                pnl_inventoryManage.Height = (27 * cnt) + 2;
+                pnl_inventoryManage.Height = (25 * cnt) + 2;
                 btn_invManage.Image = Properties.Resources.up;
             }
             else
             {
                 pnl_inventoryManage.Height = 27;
                 btn_invManage.Image = Properties.Resources.down;
-                btn_stockIntake.Visible = false;
-                btn_adjustStock.Visible = false;
-                btn_releaseStock.Visible = false;
-                btn_adjustReleasedStock.Visible = false;
-                btn_editStockEntry.Visible = false;
+                hideInventryButtons();
             }
         }
 
@@ -478,6 +477,86 @@ namespace SystemDevelopment
             }
         }
 
+        private void btn_addUnits_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            MetaData.CLL.FrmAddUnits addUnits = new MetaData.CLL.FrmAddUnits(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(addUnits.Name);
+
+            if (isFormOpen)
+            {
+                addUnits.BringToFront();
+            }
+            else
+            {
+                addUnits.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(addUnits);
+
+                addUnits.Show();
+            }
+        }
+
+        private void btn_editUnits_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            MetaData.CLL.FrmEditUnits editUnits = new MetaData.CLL.FrmEditUnits(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(editUnits.Name);
+
+            if (isFormOpen)
+            {
+                editUnits.BringToFront();
+            }
+            else
+            {
+                editUnits.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(editUnits);
+
+                editUnits.Show();
+            }
+        }
+
+        private void btn_addTax_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            MetaData.CLL.FrmAddTax addtax = new MetaData.CLL.FrmAddTax(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(addtax.Name);
+
+            if (isFormOpen)
+            {
+                addtax.BringToFront();
+            }
+            else
+            {
+                addtax.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(addtax);
+
+                addtax.Show();
+            }
+        }
+
+        private void btn_editTax_Click(object sender, EventArgs e)
+        {
+            bool isFormOpen = false;
+            MetaData.CLL.FrmEditTax editTax = new MetaData.CLL.FrmEditTax(lbl_loggedUser.Text);
+
+            isFormOpen = windowOpenCheck(editTax.Name);
+
+            if (isFormOpen)
+            {
+                editTax.BringToFront();
+            }
+            else
+            {
+                editTax.MdiParent = this;
+                this.splitContainer1.Panel2.Controls.Add(editTax);
+
+                editTax.Show();
+            }
+        }
+
         private void btn_stockIntake_Click(object sender, EventArgs e)
         {
             bool isFormOpen = false;
@@ -600,9 +679,15 @@ namespace SystemDevelopment
         /// <param name="e"></param>
         private void btn_logout_Click(object sender, EventArgs e)
         {
-            this.Close();
-            frm_Login LoginForm = new frm_Login();
-            LoginForm.Show();
+            DialogResult result = COM_MESSAGE.informationMessage("Do you realy want to Log out!!! you will lost all unsaved data", "Confirmation");
+
+            if (result == DialogResult.Yes)
+            {
+                IS_LOGOUT = true;
+                this.Close();
+                frm_Login LoginForm = new frm_Login();
+                LoginForm.Show();
+            }
         }
         
         private void lbl_changePassMouseHover(object sender, EventArgs e)
@@ -695,17 +780,6 @@ namespace SystemDevelopment
             int userRoleId = 0;
             DataTable dt = new DataTable();
 
-            //btn_addItem.Visible = false;
-            //btn_editItem.Visible = false;
-            //btn_addItemType.Visible = false;
-            //btn_editItemType.Visible = false;
-            //btn_addDealer.Visible = false;
-            //btn_editDealer.Visible = false;
-            //btn_addDestination.Visible = false;
-            //btn_editDestination.Visible = false;
-            //btn_addAssets.Visible = false;
-            //btn_editAssets.Visible = false;
-
             try
             {
                 //get userId
@@ -760,6 +834,22 @@ namespace SystemDevelopment
                                 btn_editAssets.Visible = true;
                                 buttonCnt++;
                                 break;
+                            case "btn_addUnits":
+                                btn_addUnits.Visible = true;
+                                buttonCnt++;
+                                break;
+                            case "btn_editUnits":
+                                btn_editUnits.Visible = true;
+                                buttonCnt++;
+                                break;
+                            case "btn_addTax":
+                                btn_addTax.Visible = true;
+                                buttonCnt++;
+                                break;
+                            case "btn_editTax":
+                                btn_editTax.Visible = true;
+                                buttonCnt++;
+                                break;
                             default:
                                 break;
                         }
@@ -776,12 +866,6 @@ namespace SystemDevelopment
 
         private int checkViewPermission_userManage()
         {
-            //btn_createUser.Visible = false;
-            //btn_editUser.Visible = false;
-            //btn_setFormPermission.Visible = false;
-            //btn_userRole.Visible = false;
-            //btn_editUserRole.Visible = false;
-
             int buttonCnt = 0;
             int userRoleId;
             DataTable dt = new DataTable();
@@ -834,5 +918,24 @@ namespace SystemDevelopment
             return buttonCnt + 1;
         }
 
+        private void Frm_Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult result = DialogResult.Yes;
+
+                if (!IS_LOGOUT)
+                    result = COM_MESSAGE.informationMessage("Do you realy want to CLOSE!!! you will lost all unsaved data", "Confirmation");
+
+                if (result == DialogResult.Yes)
+                {
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }

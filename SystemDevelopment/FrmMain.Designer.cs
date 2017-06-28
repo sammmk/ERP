@@ -38,6 +38,10 @@
             this.btn_stockIntake = new System.Windows.Forms.Button();
             this.btn_invManage = new System.Windows.Forms.Button();
             this.pnl_metaData = new System.Windows.Forms.Panel();
+            this.btn_editTax = new System.Windows.Forms.Button();
+            this.btn_addTax = new System.Windows.Forms.Button();
+            this.btn_editUnits = new System.Windows.Forms.Button();
+            this.btn_addUnits = new System.Windows.Forms.Button();
             this.btn_editAssets = new System.Windows.Forms.Button();
             this.btn_addAssets = new System.Windows.Forms.Button();
             this.btn_editDestination = new System.Windows.Forms.Button();
@@ -82,7 +86,7 @@
             this.pnl_menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_menu.Location = new System.Drawing.Point(0, 0);
             this.pnl_menu.Name = "pnl_menu";
-            this.pnl_menu.Size = new System.Drawing.Size(893, 749);
+            this.pnl_menu.Size = new System.Drawing.Size(980, 816);
             this.pnl_menu.TabIndex = 1;
             // 
             // splitContainer1
@@ -93,6 +97,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.pnl_inventoryManage);
             this.splitContainer1.Panel1.Controls.Add(this.pnl_metaData);
             this.splitContainer1.Panel1.Controls.Add(this.pnl_userManage);
@@ -101,8 +106,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.splitContainer1.Size = new System.Drawing.Size(893, 690);
-            this.splitContainer1.SplitterDistance = 146;
+            this.splitContainer1.Size = new System.Drawing.Size(980, 757);
+            this.splitContainer1.SplitterDistance = 159;
             this.splitContainer1.TabIndex = 6;
             // 
             // pnl_inventoryManage
@@ -114,9 +119,9 @@
             this.pnl_inventoryManage.Controls.Add(this.btn_stockIntake);
             this.pnl_inventoryManage.Controls.Add(this.btn_invManage);
             this.pnl_inventoryManage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl_inventoryManage.Location = new System.Drawing.Point(0, 453);
+            this.pnl_inventoryManage.Location = new System.Drawing.Point(0, 549);
             this.pnl_inventoryManage.Name = "pnl_inventoryManage";
-            this.pnl_inventoryManage.Size = new System.Drawing.Size(146, 154);
+            this.pnl_inventoryManage.Size = new System.Drawing.Size(159, 152);
             this.pnl_inventoryManage.TabIndex = 1;
             // 
             // btn_adjustReleasedStock
@@ -124,7 +129,7 @@
             this.btn_adjustReleasedStock.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_adjustReleasedStock.Location = new System.Drawing.Point(0, 117);
             this.btn_adjustReleasedStock.Name = "btn_adjustReleasedStock";
-            this.btn_adjustReleasedStock.Size = new System.Drawing.Size(146, 23);
+            this.btn_adjustReleasedStock.Size = new System.Drawing.Size(159, 23);
             this.btn_adjustReleasedStock.TabIndex = 7;
             this.btn_adjustReleasedStock.Text = "      Adust Released Stock";
             this.btn_adjustReleasedStock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -135,7 +140,7 @@
             this.btn_releaseStock.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_releaseStock.Location = new System.Drawing.Point(0, 94);
             this.btn_releaseStock.Name = "btn_releaseStock";
-            this.btn_releaseStock.Size = new System.Drawing.Size(146, 23);
+            this.btn_releaseStock.Size = new System.Drawing.Size(159, 23);
             this.btn_releaseStock.TabIndex = 6;
             this.btn_releaseStock.Text = "      Release Stock";
             this.btn_releaseStock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -147,7 +152,7 @@
             this.btn_adjustStock.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_adjustStock.Location = new System.Drawing.Point(0, 71);
             this.btn_adjustStock.Name = "btn_adjustStock";
-            this.btn_adjustStock.Size = new System.Drawing.Size(146, 23);
+            this.btn_adjustStock.Size = new System.Drawing.Size(159, 23);
             this.btn_adjustStock.TabIndex = 5;
             this.btn_adjustStock.Text = "      Stock Adjustment";
             this.btn_adjustStock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -158,7 +163,7 @@
             this.btn_editStockEntry.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editStockEntry.Location = new System.Drawing.Point(0, 48);
             this.btn_editStockEntry.Name = "btn_editStockEntry";
-            this.btn_editStockEntry.Size = new System.Drawing.Size(146, 23);
+            this.btn_editStockEntry.Size = new System.Drawing.Size(159, 23);
             this.btn_editStockEntry.TabIndex = 10;
             this.btn_editStockEntry.Text = "      Edit Stock Entry";
             this.btn_editStockEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -170,7 +175,7 @@
             this.btn_stockIntake.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_stockIntake.Location = new System.Drawing.Point(0, 25);
             this.btn_stockIntake.Name = "btn_stockIntake";
-            this.btn_stockIntake.Size = new System.Drawing.Size(146, 23);
+            this.btn_stockIntake.Size = new System.Drawing.Size(159, 23);
             this.btn_stockIntake.TabIndex = 4;
             this.btn_stockIntake.Text = "      Stock Intake";
             this.btn_stockIntake.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -183,7 +188,7 @@
             this.btn_invManage.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_invManage.Location = new System.Drawing.Point(0, 0);
             this.btn_invManage.Name = "btn_invManage";
-            this.btn_invManage.Size = new System.Drawing.Size(146, 25);
+            this.btn_invManage.Size = new System.Drawing.Size(159, 25);
             this.btn_invManage.TabIndex = 0;
             this.btn_invManage.Text = "    Inventory Manage";
             this.btn_invManage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -192,6 +197,10 @@
             // 
             // pnl_metaData
             // 
+            this.pnl_metaData.Controls.Add(this.btn_editTax);
+            this.pnl_metaData.Controls.Add(this.btn_addTax);
+            this.pnl_metaData.Controls.Add(this.btn_editUnits);
+            this.pnl_metaData.Controls.Add(this.btn_addUnits);
             this.pnl_metaData.Controls.Add(this.btn_editAssets);
             this.pnl_metaData.Controls.Add(this.btn_addAssets);
             this.pnl_metaData.Controls.Add(this.btn_editDestination);
@@ -206,15 +215,63 @@
             this.pnl_metaData.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_metaData.Location = new System.Drawing.Point(0, 188);
             this.pnl_metaData.Name = "pnl_metaData";
-            this.pnl_metaData.Size = new System.Drawing.Size(146, 265);
+            this.pnl_metaData.Size = new System.Drawing.Size(159, 361);
             this.pnl_metaData.TabIndex = 3;
+            // 
+            // btn_editTax
+            // 
+            this.btn_editTax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_editTax.Location = new System.Drawing.Point(0, 324);
+            this.btn_editTax.Name = "btn_editTax";
+            this.btn_editTax.Size = new System.Drawing.Size(159, 23);
+            this.btn_editTax.TabIndex = 19;
+            this.btn_editTax.Text = "      Edit Tax";
+            this.btn_editTax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_editTax.UseVisualStyleBackColor = true;
+            this.btn_editTax.Click += new System.EventHandler(this.btn_editTax_Click);
+            // 
+            // btn_addTax
+            // 
+            this.btn_addTax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_addTax.Location = new System.Drawing.Point(0, 301);
+            this.btn_addTax.Name = "btn_addTax";
+            this.btn_addTax.Size = new System.Drawing.Size(159, 23);
+            this.btn_addTax.TabIndex = 18;
+            this.btn_addTax.Text = "      Add Tax";
+            this.btn_addTax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_addTax.UseVisualStyleBackColor = true;
+            this.btn_addTax.Click += new System.EventHandler(this.btn_addTax_Click);
+            // 
+            // btn_editUnits
+            // 
+            this.btn_editUnits.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_editUnits.Location = new System.Drawing.Point(0, 278);
+            this.btn_editUnits.Name = "btn_editUnits";
+            this.btn_editUnits.Size = new System.Drawing.Size(159, 23);
+            this.btn_editUnits.TabIndex = 17;
+            this.btn_editUnits.Text = "      Edit Units";
+            this.btn_editUnits.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_editUnits.UseVisualStyleBackColor = true;
+            this.btn_editUnits.Click += new System.EventHandler(this.btn_editUnits_Click);
+            // 
+            // btn_addUnits
+            // 
+            this.btn_addUnits.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_addUnits.Location = new System.Drawing.Point(0, 255);
+            this.btn_addUnits.Name = "btn_addUnits";
+            this.btn_addUnits.Size = new System.Drawing.Size(159, 23);
+            this.btn_addUnits.TabIndex = 16;
+            this.btn_addUnits.Text = "      Add Units";
+            this.btn_addUnits.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_addUnits.UseVisualStyleBackColor = true;
+            this.btn_addUnits.Click += new System.EventHandler(this.btn_addUnits_Click);
             // 
             // btn_editAssets
             // 
             this.btn_editAssets.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editAssets.Location = new System.Drawing.Point(0, 232);
             this.btn_editAssets.Name = "btn_editAssets";
-            this.btn_editAssets.Size = new System.Drawing.Size(146, 23);
+            this.btn_editAssets.Size = new System.Drawing.Size(159, 23);
             this.btn_editAssets.TabIndex = 15;
             this.btn_editAssets.Text = "      Edit Assets";
             this.btn_editAssets.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -226,7 +283,7 @@
             this.btn_addAssets.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_addAssets.Location = new System.Drawing.Point(0, 209);
             this.btn_addAssets.Name = "btn_addAssets";
-            this.btn_addAssets.Size = new System.Drawing.Size(146, 23);
+            this.btn_addAssets.Size = new System.Drawing.Size(159, 23);
             this.btn_addAssets.TabIndex = 14;
             this.btn_addAssets.Text = "      Add Assets";
             this.btn_addAssets.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -238,7 +295,7 @@
             this.btn_editDestination.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editDestination.Location = new System.Drawing.Point(0, 186);
             this.btn_editDestination.Name = "btn_editDestination";
-            this.btn_editDestination.Size = new System.Drawing.Size(146, 23);
+            this.btn_editDestination.Size = new System.Drawing.Size(159, 23);
             this.btn_editDestination.TabIndex = 13;
             this.btn_editDestination.Text = "      Edit Destinations";
             this.btn_editDestination.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -250,7 +307,7 @@
             this.btn_addDestination.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_addDestination.Location = new System.Drawing.Point(0, 163);
             this.btn_addDestination.Name = "btn_addDestination";
-            this.btn_addDestination.Size = new System.Drawing.Size(146, 23);
+            this.btn_addDestination.Size = new System.Drawing.Size(159, 23);
             this.btn_addDestination.TabIndex = 12;
             this.btn_addDestination.Text = "      Add Destinations";
             this.btn_addDestination.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -262,7 +319,7 @@
             this.btn_editDealer.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editDealer.Location = new System.Drawing.Point(0, 140);
             this.btn_editDealer.Name = "btn_editDealer";
-            this.btn_editDealer.Size = new System.Drawing.Size(146, 23);
+            this.btn_editDealer.Size = new System.Drawing.Size(159, 23);
             this.btn_editDealer.TabIndex = 11;
             this.btn_editDealer.Text = "      Edit Dealers";
             this.btn_editDealer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -274,7 +331,7 @@
             this.btn_addDealer.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_addDealer.Location = new System.Drawing.Point(0, 117);
             this.btn_addDealer.Name = "btn_addDealer";
-            this.btn_addDealer.Size = new System.Drawing.Size(146, 23);
+            this.btn_addDealer.Size = new System.Drawing.Size(159, 23);
             this.btn_addDealer.TabIndex = 10;
             this.btn_addDealer.Text = "      Add Dealers";
             this.btn_addDealer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -286,7 +343,7 @@
             this.btn_editItemType.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editItemType.Location = new System.Drawing.Point(0, 94);
             this.btn_editItemType.Name = "btn_editItemType";
-            this.btn_editItemType.Size = new System.Drawing.Size(146, 23);
+            this.btn_editItemType.Size = new System.Drawing.Size(159, 23);
             this.btn_editItemType.TabIndex = 9;
             this.btn_editItemType.Text = "      Edit Item Type";
             this.btn_editItemType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -298,7 +355,7 @@
             this.btn_addItemType.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_addItemType.Location = new System.Drawing.Point(0, 71);
             this.btn_addItemType.Name = "btn_addItemType";
-            this.btn_addItemType.Size = new System.Drawing.Size(146, 23);
+            this.btn_addItemType.Size = new System.Drawing.Size(159, 23);
             this.btn_addItemType.TabIndex = 8;
             this.btn_addItemType.Text = "      Add Item Type";
             this.btn_addItemType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -310,7 +367,7 @@
             this.btn_editItem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editItem.Location = new System.Drawing.Point(0, 48);
             this.btn_editItem.Name = "btn_editItem";
-            this.btn_editItem.Size = new System.Drawing.Size(146, 23);
+            this.btn_editItem.Size = new System.Drawing.Size(159, 23);
             this.btn_editItem.TabIndex = 3;
             this.btn_editItem.Text = "      Edit Item";
             this.btn_editItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -322,7 +379,7 @@
             this.btn_addItem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_addItem.Location = new System.Drawing.Point(0, 25);
             this.btn_addItem.Name = "btn_addItem";
-            this.btn_addItem.Size = new System.Drawing.Size(146, 23);
+            this.btn_addItem.Size = new System.Drawing.Size(159, 23);
             this.btn_addItem.TabIndex = 2;
             this.btn_addItem.Text = "      Add Item";
             this.btn_addItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -335,7 +392,7 @@
             this.btn_metaData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_metaData.Location = new System.Drawing.Point(0, 0);
             this.btn_metaData.Name = "btn_metaData";
-            this.btn_metaData.Size = new System.Drawing.Size(146, 25);
+            this.btn_metaData.Size = new System.Drawing.Size(159, 25);
             this.btn_metaData.TabIndex = 0;
             this.btn_metaData.Text = "    Meta Data";
             this.btn_metaData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -353,7 +410,7 @@
             this.pnl_userManage.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_userManage.Location = new System.Drawing.Point(0, 34);
             this.pnl_userManage.Name = "pnl_userManage";
-            this.pnl_userManage.Size = new System.Drawing.Size(146, 154);
+            this.pnl_userManage.Size = new System.Drawing.Size(159, 154);
             this.pnl_userManage.TabIndex = 0;
             // 
             // btn_setFormPermission
@@ -361,7 +418,7 @@
             this.btn_setFormPermission.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_setFormPermission.Location = new System.Drawing.Point(0, 117);
             this.btn_setFormPermission.Name = "btn_setFormPermission";
-            this.btn_setFormPermission.Size = new System.Drawing.Size(146, 23);
+            this.btn_setFormPermission.Size = new System.Drawing.Size(159, 23);
             this.btn_setFormPermission.TabIndex = 5;
             this.btn_setFormPermission.Text = "      Set User Permision";
             this.btn_setFormPermission.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -373,7 +430,7 @@
             this.btn_editUserRole.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editUserRole.Location = new System.Drawing.Point(0, 94);
             this.btn_editUserRole.Name = "btn_editUserRole";
-            this.btn_editUserRole.Size = new System.Drawing.Size(146, 23);
+            this.btn_editUserRole.Size = new System.Drawing.Size(159, 23);
             this.btn_editUserRole.TabIndex = 4;
             this.btn_editUserRole.Text = "      Edit User Role";
             this.btn_editUserRole.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -385,7 +442,7 @@
             this.btn_userRole.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_userRole.Location = new System.Drawing.Point(0, 71);
             this.btn_userRole.Name = "btn_userRole";
-            this.btn_userRole.Size = new System.Drawing.Size(146, 23);
+            this.btn_userRole.Size = new System.Drawing.Size(159, 23);
             this.btn_userRole.TabIndex = 3;
             this.btn_userRole.Text = "      Add User Role";
             this.btn_userRole.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -397,7 +454,7 @@
             this.btn_editUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_editUser.Location = new System.Drawing.Point(0, 48);
             this.btn_editUser.Name = "btn_editUser";
-            this.btn_editUser.Size = new System.Drawing.Size(146, 23);
+            this.btn_editUser.Size = new System.Drawing.Size(159, 23);
             this.btn_editUser.TabIndex = 2;
             this.btn_editUser.Text = "      Edit User";
             this.btn_editUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -409,7 +466,7 @@
             this.btn_createUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_createUser.Location = new System.Drawing.Point(0, 25);
             this.btn_createUser.Name = "btn_createUser";
-            this.btn_createUser.Size = new System.Drawing.Size(146, 23);
+            this.btn_createUser.Size = new System.Drawing.Size(159, 23);
             this.btn_createUser.TabIndex = 1;
             this.btn_createUser.Text = "      Create User";
             this.btn_createUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -422,7 +479,7 @@
             this.btn_userManage.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_userManage.Location = new System.Drawing.Point(0, 0);
             this.btn_userManage.Name = "btn_userManage";
-            this.btn_userManage.Size = new System.Drawing.Size(146, 25);
+            this.btn_userManage.Size = new System.Drawing.Size(159, 25);
             this.btn_userManage.TabIndex = 0;
             this.btn_userManage.Text = "   User Manage";
             this.btn_userManage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -435,7 +492,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(146, 34);
+            this.panel2.Size = new System.Drawing.Size(159, 34);
             this.panel2.TabIndex = 2;
             // 
             // label1
@@ -459,7 +516,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(893, 59);
+            this.panel1.Size = new System.Drawing.Size(980, 59);
             this.panel1.TabIndex = 5;
             // 
             // lbl_changePass
@@ -479,7 +536,7 @@
             // btn_logout
             // 
             this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_logout.Location = new System.Drawing.Point(811, 9);
+            this.btn_logout.Location = new System.Drawing.Point(898, 9);
             this.btn_logout.Name = "btn_logout";
             this.btn_logout.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btn_logout.Size = new System.Drawing.Size(75, 23);
@@ -511,12 +568,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 749);
+            this.ClientSize = new System.Drawing.Size(980, 816);
             this.Controls.Add(this.pnl_menu);
             this.IsMdiContainer = true;
             this.Name = "Frm_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Form";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_Main_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.pnl_menu.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -570,5 +628,9 @@
         private System.Windows.Forms.Button btn_editDealer;
         private System.Windows.Forms.Button btn_addDealer;
         private System.Windows.Forms.Button btn_metaData;
+        private System.Windows.Forms.Button btn_editUnits;
+        private System.Windows.Forms.Button btn_addUnits;
+        private System.Windows.Forms.Button btn_editTax;
+        private System.Windows.Forms.Button btn_addTax;
     }
 }
