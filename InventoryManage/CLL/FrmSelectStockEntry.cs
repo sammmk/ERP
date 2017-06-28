@@ -20,6 +20,7 @@ namespace InventoryManage.CLL
         public string StockEntryId { get; set; }
         public double InStockQty { get; set; }
         public double UnitPrice { get; set; }
+        public double StockIdQty { get; set; }
 
         private List<string> STOCK_ID_LIST = new List<string>();
 
@@ -49,8 +50,8 @@ namespace InventoryManage.CLL
                 select.DataPropertyName = "select";
                 select.Name = "select";
                 select.HeaderText = "Select";
-                select.TrueValue = "1";
-                select.FalseValue = "0";
+                select.TrueValue = true;
+                select.FalseValue = false;
                 grd_selectStockEntry.Columns.Add(select);
 
                 DataGridViewButtonColumn col = new DataGridViewButtonColumn();
@@ -75,7 +76,7 @@ namespace InventoryManage.CLL
 
                 lbl_totalQty.Text = MANAGEDB.getTotalStockAmountForItem(itemCode).ToString();
                 lbl_releaseQty.Text = releaseQty;
-                lbl_shortage.Text = (Convert.ToDouble(stockIdQty) - Convert.ToDouble(releaseQty)).ToString();
+                lbl_shortage.Text = (!string.IsNullOrEmpty(releaseQty)) ? (Convert.ToDouble(stockIdQty) - Convert.ToDouble(releaseQty)).ToString() : 0.ToString();
                 //grd_selectStockEntry.Columns["QTY"].Visible = false;
             }
             catch (Exception ex)
@@ -92,10 +93,10 @@ namespace InventoryManage.CLL
             {
                 if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                 {
-
                     StockEntryId = senderGrid.SelectedCells[e.ColumnIndex - 1].Value.ToString();
-                    InStockQty = Convert.ToDouble(senderGrid.Rows[e.RowIndex].Cells["remainQuantity"].Value);//get total qty in stock
-                    UnitPrice = (!string.IsNullOrEmpty(senderGrid.Rows[e.RowIndex].Cells["sellingUnitPrice"].Value.ToString())) ? Convert.ToDouble(senderGrid.Rows[e.RowIndex].Cells["sellingUnitPrice"].Value) : 0;
+                    //InStockQty = Convert.ToDouble(lbl_totalQty.Text);
+                    //UnitPrice = (!string.IsNullOrEmpty(senderGrid.Rows[e.RowIndex].Cells["sellingUnitPrice"].Value.ToString())) ? Convert.ToDouble(senderGrid.Rows[e.RowIndex].Cells["sellingUnitPrice"].Value) : 0;
+                    //StockIdQty = Convert.ToDouble(senderGrid.Rows[e.RowIndex].Cells["remainQuantity"].Value);
                     this.Close();
                 }
 
@@ -111,8 +112,6 @@ namespace InventoryManage.CLL
                         //occur when unchecked
                         grd_selectStockEntry.Rows[e.RowIndex].Cells["select"].Value = true;
                     }
-
-
                 }
             }
             catch (Exception ex)
@@ -143,9 +142,40 @@ namespace InventoryManage.CLL
                 }
 
                 //check the first row checkbox checked
-                //grd_selectStockEntry.Rows[0].Cells["select"].Value = true;
+                grd_selectStockEntry.Rows[0].Cells["select"].Value = true;
             }
             catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+        }
+
+        private void FrmSelectStockEntry_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                int count = 0;
+                string tmp = string.Empty;
+
+                foreach (DataGridViewRow row in grd_selectStockEntry.Rows)
+                {
+                    if(Convert.ToBoolean(row.Cells["select"].Value) == true)
+                    {
+                        StockEntryId = row.Cells["stockEntryId"].Value.ToString();
+                        count++;
+                    }
+                }
+
+                if(count > 1)
+                {
+                    StockEntryId = "Multiple";                    
+                }
+
+                InStockQty = Convert.ToDouble(lbl_totalQty.Text);
+                UnitPrice = (!string.IsNullOrEmpty(grd_selectStockEntry.Rows[0].Cells["sellingUnitPrice"].Value.ToString())) ? Convert.ToDouble(grd_selectStockEntry.Rows[0].Cells["sellingUnitPrice"].Value) : 0;
+                StockIdQty = Convert.ToDouble(grd_selectStockEntry.Rows[0].Cells["remainQuantity"].Value);
+            }
+            catch(Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }

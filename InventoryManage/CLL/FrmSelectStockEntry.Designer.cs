@@ -152,6 +152,7 @@
             this.Name = "FrmSelectStockEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Select Stock Entry";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmSelectStockEntry_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

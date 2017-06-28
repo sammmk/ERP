@@ -25,6 +25,7 @@ namespace InventoryManage.CLL
         private int ROW_INDEX = 0;
         private List<string> STOCK_ID_LIST = new List<string>();
         List<BLL.ClsManageReleaseQty> RELEASE = new List<BLL.ClsManageReleaseQty>();
+        List<BLL.ClsReleaseStock> ORDER = new List<BLL.ClsReleaseStock>();
 
         public FrmReleaseStock()
         {
@@ -154,8 +155,9 @@ namespace InventoryManage.CLL
 
         private void btn_add_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             try
-            {
+            {                
                 //check for do action
                 if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
                 {
@@ -163,14 +165,18 @@ namespace InventoryManage.CLL
 
                     var dataList = new List<Tuple<string, string>>();
 
+                    dataList.Add(new Tuple<string, string>("comment", txt_comment.Text));
+                    dataList.Add(new Tuple<string, string>("destination", txt_destinationId.Text));
+                    dataList.Add(new Tuple<string, string>("stockEntryId", txt_stockEntryId.Text));
+
                     isError = checkInsertedReleaseEntry(dataList);
 
                     if (!isError)
                     {
                         //insert to DataGrid
                         createDataRow();
-                        clearAfterAdd();
                         txt_billAmt.Text = (Convert.ToDouble(txt_billAmt.Text) + Convert.ToDouble(txt_total.Text)).ToString();
+                        clearAfterAdd();
                         txt_itemCode.Focus();
                     }
                 }
@@ -183,6 +189,8 @@ namespace InventoryManage.CLL
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void createDataRow()
@@ -194,17 +202,42 @@ namespace InventoryManage.CLL
 
                 grd_releaseStock.Rows[ROW_INDEX].Cells["itemCode"].Value = txt_itemCode.Text;
                 grd_releaseStock.Rows[ROW_INDEX].Cells["itemName"].Value = txt_itemName.Text;
-                grd_releaseStock.Rows[ROW_INDEX].Cells["quantity"].Value = txt_releaseQty.Text;
+                grd_releaseStock.Rows[ROW_INDEX].Cells["quantity"].Value = txt_releaseQty.Text;//
                 grd_releaseStock.Rows[ROW_INDEX].Cells["unitPrice"].Value = txt_UnitPrice.Text;
                 grd_releaseStock.Rows[ROW_INDEX].Cells["discount"].Value = txt_discount.Text;
                 grd_releaseStock.Rows[ROW_INDEX].Cells["subTotal"].Value = txt_total.Text;
                 grd_releaseStock.Rows[ROW_INDEX].Cells["availableQty"].Value = txt_inStockQty.Text;
                 grd_releaseStock.Rows[ROW_INDEX].Cells["afterQty"].Value = (Convert.ToDouble(txt_inStockQty.Text) - Convert.ToDouble(txt_releaseQty.Text)).ToString();
-                grd_releaseStock.Rows[ROW_INDEX].Cells["stockId"].Value = txt_stockEntryId.Text;
+                grd_releaseStock.Rows[ROW_INDEX].Cells["stockId"].Value = txt_stockEntryId.Text;//
                 grd_releaseStock.Rows[ROW_INDEX].Cells["itemId"].Value = txt_itemId.Text;
-                grd_releaseStock.Rows[ROW_INDEX].Cells["comment"].Value = txt_comment.Text;                
+                grd_releaseStock.Rows[ROW_INDEX].Cells["comment"].Value = txt_comment.Text;
+
+                if(RELEASE.Count > 0)
+                {
+                    foreach(BLL.ClsManageReleaseQty Item in RELEASE)
+                    {
+                        ORDER.Add(new BLL.ClsReleaseStock()
+                        {
+                            _releaseId = Convert.ToInt64(txt_releaseId.Text),
+                            _stockEntryId = Convert.ToInt64(Item._stockEntryId),
+                            _destinationId = Convert.ToInt32(txt_destinationId.Text),
+                            _itemCode = txt_itemCode.Text,
+                            _itemId = Convert.ToInt32(txt_itemId.Text),
+                            _releaseUnitPrice = Convert.ToDouble(txt_UnitPrice.Text),
+                            _qty = Item._issuedQty,
+                            _remainQty = Item._remainAfterIssuedQty,
+                            _totalValue = Item._issuedQty * Convert.ToDouble(txt_UnitPrice.Text),
+                            _discountPer = Convert.ToDouble(txt_discount.Text),
+                            _finalPrice = Convert.ToDouble(txt_billAmt.Text), //no need **
+                            _releaseDate = DateTime.Today,
+                            _sceduledDelivery = dt_delivery.Value,
+                            _delivered = dt_delivery.Value,  //no need **
+                            _comment = txt_comment.Text
+                        });
+                    }
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -229,9 +262,9 @@ namespace InventoryManage.CLL
                 //add first stockId details
                 RELEASE.Add(new BLL.ClsManageReleaseQty()
                 {
-                    _stockEntryId = txt_stockEntryId.Text,
-                    _availableQty = Convert.ToDouble(txt_stockIdQty.Text),
-                    _issuedQty = Convert.ToDouble(txt_stockIdQty.Text),
+                    _stockEntryId = dt.Rows[0]["stockEntryId"].ToString(),
+                    _availableQty = Convert.ToDouble(dt.Rows[0]["remainQuantity"].ToString()),
+                    _issuedQty = Convert.ToDouble(dt.Rows[0]["remainQuantity"].ToString()),
                     _remainAfterIssuedQty = 0
                 });
 
@@ -297,6 +330,32 @@ namespace InventoryManage.CLL
                 {
                     switch (dataList[i].Item1)
                     {
+                        case "comment":
+                            if (!VALIDATION.isEmptyTextBox(dataList[i].Item2))
+                            {
+                                if (VALIDATION.isSpecialChars(dataList[i].Item2))
+                                {
+                                    COM_MESSAGE.validationMessage("comment should not contains special characters !!!");
+                                    isError = true;
+                                }
+                            }
+                            break;
+                        case "destination":
+                            if (VALIDATION.isEmptyTextBox(dataList[i].Item2))
+                            {
+                                COM_MESSAGE.validationMessage("Destination Cannot Be Empty !!!");
+                                isError = true;
+                            }
+                            break;
+                        case "stockEntryId":
+                            if (VALIDATION.isEmptyTextBox(dataList[i].Item2))
+                            {
+                                COM_MESSAGE.validationMessage("stock Id Cannot Be Empty !!!");
+                                isError = true;
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -340,6 +399,7 @@ namespace InventoryManage.CLL
                         this.txt_stockEntryId.Text = stockEntry.StockEntryId;
                         this.txt_inStockQty.Text = stockEntry.InStockQty.ToString();
                         this.txt_UnitPrice.Text = stockEntry.UnitPrice.ToString();
+                        this.txt_stockIdQty.Text = stockEntry.StockIdQty.ToString();
                     }
                 }
                 else
@@ -417,7 +477,18 @@ namespace InventoryManage.CLL
         {
             try
             {
-                
+                DataTable dt = new DataTable();
+
+                if (!string.IsNullOrEmpty(txt_itemCode.Text))
+                {
+                    //check the item code is exist in db
+                    dt = MANAGEDB.getItemDataForStockEntry(txt_itemCode.Text);
+
+                    if (dt.Rows.Count <= 0)
+                    {
+                        COM_MESSAGE.errorMessage("Item does not exsits !!!", "Input Error");
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -432,8 +503,8 @@ namespace InventoryManage.CLL
                 double stockIdQty = 0;
                 double releaseQty = 0;
 
-                if (!string.IsNullOrEmpty(txt_inStockQty.Text) && 
-                    !string.IsNullOrEmpty(txt_releaseQty.Text) && 
+                if (!string.IsNullOrEmpty(txt_inStockQty.Text) &&
+                    !string.IsNullOrEmpty(txt_releaseQty.Text) &&
                     !string.IsNullOrEmpty(txt_stockIdQty.Text))
                 {
                     stockIdQty = Convert.ToDouble(txt_stockIdQty.Text);
@@ -444,49 +515,65 @@ namespace InventoryManage.CLL
                     {
                         if (stockIdQty < releaseQty)
                         {
-                            //COM_MESSAGE.warningMessage("Cannot release more than Available", "Not enough goods");
-                            //txt_releaseQty.Text = string.Empty;
-                            //txt_releaseQty.Focus();
-
                             MULTIPLE_STOCK_ID = manageReleaseQty(stockIdQty, releaseQty);
 
                             if (MULTIPLE_STOCK_ID)
                             {
                                 txt_stockEntryId.Text = "Multiple";
                             }
-                            //using (FrmSelectStockEntry select = new FrmSelectStockEntry(USERNAME, txt_itemCode.Text, releaseQty.ToString(), stockIdQty.ToString(), STOCK_ID_LIST))
-                            //{
-                            //    select.WindowState = FormWindowState.Normal;
-                            //    select.ShowDialog();
-                            //}
                         }
                         else
                         {
-                            if (!string.IsNullOrEmpty(txt_UnitPrice.Text))
+                            RELEASE.Clear();
+                            STOCK_ID_LIST.Clear();
+
+                            RELEASE.Add(new BLL.ClsManageReleaseQty()
                             {
-                                if (string.IsNullOrEmpty(txt_discount.Text))
-                                {
-                                    txt_total.Text = (Convert.ToDouble(txt_UnitPrice.Text) * releaseQty).ToString();
-                                    txt_discount.Focus();
-                                }
-                                else
-                                {
-                                    double unitPrice = Convert.ToDouble(txt_UnitPrice.Text);
-                                    double discount = Convert.ToDouble(txt_discount.Text);
-                                    txt_total.Text = Math.Ceiling(((unitPrice * releaseQty) * (100 - discount)) / 100).ToString();
-                                }
-                            }
+                                _stockEntryId = txt_stockEntryId.Text,
+                                _availableQty = stockIdQty,
+                                _issuedQty = releaseQty,
+                                _remainAfterIssuedQty = stockIdQty - releaseQty
+                            });
+
+                            STOCK_ID_LIST.Add(txt_stockEntryId.Text);
                         }
+
+                        calculateTotal(releaseQty);
+                        //txt_discount.Focus();
                     }
                     else
                     {
                         COM_MESSAGE.warningMessage("Release Quantity is more than in Stock", "Not Enough Goods");
                     }
-                }
+                }                
             }
             catch(Exception ex)
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+        }
+
+        private void calculateTotal(double releaseQty)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txt_UnitPrice.Text))
+                {
+                    if (string.IsNullOrEmpty(txt_discount.Text))
+                    {
+                        txt_total.Text = (Convert.ToDouble(txt_UnitPrice.Text) * releaseQty).ToString();
+                    }
+                    else
+                    {
+                        double unitPrice = Convert.ToDouble(txt_UnitPrice.Text);
+                        double discount = Convert.ToDouble(txt_discount.Text);
+                        txt_total.Text = Math.Ceiling(((unitPrice * releaseQty) * (100 - discount)) / 100).ToString();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -630,6 +717,42 @@ namespace InventoryManage.CLL
             {
                 COM_MESSAGE.exceptionMessage(ex.Message);
             }
+        }
+
+        private void btn_release_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                //check for do action
+                if (COMM_METHODS.checkActPermission(this.Name, USERNAME))
+                {
+                    if (MANAGEDB.insertData_stockRelease(ORDER))
+                    {
+                        COM_MESSAGE.successfullMessage("Successfully Released from the Stock ");
+
+                        //issue the invoice
+
+                        COMM_METHODS.clearAllText(this);
+                        setReleaseId();
+                        dt_delivery.Value = DateTime.Today;
+                        grd_releaseStock.Rows.Clear();
+                        grd_releaseStock.Refresh();
+                        txt_itemCode.Focus();
+                    }
+                }
+                else
+                {
+                    COM_MESSAGE.permissionMessage("Sorry You dont have permission to do action !!!");
+                }
+            }
+            catch (Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

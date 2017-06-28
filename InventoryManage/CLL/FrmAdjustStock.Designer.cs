@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.pnl_stockAdjust = new System.Windows.Forms.Panel();
+            this.txt_dealerId = new System.Windows.Forms.TextBox();
+            this.btn_selectDealer = new System.Windows.Forms.Button();
+            this.txt_dealer = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.txt_misPlaced = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txt_remainQuantity = new System.Windows.Forms.TextBox();
@@ -43,9 +47,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dateTime_expire = new System.Windows.Forms.DateTimePicker();
             this.dateTime_stockEntry = new System.Windows.Forms.DateTimePicker();
-            this.txt_expireDate = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txt_stockEntryDate = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_sellUnitPrice = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,15 +64,15 @@
             this.txt_entryId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_dealer = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txt_dealerId = new System.Windows.Forms.TextBox();
-            this.btn_selectDealer = new System.Windows.Forms.Button();
+            this.dropDown_stockUnit = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.pnl_stockAdjust.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_stockAdjust
             // 
+            this.pnl_stockAdjust.Controls.Add(this.dropDown_stockUnit);
+            this.pnl_stockAdjust.Controls.Add(this.label17);
             this.pnl_stockAdjust.Controls.Add(this.txt_dealerId);
             this.pnl_stockAdjust.Controls.Add(this.btn_selectDealer);
             this.pnl_stockAdjust.Controls.Add(this.txt_dealer);
@@ -89,9 +91,7 @@
             this.pnl_stockAdjust.Controls.Add(this.label11);
             this.pnl_stockAdjust.Controls.Add(this.dateTime_expire);
             this.pnl_stockAdjust.Controls.Add(this.dateTime_stockEntry);
-            this.pnl_stockAdjust.Controls.Add(this.txt_expireDate);
             this.pnl_stockAdjust.Controls.Add(this.label10);
-            this.pnl_stockAdjust.Controls.Add(this.txt_stockEntryDate);
             this.pnl_stockAdjust.Controls.Add(this.label9);
             this.pnl_stockAdjust.Controls.Add(this.txt_sellUnitPrice);
             this.pnl_stockAdjust.Controls.Add(this.label8);
@@ -114,10 +114,45 @@
             this.pnl_stockAdjust.Size = new System.Drawing.Size(1020, 397);
             this.pnl_stockAdjust.TabIndex = 0;
             // 
+            // txt_dealerId
+            // 
+            this.txt_dealerId.Enabled = false;
+            this.txt_dealerId.Location = new System.Drawing.Point(679, 73);
+            this.txt_dealerId.Name = "txt_dealerId";
+            this.txt_dealerId.Size = new System.Drawing.Size(26, 19);
+            this.txt_dealerId.TabIndex = 61;
+            this.txt_dealerId.Visible = false;
+            // 
+            // btn_selectDealer
+            // 
+            this.btn_selectDealer.Location = new System.Drawing.Point(870, 73);
+            this.btn_selectDealer.Name = "btn_selectDealer";
+            this.btn_selectDealer.Size = new System.Drawing.Size(30, 19);
+            this.btn_selectDealer.TabIndex = 60;
+            this.btn_selectDealer.Text = ". . .";
+            this.btn_selectDealer.UseVisualStyleBackColor = true;
+            this.btn_selectDealer.Click += new System.EventHandler(this.btn_selectDealer_Click);
+            // 
+            // txt_dealer
+            // 
+            this.txt_dealer.Location = new System.Drawing.Point(718, 73);
+            this.txt_dealer.Name = "txt_dealer";
+            this.txt_dealer.Size = new System.Drawing.Size(146, 19);
+            this.txt_dealer.TabIndex = 59;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(596, 78);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 12);
+            this.label16.TabIndex = 58;
+            this.label16.Text = "Dealer :";
+            // 
             // txt_misPlaced
             // 
             this.txt_misPlaced.Enabled = false;
-            this.txt_misPlaced.Location = new System.Drawing.Point(783, 212);
+            this.txt_misPlaced.Location = new System.Drawing.Point(718, 212);
             this.txt_misPlaced.Name = "txt_misPlaced";
             this.txt_misPlaced.Size = new System.Drawing.Size(146, 19);
             this.txt_misPlaced.TabIndex = 57;
@@ -125,7 +160,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(661, 215);
+            this.label15.Location = new System.Drawing.Point(596, 214);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(109, 12);
             this.label15.TabIndex = 56;
@@ -133,7 +168,7 @@
             // 
             // txt_remainQuantity
             // 
-            this.txt_remainQuantity.Location = new System.Drawing.Point(783, 178);
+            this.txt_remainQuantity.Location = new System.Drawing.Point(718, 178);
             this.txt_remainQuantity.Name = "txt_remainQuantity";
             this.txt_remainQuantity.Size = new System.Drawing.Size(146, 19);
             this.txt_remainQuantity.TabIndex = 55;
@@ -142,7 +177,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(661, 181);
+            this.label14.Location = new System.Drawing.Point(596, 181);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 12);
             this.label14.TabIndex = 54;
@@ -151,7 +186,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(661, 117);
+            this.label13.Location = new System.Drawing.Point(596, 113);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(59, 12);
             this.label13.TabIndex = 53;
@@ -159,15 +194,15 @@
             // 
             // txt_comment
             // 
-            this.txt_comment.Location = new System.Drawing.Point(783, 110);
+            this.txt_comment.Location = new System.Drawing.Point(718, 110);
             this.txt_comment.Multiline = true;
             this.txt_comment.Name = "txt_comment";
-            this.txt_comment.Size = new System.Drawing.Size(208, 53);
+            this.txt_comment.Size = new System.Drawing.Size(146, 53);
             this.txt_comment.TabIndex = 52;
             // 
             // txt_priceAfterDiscount
             // 
-            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(783, 76);
+            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(414, 249);
             this.txt_priceAfterDiscount.Name = "txt_priceAfterDiscount";
             this.txt_priceAfterDiscount.Size = new System.Drawing.Size(146, 19);
             this.txt_priceAfterDiscount.TabIndex = 51;
@@ -175,7 +210,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(661, 79);
+            this.label12.Location = new System.Drawing.Point(292, 252);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(116, 12);
             this.label12.TabIndex = 50;
@@ -183,7 +218,8 @@
             // 
             // btn_clear
             // 
-            this.btn_clear.Location = new System.Drawing.Point(916, 294);
+            this.btn_clear.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_clear.Location = new System.Drawing.Point(825, 294);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(75, 30);
             this.btn_clear.TabIndex = 49;
@@ -192,7 +228,8 @@
             // 
             // btn_update
             // 
-            this.btn_update.Location = new System.Drawing.Point(783, 294);
+            this.btn_update.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_update.Location = new System.Drawing.Point(718, 294);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(75, 30);
             this.btn_update.TabIndex = 48;
@@ -202,7 +239,7 @@
             // 
             // txt_totalValue
             // 
-            this.txt_totalValue.Location = new System.Drawing.Point(384, 212);
+            this.txt_totalValue.Location = new System.Drawing.Point(414, 212);
             this.txt_totalValue.Name = "txt_totalValue";
             this.txt_totalValue.Size = new System.Drawing.Size(146, 19);
             this.txt_totalValue.TabIndex = 47;
@@ -210,7 +247,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(277, 215);
+            this.label11.Location = new System.Drawing.Point(292, 215);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(70, 12);
             this.label11.TabIndex = 46;
@@ -218,45 +255,31 @@
             // 
             // dateTime_expire
             // 
-            this.dateTime_expire.Location = new System.Drawing.Point(536, 178);
+            this.dateTime_expire.Location = new System.Drawing.Point(414, 178);
             this.dateTime_expire.Name = "dateTime_expire";
-            this.dateTime_expire.Size = new System.Drawing.Size(103, 19);
+            this.dateTime_expire.Size = new System.Drawing.Size(146, 19);
             this.dateTime_expire.TabIndex = 45;
             // 
             // dateTime_stockEntry
             // 
-            this.dateTime_stockEntry.Location = new System.Drawing.Point(536, 144);
+            this.dateTime_stockEntry.Location = new System.Drawing.Point(414, 144);
             this.dateTime_stockEntry.Name = "dateTime_stockEntry";
-            this.dateTime_stockEntry.Size = new System.Drawing.Size(103, 19);
+            this.dateTime_stockEntry.Size = new System.Drawing.Size(146, 19);
             this.dateTime_stockEntry.TabIndex = 44;
-            // 
-            // txt_expireDate
-            // 
-            this.txt_expireDate.Location = new System.Drawing.Point(384, 178);
-            this.txt_expireDate.Name = "txt_expireDate";
-            this.txt_expireDate.Size = new System.Drawing.Size(146, 19);
-            this.txt_expireDate.TabIndex = 43;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(277, 181);
+            this.label10.Location = new System.Drawing.Point(292, 181);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 12);
             this.label10.TabIndex = 42;
             this.label10.Text = "Expiration Date :";
             // 
-            // txt_stockEntryDate
-            // 
-            this.txt_stockEntryDate.Location = new System.Drawing.Point(384, 144);
-            this.txt_stockEntryDate.Name = "txt_stockEntryDate";
-            this.txt_stockEntryDate.Size = new System.Drawing.Size(146, 19);
-            this.txt_stockEntryDate.TabIndex = 41;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(277, 147);
+            this.label9.Location = new System.Drawing.Point(292, 147);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 12);
             this.label9.TabIndex = 40;
@@ -264,7 +287,7 @@
             // 
             // txt_sellUnitPrice
             // 
-            this.txt_sellUnitPrice.Location = new System.Drawing.Point(384, 110);
+            this.txt_sellUnitPrice.Location = new System.Drawing.Point(414, 110);
             this.txt_sellUnitPrice.Name = "txt_sellUnitPrice";
             this.txt_sellUnitPrice.Size = new System.Drawing.Size(146, 19);
             this.txt_sellUnitPrice.TabIndex = 39;
@@ -272,7 +295,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(277, 113);
+            this.label8.Location = new System.Drawing.Point(292, 113);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 12);
             this.label8.TabIndex = 38;
@@ -280,7 +303,7 @@
             // 
             // txt_buyUnitPrice
             // 
-            this.txt_buyUnitPrice.Location = new System.Drawing.Point(384, 76);
+            this.txt_buyUnitPrice.Location = new System.Drawing.Point(414, 76);
             this.txt_buyUnitPrice.Name = "txt_buyUnitPrice";
             this.txt_buyUnitPrice.Size = new System.Drawing.Size(146, 19);
             this.txt_buyUnitPrice.TabIndex = 37;
@@ -289,7 +312,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(277, 79);
+            this.label7.Location = new System.Drawing.Point(292, 79);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 12);
             this.label7.TabIndex = 36;
@@ -297,7 +320,7 @@
             // 
             // txt_quantity
             // 
-            this.txt_quantity.Location = new System.Drawing.Point(95, 212);
+            this.txt_quantity.Location = new System.Drawing.Point(112, 211);
             this.txt_quantity.Name = "txt_quantity";
             this.txt_quantity.Size = new System.Drawing.Size(146, 19);
             this.txt_quantity.TabIndex = 35;
@@ -314,7 +337,7 @@
             // 
             // txt_itemName
             // 
-            this.txt_itemName.Location = new System.Drawing.Point(95, 178);
+            this.txt_itemName.Location = new System.Drawing.Point(112, 177);
             this.txt_itemName.Name = "txt_itemName";
             this.txt_itemName.Size = new System.Drawing.Size(146, 19);
             this.txt_itemName.TabIndex = 33;
@@ -331,7 +354,7 @@
             // txt_itemId
             // 
             this.txt_itemId.Enabled = false;
-            this.txt_itemId.Location = new System.Drawing.Point(95, 144);
+            this.txt_itemId.Location = new System.Drawing.Point(112, 143);
             this.txt_itemId.Name = "txt_itemId";
             this.txt_itemId.Size = new System.Drawing.Size(146, 19);
             this.txt_itemId.TabIndex = 31;
@@ -347,7 +370,7 @@
             // 
             // txt_itemCode
             // 
-            this.txt_itemCode.Location = new System.Drawing.Point(95, 110);
+            this.txt_itemCode.Location = new System.Drawing.Point(112, 109);
             this.txt_itemCode.Name = "txt_itemCode";
             this.txt_itemCode.Size = new System.Drawing.Size(146, 19);
             this.txt_itemCode.TabIndex = 29;
@@ -364,7 +387,7 @@
             // txt_entryId
             // 
             this.txt_entryId.Enabled = false;
-            this.txt_entryId.Location = new System.Drawing.Point(95, 76);
+            this.txt_entryId.Location = new System.Drawing.Point(112, 75);
             this.txt_entryId.Name = "txt_entryId";
             this.txt_entryId.Size = new System.Drawing.Size(146, 19);
             this.txt_entryId.TabIndex = 27;
@@ -389,40 +412,22 @@
             this.label1.Text = "Stock Adjustment";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txt_dealer
+            // dropDown_stockUnit
             // 
-            this.txt_dealer.Location = new System.Drawing.Point(783, 246);
-            this.txt_dealer.Name = "txt_dealer";
-            this.txt_dealer.Size = new System.Drawing.Size(146, 19);
-            this.txt_dealer.TabIndex = 59;
+            this.dropDown_stockUnit.FormattingEnabled = true;
+            this.dropDown_stockUnit.Location = new System.Drawing.Point(112, 248);
+            this.dropDown_stockUnit.Name = "dropDown_stockUnit";
+            this.dropDown_stockUnit.Size = new System.Drawing.Size(146, 20);
+            this.dropDown_stockUnit.TabIndex = 63;
             // 
-            // label16
+            // label17
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(661, 249);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 12);
-            this.label16.TabIndex = 58;
-            this.label16.Text = "Dealer :";
-            // 
-            // txt_dealerId
-            // 
-            this.txt_dealerId.Enabled = false;
-            this.txt_dealerId.Location = new System.Drawing.Point(744, 246);
-            this.txt_dealerId.Name = "txt_dealerId";
-            this.txt_dealerId.Size = new System.Drawing.Size(26, 19);
-            this.txt_dealerId.TabIndex = 61;
-            this.txt_dealerId.Visible = false;
-            // 
-            // btn_selectDealer
-            // 
-            this.btn_selectDealer.Location = new System.Drawing.Point(935, 246);
-            this.btn_selectDealer.Name = "btn_selectDealer";
-            this.btn_selectDealer.Size = new System.Drawing.Size(30, 19);
-            this.btn_selectDealer.TabIndex = 60;
-            this.btn_selectDealer.Text = ". . .";
-            this.btn_selectDealer.UseVisualStyleBackColor = true;
-            this.btn_selectDealer.Click += new System.EventHandler(this.btn_selectDealer_Click);
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(28, 253);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(78, 12);
+            this.label17.TabIndex = 62;
+            this.label17.Text = "Stock In Unit :";
             // 
             // FrmAdjustStock
             // 
@@ -451,9 +456,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dateTime_expire;
         private System.Windows.Forms.DateTimePicker dateTime_stockEntry;
-        private System.Windows.Forms.TextBox txt_expireDate;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txt_stockEntryDate;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_sellUnitPrice;
         private System.Windows.Forms.Label label8;
@@ -482,5 +485,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_dealerId;
         private System.Windows.Forms.Button btn_selectDealer;
+        private System.Windows.Forms.ComboBox dropDown_stockUnit;
+        private System.Windows.Forms.Label label17;
     }
 }

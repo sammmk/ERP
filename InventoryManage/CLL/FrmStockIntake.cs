@@ -37,7 +37,7 @@ namespace InventoryManage.CLL
 
             InitializeComponent();
 
-            txt_stockEntryDate.Text = DateTime.Today.ToString("yyyy/MM/dd");
+            dateTime_stockEntry.Value = DateTime.Today;
             USERNAME = userName;
             fillGrid();
 
@@ -131,15 +131,15 @@ namespace InventoryManage.CLL
             }
         }
 
-        private void dateTime_stockEntry_ValueChanged(object sender, EventArgs e)
-        {
-            txt_stockEntryDate.Text = dateTime_stockEntry.Value.Date.ToString("yyyy/MM/dd");
-        }
+        //private void dateTime_stockEntry_ValueChanged(object sender, EventArgs e)
+        //{
+        //    txt_stockEntryDate.Text = dateTime_stockEntry.Value.Date.ToString("yyyy/MM/dd");
+        //}
 
-        private void dateTime_expire_ValueChanged(object sender, EventArgs e)
-        {
-            txt_expireDate.Text = dateTime_expire.Value.Date.ToString("yyyy/MM/dd");
-        }
+        //private void dateTime_expire_ValueChanged(object sender, EventArgs e)
+        //{
+        //    txt_expireDate.Text = dateTime_expire.Value.Date.ToString("yyyy/MM/dd");
+        //}
 
         private void btn_add_Click(object sender, EventArgs e)
         {
@@ -171,7 +171,7 @@ namespace InventoryManage.CLL
                             COM_MESSAGE.successfullMessage("Successfully created the Stock Entry ");
                             COMM_METHODS.clearAllText(this);
                             setStockEntryId();
-                            txt_stockEntryDate.Text = DateTime.Today.ToString("yyyy/MM/dd");
+                            dateTime_stockEntry.Value = DateTime.Today;
                             fillGrid();
                             txt_itemCode.Focus();
                         }
@@ -200,8 +200,8 @@ namespace InventoryManage.CLL
                 STOCKDATA._quantity = Convert.ToDouble(txt_quantity.Text);
                 STOCKDATA._buyUnitPrice = Convert.ToDouble(txt_buyUnitPrice.Text);
                 STOCKDATA._sellUnitPrice = Convert.ToDouble(txt_sellUnitPrice.Text);
-                STOCKDATA._stockEntryDate = Convert.ToDateTime(txt_stockEntryDate.Text);
-                STOCKDATA._expireDate = Convert.ToDateTime(txt_expireDate.Text);
+                STOCKDATA._stockEntryDate = dateTime_stockEntry.Value;// Convert.ToDateTime(txt_stockEntryDate.Text);
+                STOCKDATA._expireDate = dateTime_expire.Value;// Convert.ToDateTime(txt_expireDate.Text);
                 STOCKDATA._createDate = DateTime.Today;
                 STOCKDATA._totalValue = Convert.ToDouble(txt_totalValue.Text);
                 STOCKDATA._updateDate = DateTime.Today;
@@ -209,6 +209,7 @@ namespace InventoryManage.CLL
                 STOCKDATA._priceAfterDiscount = Convert.ToDouble(txt_priceAfterDiscount.Text);
                 STOCKDATA._comment = txt_comment.Text;
                 STOCKDATA._dealerId = (!string.IsNullOrEmpty(txt_dealerId.Text)) ? Convert.ToInt32(txt_dealerId.Text) : 0;
+                STOCKDATA._stockUnitId = Convert.ToInt32(dropDown_stockUnit.SelectedValue);
             }
             catch (Exception ex)
             {
@@ -315,21 +316,23 @@ namespace InventoryManage.CLL
                 grd_stockCurrent.Columns["itemCode"].DisplayIndex = 1;
                 grd_stockCurrent.Columns["itemName"].DisplayIndex = 2;
                 grd_stockCurrent.Columns["quantity"].DisplayIndex = 3;
-                grd_stockCurrent.Columns["remainQuantity"].DisplayIndex = 4;
-                grd_stockCurrent.Columns["buyingUnitPrice"].DisplayIndex = 5;
-                grd_stockCurrent.Columns["totalValue"].DisplayIndex = 6;
-                grd_stockCurrent.Columns["sellingUnitPrice"].DisplayIndex = 7;
-                grd_stockCurrent.Columns["createDate"].DisplayIndex = 8;
-                //grd_stockCurrent.Columns["updateDate"].DisplayIndex = 9;
-                //grd_stockCurrent.Columns["stockEntryDate"].DisplayIndex = 10;
-                //grd_stockCurrent.Columns["expirationDate"].DisplayIndex = 11;
-                grd_stockCurrent.Columns["dealerName"].DisplayIndex = 12;
+                grd_stockCurrent.Columns["symbol"].DisplayIndex = 4;
+                grd_stockCurrent.Columns["remainQuantity"].DisplayIndex = 5;
+                grd_stockCurrent.Columns["buyingUnitPrice"].DisplayIndex = 6;
+                grd_stockCurrent.Columns["totalValue"].DisplayIndex = 7;
+                grd_stockCurrent.Columns["sellingUnitPrice"].DisplayIndex = 8;
+                grd_stockCurrent.Columns["createDate"].DisplayIndex = 9;
+                //grd_stockCurrent.Columns["updateDate"].DisplayIndex = 10;
+                //grd_stockCurrent.Columns["stockEntryDate"].DisplayIndex = 11;
+                //grd_stockCurrent.Columns["expirationDate"].DisplayIndex = 12;
+                grd_stockCurrent.Columns["dealerName"].DisplayIndex = 13;
 
                 //change the header names
                 grd_stockCurrent.Columns["stockEntryId"].HeaderText = "Stock_Id";
                 grd_stockCurrent.Columns["itemCode"].HeaderText = "Item_Code";
                 grd_stockCurrent.Columns["itemName"].HeaderText = "Item_Name";
                 grd_stockCurrent.Columns["quantity"].HeaderText = "Qty";
+                grd_stockCurrent.Columns["symbol"].HeaderText = "Symbol";
                 grd_stockCurrent.Columns["remainQuantity"].HeaderText = "Remain_Qty";
                 grd_stockCurrent.Columns["buyingUnitPrice"].HeaderText = "Unit_Price(Buy)";
                 grd_stockCurrent.Columns["totalValue"].HeaderText = "Total";
@@ -349,6 +352,7 @@ namespace InventoryManage.CLL
                 grd_stockCurrent.Columns["comment"].Visible = false;
                 grd_stockCurrent.Columns["releaseFlg"].Visible = false;
                 grd_stockCurrent.Columns["dealerId"].Visible = false;
+                grd_stockCurrent.Columns["stockUnitId"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -358,34 +362,46 @@ namespace InventoryManage.CLL
 
         private void txt_itemCode_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            try
             {
-                DataTable dt = new DataTable();
-
-                //get item data and fill data
-                dt = MANAGEDB.getItemDataForStockEntry(txt_itemCode.Text);
-
-                if (dt.Rows.Count >= 1)
+                if (e.KeyCode == Keys.Enter)
                 {
-                    txt_itemId.Text = dt.Rows[0]["itemId"].ToString();
-                    txt_itemName.Text = dt.Rows[0]["itemName"].ToString();
+                    DataTable dt = new DataTable();
 
-                    txt_quantity.Focus();
-                    //System.Media.SystemSounds.Beep.Play();
-                    //System.Media.SystemSounds.Asterisk.Play();
-                    //System.Media.SystemSounds.Exclamation.Play();
-                    //System.Media.SystemSounds.Question.Play();
-                    //System.Media.SystemSounds.Hand.Play();
+                    //get item data and fill data
+                    dt = MANAGEDB.getItemDataForStockEntry(txt_itemCode.Text);
+
+                    if (dt.Rows.Count >= 1)
+                    {
+                        txt_itemId.Text = dt.Rows[0]["itemId"].ToString();
+                        txt_itemName.Text = dt.Rows[0]["itemName"].ToString();
+
+                        dropDown_stockUnit.DataSource = MANAGEDB.getUnitDetails();
+                        dropDown_stockUnit.DisplayMember = "symbol";
+                        dropDown_stockUnit.ValueMember = "unitId";
+                        dropDown_stockUnit.BindingContext = this.BindingContext;
+                        dropDown_stockUnit.SelectedIndex = dropDown_stockUnit.FindString(dt.Rows[0]["stockUnit"].ToString());
+                        txt_quantity.Focus();
+                        //System.Media.SystemSounds.Beep.Play();
+                        //System.Media.SystemSounds.Asterisk.Play();
+                        //System.Media.SystemSounds.Exclamation.Play();
+                        //System.Media.SystemSounds.Question.Play();
+                        //System.Media.SystemSounds.Hand.Play();
+                    }
+                    else
+                    {
+                        txt_itemCode.Clear();
+                        //System.Media.SystemSounds.Beep.Play();
+                        //System.Media.SystemSounds.Asterisk.Play();
+                        //System.Media.SystemSounds.Exclamation.Play();
+                        //System.Media.SystemSounds.Question.Play();
+                        //System.Media.SystemSounds.Hand.Play();
+                    }
                 }
-                else
-                {
-                    txt_itemCode.Clear();
-                    //System.Media.SystemSounds.Beep.Play();
-                    //System.Media.SystemSounds.Asterisk.Play();
-                    //System.Media.SystemSounds.Exclamation.Play();
-                    //System.Media.SystemSounds.Question.Play();
-                    //System.Media.SystemSounds.Hand.Play();
-                }
+            }
+            catch(Exception ex)
+            {
+                COM_MESSAGE.exceptionMessage(ex.Message);
             }
         }
 

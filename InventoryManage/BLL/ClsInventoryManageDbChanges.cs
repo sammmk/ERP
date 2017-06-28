@@ -69,7 +69,7 @@ namespace InventoryManage.BLL
                             (stockEntryId, itemCode, itemId, updateDate, quantity, 
                             buyingUnitPrice, sellingUnitPrice, stockEntryDate, 
                             createDate, expirationDate, totalValue, 
-                            remainQuantity, priceAfterDiscount, comment, dealerId) 
+                            remainQuantity, priceAfterDiscount, comment, dealerId, stockUnitId) 
                             VALUES (";
                 querry += "'" + stockData._stockEntryId + "',";
                 querry += "'" + stockData._itemCode + "',";
@@ -85,7 +85,8 @@ namespace InventoryManage.BLL
                 querry += "'" + stockData._remainQuantity + "',";
                 querry += "'" + stockData._priceAfterDiscount + "',";
                 querry += "'" + stockData._comment + "',";
-                querry += "'" + stockData._dealerId + "'";
+                querry += "'" + stockData._dealerId + "',";
+                querry += "'" + stockData._stockUnitId + "'";
                 querry += ");";
 
                 isError = CONN.update(querry);
@@ -95,6 +96,53 @@ namespace InventoryManage.BLL
                 throw ex;
             }
             return isError;
+        }
+
+        public bool insertData_stockRelease(List<ClsReleaseStock> releaseStock)
+        {
+            bool isOK = false;
+            string querry = string.Empty;
+            string query2 = string.Empty;
+
+            try
+            {
+                foreach (ClsReleaseStock release in releaseStock)
+                {
+                    querry = @"INSERT INTO tbl_stockrelease 
+                            (releaseId, stockEntryId, destinationId, ItemCode, itemId,
+                            releaseUnitPrice, quantity, totalValue, discount_per, finalPrice,
+                            releaseDate, scheduledDeliveryDate, deliveredDate, comment) 
+                            VALUES (";
+                    querry += "'" + release._releaseId + "',";
+                    querry += "'" + release._stockEntryId + "',";
+                    querry += "'" + release._destinationId + "',";
+                    querry += "'" + release._itemCode + "',";
+                    querry += "'" + release._itemId + "',";
+                    querry += "'" + release._releaseUnitPrice + "',";
+                    querry += "'" + release._qty + "',";
+                    querry += "'" + release._totalValue + "',";
+                    querry += "'" + release._discountPer + "',";
+                    querry += "'" + release._finalPrice + "',";//
+                    querry += "'" + release._releaseDate + "',";
+                    querry += "'" + release._sceduledDelivery + "',";//
+                    querry += "'" + release._delivered + "',";
+                    querry += "'" + release._comment + "'";
+                    querry += ");";
+
+                    isOK = CONN.update(querry);
+
+                    query2 = @"UPDATE tbl_stockentry SET ";
+                    query2 += "remainQuantity = '" + release._remainQty + "' ";
+                    query2 += "WHERE stockEntryId = '" + release._stockEntryId + "';";
+
+                    isOK = CONN.update(query2);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return isOK;
         }
 
         public bool updateData_stockEntry(ClsStockData stockData)
@@ -205,6 +253,8 @@ namespace InventoryManage.BLL
                     stockData._misPlacedQty = Convert.ToDouble(dt.Rows[0]["misPlacedQty"]);
                     stockData._dealerId = Convert.ToInt32(dt.Rows[0]["dealerId"]);
                     stockData._dealerName = dt.Rows[0]["dealerName"].ToString();
+                    stockData._stockUnitId = Convert.ToInt32(dt.Rows[0]["stockUnitId"].ToString());
+                    stockData._stockUnitSymbol = dt.Rows[0]["symbol"].ToString();
                 }
             }
             catch (Exception ex)
@@ -221,12 +271,29 @@ namespace InventoryManage.BLL
 
             try
             {
-                string querry = @"SELECT * FROM tbl_item
+                string querry = @"SELECT * FROM vw_item
                                     WHERE itemCode = '" + itemCode + "';";
 
                 dt = CONN.getDataTable(querry);
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable getUnitDetails()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string querry = @"SELECT * FROM tbl_units;";
+
+                dt = CONN.getDataTable(querry);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

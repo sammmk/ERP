@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splt_releaseStock = new System.Windows.Forms.SplitContainer();
+            this.txt_stockIdQty = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txt_billAmt = new System.Windows.Forms.TextBox();
             this.txt_comment = new System.Windows.Forms.TextBox();
@@ -78,7 +79,6 @@
             this.stockId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.itemId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_stockIdQty = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splt_releaseStock)).BeginInit();
             this.splt_releaseStock.Panel1.SuspendLayout();
             this.splt_releaseStock.Panel2.SuspendLayout();
@@ -139,6 +139,15 @@
             this.splt_releaseStock.SplitterDistance = 228;
             this.splt_releaseStock.TabIndex = 0;
             // 
+            // txt_stockIdQty
+            // 
+            this.txt_stockIdQty.Enabled = false;
+            this.txt_stockIdQty.Location = new System.Drawing.Point(567, 109);
+            this.txt_stockIdQty.Name = "txt_stockIdQty";
+            this.txt_stockIdQty.Size = new System.Drawing.Size(29, 19);
+            this.txt_stockIdQty.TabIndex = 53;
+            this.txt_stockIdQty.Visible = false;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -162,7 +171,7 @@
             this.txt_comment.Multiline = true;
             this.txt_comment.Name = "txt_comment";
             this.txt_comment.Size = new System.Drawing.Size(179, 52);
-            this.txt_comment.TabIndex = 50;
+            this.txt_comment.TabIndex = 14;
             // 
             // label13
             // 
@@ -192,6 +201,7 @@
             this.btn_release.TabIndex = 47;
             this.btn_release.Text = "Release";
             this.btn_release.UseVisualStyleBackColor = true;
+            this.btn_release.Click += new System.EventHandler(this.btn_release_Click);
             // 
             // btn_add
             // 
@@ -199,7 +209,7 @@
             this.btn_add.Location = new System.Drawing.Point(936, 44);
             this.btn_add.Name = "btn_add";
             this.btn_add.Size = new System.Drawing.Size(75, 31);
-            this.btn_add.TabIndex = 46;
+            this.btn_add.TabIndex = 13;
             this.btn_add.Text = "Add";
             this.btn_add.UseVisualStyleBackColor = true;
             this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
@@ -228,7 +238,7 @@
             this.txt_discount.Location = new System.Drawing.Point(435, 139);
             this.txt_discount.Name = "txt_discount";
             this.txt_discount.Size = new System.Drawing.Size(131, 19);
-            this.txt_discount.TabIndex = 43;
+            this.txt_discount.TabIndex = 12;
             this.txt_discount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_discount_KeyPress);
             this.txt_discount.Leave += new System.EventHandler(this.txt_discount_Leave);
             // 
@@ -238,7 +248,7 @@
             this.txt_inStockQty.Location = new System.Drawing.Point(435, 109);
             this.txt_inStockQty.Name = "txt_inStockQty";
             this.txt_inStockQty.Size = new System.Drawing.Size(131, 19);
-            this.txt_inStockQty.TabIndex = 42;
+            this.txt_inStockQty.TabIndex = 10;
             // 
             // label11
             // 
@@ -263,7 +273,7 @@
             this.txt_total.Location = new System.Drawing.Point(723, 139);
             this.txt_total.Name = "txt_total";
             this.txt_total.Size = new System.Drawing.Size(122, 19);
-            this.txt_total.TabIndex = 39;
+            this.txt_total.TabIndex = 18;
             this.txt_total.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_total_KeyPress);
             this.txt_total.Leave += new System.EventHandler(this.txt_total_Leave);
             // 
@@ -272,7 +282,7 @@
             this.txt_releaseQty.Location = new System.Drawing.Point(723, 109);
             this.txt_releaseQty.Name = "txt_releaseQty";
             this.txt_releaseQty.Size = new System.Drawing.Size(122, 19);
-            this.txt_releaseQty.TabIndex = 38;
+            this.txt_releaseQty.TabIndex = 11;
             this.txt_releaseQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_releaseQty_KeyPress);
             this.txt_releaseQty.Leave += new System.EventHandler(this.txt_releaseQty_Leave);
             // 
@@ -291,7 +301,7 @@
             this.btn_selectStockId.Location = new System.Drawing.Point(259, 107);
             this.btn_selectStockId.Name = "btn_selectStockId";
             this.btn_selectStockId.Size = new System.Drawing.Size(30, 19);
-            this.btn_selectStockId.TabIndex = 36;
+            this.btn_selectStockId.TabIndex = 9;
             this.btn_selectStockId.Text = "...";
             this.btn_selectStockId.UseVisualStyleBackColor = true;
             this.btn_selectStockId.Click += new System.EventHandler(this.btn_selectStockId_Click);
@@ -319,7 +329,7 @@
             this.dt_delivery.Location = new System.Drawing.Point(724, 44);
             this.dt_delivery.Name = "dt_delivery";
             this.dt_delivery.Size = new System.Drawing.Size(121, 19);
-            this.dt_delivery.TabIndex = 33;
+            this.dt_delivery.TabIndex = 4;
             this.dt_delivery.Value = new System.DateTime(2017, 5, 22, 13, 39, 58, 0);
             // 
             // btn_selectDestination
@@ -328,7 +338,7 @@
             this.btn_selectDestination.Location = new System.Drawing.Point(567, 44);
             this.btn_selectDestination.Name = "btn_selectDestination";
             this.btn_selectDestination.Size = new System.Drawing.Size(30, 19);
-            this.btn_selectDestination.TabIndex = 32;
+            this.btn_selectDestination.TabIndex = 3;
             this.btn_selectDestination.Text = "...";
             this.btn_selectDestination.UseVisualStyleBackColor = true;
             this.btn_selectDestination.Click += new System.EventHandler(this.btn_selectDestination_Click);
@@ -338,7 +348,7 @@
             this.txt_itemCode.Location = new System.Drawing.Point(110, 74);
             this.txt_itemCode.Name = "txt_itemCode";
             this.txt_itemCode.Size = new System.Drawing.Size(143, 19);
-            this.txt_itemCode.TabIndex = 14;
+            this.txt_itemCode.TabIndex = 5;
             this.txt_itemCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_itemCode_KeyUp);
             this.txt_itemCode.Leave += new System.EventHandler(this.txt_itemCode_Leave);
             // 
@@ -357,7 +367,7 @@
             this.txt_destName.Location = new System.Drawing.Point(435, 44);
             this.txt_destName.Name = "txt_destName";
             this.txt_destName.Size = new System.Drawing.Size(131, 19);
-            this.txt_destName.TabIndex = 12;
+            this.txt_destName.TabIndex = 2;
             // 
             // label7
             // 
@@ -374,7 +384,7 @@
             this.txt_itemName.Location = new System.Drawing.Point(435, 76);
             this.txt_itemName.Name = "txt_itemName";
             this.txt_itemName.Size = new System.Drawing.Size(131, 19);
-            this.txt_itemName.TabIndex = 10;
+            this.txt_itemName.TabIndex = 6;
             // 
             // label6
             // 
@@ -399,7 +409,7 @@
             this.txt_UnitPrice.Location = new System.Drawing.Point(723, 76);
             this.txt_UnitPrice.Name = "txt_UnitPrice";
             this.txt_UnitPrice.Size = new System.Drawing.Size(122, 19);
-            this.txt_UnitPrice.TabIndex = 6;
+            this.txt_UnitPrice.TabIndex = 7;
             this.txt_UnitPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_UnitPrice_KeyPress);
             this.txt_UnitPrice.Leave += new System.EventHandler(this.txt_UnitPrice_Leave);
             // 
@@ -418,7 +428,7 @@
             this.txt_stockEntryId.Location = new System.Drawing.Point(110, 107);
             this.txt_stockEntryId.Name = "txt_stockEntryId";
             this.txt_stockEntryId.Size = new System.Drawing.Size(143, 19);
-            this.txt_stockEntryId.TabIndex = 4;
+            this.txt_stockEntryId.TabIndex = 8;
             // 
             // label3
             // 
@@ -435,7 +445,7 @@
             this.txt_releaseId.Location = new System.Drawing.Point(110, 42);
             this.txt_releaseId.Name = "txt_releaseId";
             this.txt_releaseId.Size = new System.Drawing.Size(143, 19);
-            this.txt_releaseId.TabIndex = 2;
+            this.txt_releaseId.TabIndex = 1;
             // 
             // label2
             // 
@@ -459,14 +469,14 @@
             // grd_releaseStock
             // 
             this.grd_releaseStock.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grd_releaseStock.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grd_releaseStock.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grd_releaseStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grd_releaseStock.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.itemCode,
@@ -480,14 +490,14 @@
             this.stockId,
             this.itemId,
             this.comment});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grd_releaseStock.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grd_releaseStock.DefaultCellStyle = dataGridViewCellStyle2;
             this.grd_releaseStock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grd_releaseStock.Location = new System.Drawing.Point(0, 0);
             this.grd_releaseStock.Name = "grd_releaseStock";
@@ -552,15 +562,6 @@
             // 
             this.comment.HeaderText = "Comment";
             this.comment.Name = "comment";
-            // 
-            // txt_stockIdQty
-            // 
-            this.txt_stockIdQty.Enabled = false;
-            this.txt_stockIdQty.Location = new System.Drawing.Point(567, 109);
-            this.txt_stockIdQty.Name = "txt_stockIdQty";
-            this.txt_stockIdQty.Size = new System.Drawing.Size(29, 19);
-            this.txt_stockIdQty.TabIndex = 53;
-            this.txt_stockIdQty.Visible = false;
             // 
             // FrmReleaseStock
             // 

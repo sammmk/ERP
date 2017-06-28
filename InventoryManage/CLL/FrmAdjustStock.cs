@@ -73,8 +73,8 @@ namespace InventoryManage.CLL
                 txt_quantity.Text = STOCKDATA._quantity.ToString();
                 txt_buyUnitPrice.Text = STOCKDATA._buyUnitPrice.ToString();
                 txt_sellUnitPrice.Text = STOCKDATA._sellUnitPrice.ToString();
-                txt_stockEntryDate.Text = STOCKDATA._stockEntryDate.ToString("yyyy/MM/dd");
-                txt_expireDate.Text = STOCKDATA._expireDate.ToString("yyyy/MM/dd");
+                dateTime_stockEntry.Value = STOCKDATA._stockEntryDate;
+                dateTime_expire.Value = STOCKDATA._expireDate;
                 txt_totalValue.Text = STOCKDATA._totalValue.ToString();
                 txt_priceAfterDiscount.Text = STOCKDATA._priceAfterDiscount.ToString();
                 txt_comment.Text = STOCKDATA._comment;
@@ -82,6 +82,12 @@ namespace InventoryManage.CLL
                 txt_misPlaced.Text = STOCKDATA._misPlacedQty.ToString();
                 txt_dealerId.Text = STOCKDATA._dealerId.ToString();
                 txt_dealer.Text = STOCKDATA._dealerName;
+
+                dropDown_stockUnit.DataSource = MANAGEDB.getUnitDetails();
+                dropDown_stockUnit.DisplayMember = "symbol";
+                dropDown_stockUnit.ValueMember = "unitId";
+                dropDown_stockUnit.BindingContext = this.BindingContext;
+                dropDown_stockUnit.SelectedIndex = dropDown_stockUnit.FindString(STOCKDATA._stockUnitSymbol);
             }
 
             catch (Exception ex)
@@ -138,8 +144,8 @@ namespace InventoryManage.CLL
                         newStockData._quantity = Convert.ToDouble(txt_quantity.Text);
                         newStockData._buyUnitPrice = Convert.ToDouble(txt_buyUnitPrice.Text);
                         newStockData._sellUnitPrice = Convert.ToDouble(txt_sellUnitPrice.Text);
-                        newStockData._stockEntryDate = Convert.ToDateTime(txt_stockEntryDate.Text);
-                        newStockData._expireDate = Convert.ToDateTime(txt_expireDate.Text);
+                        newStockData._stockEntryDate = dateTime_stockEntry.Value; //Convert.ToDateTime(txt_stockEntryDate.Text);
+                        newStockData._expireDate = dateTime_expire.Value; //Convert.ToDateTime(txt_expireDate.Text);
                         //newStockData._createDate = DateTime.Today;
                         newStockData._totalValue = Convert.ToDouble(txt_totalValue.Text);
                         newStockData._updateDate = DateTime.Today;
@@ -148,6 +154,7 @@ namespace InventoryManage.CLL
                         newStockData._comment = txt_comment.Text;
                         newStockData._misPlacedQty = Convert.ToDouble(txt_misPlaced.Text);
                         newStockData._dealerId = Convert.ToInt32(txt_dealerId.Text);
+                        newStockData._stockUnitId = dropDown_stockUnit.SelectedIndex;
 
                         if (MANAGEDB.updateData_stockEntry(newStockData))
                         {
@@ -156,7 +163,6 @@ namespace InventoryManage.CLL
                             this.Close();
                         }
                     }
-
                 }
             }
             catch(Exception ex)

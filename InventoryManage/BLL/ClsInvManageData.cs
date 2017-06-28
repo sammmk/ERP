@@ -47,6 +47,8 @@ namespace InventoryManage.BLL
         public double _misPlacedQty { get; set; }
         public int _dealerId { get; set; }
         public string _dealerName { get; set; }
+        public int _stockUnitId { get; set; }
+        public string _stockUnitSymbol { get; set; }
     }
 
     public class ClsReleaseStock
@@ -60,6 +62,7 @@ namespace InventoryManage.BLL
         public string _itemName { get; set; }
         public double _releaseUnitPrice { get; set; }
         public double _qty { get; set; }
+        public double _remainQty { get; set; }
         public double _totalValue { get; set; }
         public double _discountPer { get; set; }
         public double _discount { get; set; }
@@ -67,7 +70,7 @@ namespace InventoryManage.BLL
         public DateTime _releaseDate { get; set; }
         public DateTime _sceduledDelivery { get; set; }
         public DateTime _delivered { get; set; }
-        public string comment { get; set; }
+        public string _comment { get; set; }
     }
 
     public class ClsManageReleaseQty

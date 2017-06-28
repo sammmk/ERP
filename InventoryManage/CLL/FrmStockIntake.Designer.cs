@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.splt_stockIntake = new System.Windows.Forms.SplitContainer();
+            this.txt_dealerId = new System.Windows.Forms.TextBox();
+            this.btn_selectDealer = new System.Windows.Forms.Button();
+            this.txt_dealer = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_comment = new System.Windows.Forms.TextBox();
             this.txt_priceAfterDiscount = new System.Windows.Forms.TextBox();
@@ -39,9 +43,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dateTime_expire = new System.Windows.Forms.DateTimePicker();
             this.dateTime_stockEntry = new System.Windows.Forms.DateTimePicker();
-            this.txt_expireDate = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txt_stockEntryDate = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_sellUnitPrice = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,10 +61,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.grd_stockCurrent = new System.Windows.Forms.DataGridView();
-            this.txt_dealer = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.btn_selectDealer = new System.Windows.Forms.Button();
-            this.txt_dealerId = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.dropDown_stockUnit = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splt_stockIntake)).BeginInit();
             this.splt_stockIntake.Panel1.SuspendLayout();
             this.splt_stockIntake.Panel2.SuspendLayout();
@@ -79,6 +79,8 @@
             // 
             // splt_stockIntake.Panel1
             // 
+            this.splt_stockIntake.Panel1.Controls.Add(this.dropDown_stockUnit);
+            this.splt_stockIntake.Panel1.Controls.Add(this.label15);
             this.splt_stockIntake.Panel1.Controls.Add(this.txt_dealerId);
             this.splt_stockIntake.Panel1.Controls.Add(this.btn_selectDealer);
             this.splt_stockIntake.Panel1.Controls.Add(this.txt_dealer);
@@ -93,9 +95,7 @@
             this.splt_stockIntake.Panel1.Controls.Add(this.label11);
             this.splt_stockIntake.Panel1.Controls.Add(this.dateTime_expire);
             this.splt_stockIntake.Panel1.Controls.Add(this.dateTime_stockEntry);
-            this.splt_stockIntake.Panel1.Controls.Add(this.txt_expireDate);
             this.splt_stockIntake.Panel1.Controls.Add(this.label10);
-            this.splt_stockIntake.Panel1.Controls.Add(this.txt_stockEntryDate);
             this.splt_stockIntake.Panel1.Controls.Add(this.label9);
             this.splt_stockIntake.Panel1.Controls.Add(this.txt_sellUnitPrice);
             this.splt_stockIntake.Panel1.Controls.Add(this.label8);
@@ -120,10 +120,47 @@
             this.splt_stockIntake.SplitterDistance = 263;
             this.splt_stockIntake.TabIndex = 0;
             // 
+            // txt_dealerId
+            // 
+            this.txt_dealerId.Enabled = false;
+            this.txt_dealerId.Location = new System.Drawing.Point(639, 192);
+            this.txt_dealerId.Name = "txt_dealerId";
+            this.txt_dealerId.Size = new System.Drawing.Size(26, 19);
+            this.txt_dealerId.TabIndex = 32;
+            this.txt_dealerId.Visible = false;
+            // 
+            // btn_selectDealer
+            // 
+            this.btn_selectDealer.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btn_selectDealer.Location = new System.Drawing.Point(850, 189);
+            this.btn_selectDealer.Name = "btn_selectDealer";
+            this.btn_selectDealer.Size = new System.Drawing.Size(30, 19);
+            this.btn_selectDealer.TabIndex = 31;
+            this.btn_selectDealer.Text = ". . .";
+            this.btn_selectDealer.UseVisualStyleBackColor = true;
+            this.btn_selectDealer.Click += new System.EventHandler(this.btn_selectDealer_Click);
+            // 
+            // txt_dealer
+            // 
+            this.txt_dealer.Enabled = false;
+            this.txt_dealer.Location = new System.Drawing.Point(698, 189);
+            this.txt_dealer.Name = "txt_dealer";
+            this.txt_dealer.Size = new System.Drawing.Size(146, 19);
+            this.txt_dealer.TabIndex = 30;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(576, 192);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(44, 12);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Dealer :";
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(649, 94);
+            this.label13.Location = new System.Drawing.Point(576, 128);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(59, 12);
             this.label13.TabIndex = 28;
@@ -131,15 +168,15 @@
             // 
             // txt_comment
             // 
-            this.txt_comment.Location = new System.Drawing.Point(771, 87);
+            this.txt_comment.Location = new System.Drawing.Point(698, 120);
             this.txt_comment.Multiline = true;
             this.txt_comment.Name = "txt_comment";
-            this.txt_comment.Size = new System.Drawing.Size(208, 66);
+            this.txt_comment.Size = new System.Drawing.Size(146, 54);
             this.txt_comment.TabIndex = 27;
             // 
             // txt_priceAfterDiscount
             // 
-            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(771, 53);
+            this.txt_priceAfterDiscount.Location = new System.Drawing.Point(698, 53);
             this.txt_priceAfterDiscount.Name = "txt_priceAfterDiscount";
             this.txt_priceAfterDiscount.Size = new System.Drawing.Size(146, 19);
             this.txt_priceAfterDiscount.TabIndex = 26;
@@ -147,7 +184,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(649, 56);
+            this.label12.Location = new System.Drawing.Point(576, 56);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(116, 12);
             this.label12.TabIndex = 25;
@@ -155,7 +192,7 @@
             // 
             // btn_clear
             // 
-            this.btn_clear.Location = new System.Drawing.Point(904, 222);
+            this.btn_clear.Location = new System.Drawing.Point(805, 222);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(75, 30);
             this.btn_clear.TabIndex = 24;
@@ -164,7 +201,7 @@
             // 
             // btn_add
             // 
-            this.btn_add.Location = new System.Drawing.Point(771, 222);
+            this.btn_add.Location = new System.Drawing.Point(698, 222);
             this.btn_add.Name = "btn_add";
             this.btn_add.Size = new System.Drawing.Size(75, 30);
             this.btn_add.TabIndex = 23;
@@ -190,26 +227,17 @@
             // 
             // dateTime_expire
             // 
-            this.dateTime_expire.Location = new System.Drawing.Point(532, 155);
+            this.dateTime_expire.Location = new System.Drawing.Point(380, 155);
             this.dateTime_expire.Name = "dateTime_expire";
-            this.dateTime_expire.Size = new System.Drawing.Size(103, 19);
+            this.dateTime_expire.Size = new System.Drawing.Size(146, 19);
             this.dateTime_expire.TabIndex = 20;
-            this.dateTime_expire.ValueChanged += new System.EventHandler(this.dateTime_expire_ValueChanged);
             // 
             // dateTime_stockEntry
             // 
-            this.dateTime_stockEntry.Location = new System.Drawing.Point(532, 121);
+            this.dateTime_stockEntry.Location = new System.Drawing.Point(380, 121);
             this.dateTime_stockEntry.Name = "dateTime_stockEntry";
-            this.dateTime_stockEntry.Size = new System.Drawing.Size(103, 19);
+            this.dateTime_stockEntry.Size = new System.Drawing.Size(146, 19);
             this.dateTime_stockEntry.TabIndex = 19;
-            this.dateTime_stockEntry.ValueChanged += new System.EventHandler(this.dateTime_stockEntry_ValueChanged);
-            // 
-            // txt_expireDate
-            // 
-            this.txt_expireDate.Location = new System.Drawing.Point(380, 155);
-            this.txt_expireDate.Name = "txt_expireDate";
-            this.txt_expireDate.Size = new System.Drawing.Size(146, 19);
-            this.txt_expireDate.TabIndex = 18;
             // 
             // label10
             // 
@@ -219,13 +247,6 @@
             this.label10.Size = new System.Drawing.Size(90, 12);
             this.label10.TabIndex = 17;
             this.label10.Text = "Expiration Date :";
-            // 
-            // txt_stockEntryDate
-            // 
-            this.txt_stockEntryDate.Location = new System.Drawing.Point(380, 121);
-            this.txt_stockEntryDate.Name = "txt_stockEntryDate";
-            this.txt_stockEntryDate.Size = new System.Drawing.Size(146, 19);
-            this.txt_stockEntryDate.TabIndex = 16;
             // 
             // label9
             // 
@@ -379,41 +400,22 @@
             this.grd_stockCurrent.TabIndex = 0;
             this.grd_stockCurrent.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_stockCurrent_CellContentClick);
             // 
-            // txt_dealer
+            // label15
             // 
-            this.txt_dealer.Enabled = false;
-            this.txt_dealer.Location = new System.Drawing.Point(771, 189);
-            this.txt_dealer.Name = "txt_dealer";
-            this.txt_dealer.Size = new System.Drawing.Size(146, 19);
-            this.txt_dealer.TabIndex = 30;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(576, 90);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(78, 12);
+            this.label15.TabIndex = 33;
+            this.label15.Text = "Stock In Unit :";
             // 
-            // label14
+            // dropDown_stockUnit
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(649, 192);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 12);
-            this.label14.TabIndex = 29;
-            this.label14.Text = "Dealer :";
-            // 
-            // btn_selectDealer
-            // 
-            this.btn_selectDealer.Location = new System.Drawing.Point(923, 189);
-            this.btn_selectDealer.Name = "btn_selectDealer";
-            this.btn_selectDealer.Size = new System.Drawing.Size(30, 19);
-            this.btn_selectDealer.TabIndex = 31;
-            this.btn_selectDealer.Text = ". . .";
-            this.btn_selectDealer.UseVisualStyleBackColor = true;
-            this.btn_selectDealer.Click += new System.EventHandler(this.btn_selectDealer_Click);
-            // 
-            // txt_dealerId
-            // 
-            this.txt_dealerId.Enabled = false;
-            this.txt_dealerId.Location = new System.Drawing.Point(712, 192);
-            this.txt_dealerId.Name = "txt_dealerId";
-            this.txt_dealerId.Size = new System.Drawing.Size(26, 19);
-            this.txt_dealerId.TabIndex = 32;
-            this.txt_dealerId.Visible = false;
+            this.dropDown_stockUnit.FormattingEnabled = true;
+            this.dropDown_stockUnit.Location = new System.Drawing.Point(698, 87);
+            this.dropDown_stockUnit.Name = "dropDown_stockUnit";
+            this.dropDown_stockUnit.Size = new System.Drawing.Size(146, 20);
+            this.dropDown_stockUnit.TabIndex = 34;
             // 
             // FrmStockIntake
             // 
@@ -443,9 +445,7 @@
         private System.Windows.Forms.SplitContainer splt_stockIntake;
         private System.Windows.Forms.DateTimePicker dateTime_expire;
         private System.Windows.Forms.DateTimePicker dateTime_stockEntry;
-        private System.Windows.Forms.TextBox txt_expireDate;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txt_stockEntryDate;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_sellUnitPrice;
         private System.Windows.Forms.Label label8;
@@ -475,5 +475,7 @@
         private System.Windows.Forms.TextBox txt_dealer;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txt_dealerId;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox dropDown_stockUnit;
     }
 }
